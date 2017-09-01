@@ -1,0 +1,52 @@
+// To go on a course
+{
+    "_id": "course",
+    "_type": "course",
+    "title": "",
+    "displayTitle": "",
+    "body": "",
+    "_buttons": {
+        "submit": "Submit",
+        "reset": "Reset",
+        "showCorrectAnswer": "Model Answer",
+        "hideCorrectAnswer": "My Answer"
+    },
+    "_pageLevelProgress": {
+        "_isEnabled": true
+    }
+}
+
+// To go on a contentObject
+{
+    "_id": "co-05",
+    "_parentId": "course",
+    "_type": "page",
+    "_classes": "",
+    "title": "Welcome to Adapt Learning",
+    "displayTitle": "Welcome to Adapt Learning",
+    "body": "This page contains a working Adapt page with all core bundled components and plugins working.",
+    "_graphic": {
+        "alt": "This is a picture of Adapt's origami birds.",
+        "src": "course/en/images/origami-menu-one.jpg"
+    },
+    "linkText": "View",
+    "duration": "2 mins",
+    "_pageLevelProgress": {
+        "_isEnabled": true
+    }
+}
+
+// To go on a component
+{
+    "_id":"c-05",
+    "_parentId":"b-05",
+    "_type":"component",
+    "_component":"text",
+    "_classes":"",
+    "_layout":"left",
+    "title":"Our first look at a component",
+    "body":"This component you're reading is a text component. All components take this form of a title and body - except a blank component. However it's important to realise that title and body attributes are not needed. <br><br>Take for instance the media component opposite or below on a smaller device - has no body attribute. Instead of the HTML being rendered Adapt simply doesn't render it. The title attribute is simply a break tag to push the media component level with the opposite component.",
+    "_pageLevelProgress": {
+        "_isEnabled": true
+    }
+}

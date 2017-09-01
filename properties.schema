@@ -1,0 +1,146 @@
+{
+  "type":"object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://jsonschema.net",
+  "required":false,
+  "globals": {
+    "pageLevelProgress": {
+      "type": "string",
+      "required": true,
+      "default": "Page sections",
+      "inputType": "Text",
+      "validators": [],
+      "translatable": true
+    },
+    "pageLevelProgressIndicatorBar": {
+      "type": "string",
+      "required": true,
+      "default": "Progress bar. Select here to view your current progress, and select an item to navigate to it. You have completed ",
+      "inputType": "Text",
+      "validators": [],
+      "translatable": true
+    },
+    "pageLevelProgressMenuBar": {
+      "type": "string",
+      "required": true,
+      "default": "You have completed ",
+      "inputType": "Text",
+      "validators": [],
+      "translatable": true
+    },
+    "pageLevelProgressEnd": {
+      "type": "string",
+      "required": true,
+      "default": "You have reached the end of the list of page sections.",
+      "inputType": "Text",
+      "validators": [],
+      "translatable": true
+    },
+    "optionalContent": {
+      "type": "string",
+      "required": true,
+      "default": "Optional Content",
+      "inputType": "Text",
+      "validators": [],
+      "translatable": true
+    }
+  },
+  "properties":{
+    "pluginLocations": {
+      "type":"object",
+      "required":true,
+      "properties":{
+        "config": {
+          "type":"object"
+        },
+        "course": {
+          "type":"object",
+          "properties":{
+            "_pageLevelProgress": {
+              "type": "object",
+              "required": false,
+              "legend": "Page Level Progress",
+              "properties": {
+                "_isEnabled": {
+                  "type": "boolean",
+                  "required":true,
+                  "default": true,
+                  "title": "Is enabled",
+                  "inputType": {"type": "Boolean", "options": [true, false]},
+                  "validators": [],
+                  "help": "If set to 'false', Page Level Progress will be disabled on all components, pages, and menus"
+                },
+                "_showPageCompletion": {
+                  "type": "boolean",
+                  "required":true,
+                  "default": true,
+                  "title": "Show page completion",
+                  "inputType": {"type": "Boolean", "options": [true, false]},
+                  "validators": [],
+                  "help": "If set to 'false', Page Level Progress will not represent page completion in progress bar"
+                }
+              }
+            }
+          }
+        },
+        "contentobject": {
+          "type":"object",
+          "properties":{
+            "_pageLevelProgress": {
+              "type": "object",
+              "required": false,
+              "legend": "Page Level Progress",
+              "properties": {
+                "_isEnabled": {
+                  "type": "boolean",
+                  "required":true,
+                  "default": true,
+                  "title": "Is enabled",
+                  "inputType": {"type": "Boolean", "options": [true, false]},
+                  "validators": [],
+                  "help": "If set to 'true', a progress bar will be displayed"
+                },
+                "_showPageCompletion": {
+                  "type": "boolean",
+                  "required":true,
+                  "default": true,
+                  "title": "Show page completion",
+                  "inputType": {"type": "Boolean", "options": [true, false]},
+                  "validators": [],
+                  "help": "If set to 'false', Page Level Progress will not represent page completion in progress bar"
+                }
+              }
+            }
+          }
+        },
+        "article": {
+          "type":"object"
+        },
+        "block": {
+          "type":"object"
+        },
+        "component": {
+          "type":"object",
+          "properties":{
+            "_pageLevelProgress": {
+              "type": "object",
+              "required": false,
+              "legend": "Page Level Progress",
+              "properties": {
+                "_isEnabled": {
+                  "type": "boolean",
+                  "required":true,
+                  "default": true,
+                  "title": "Is enabled",
+                  "inputType": {"type": "Boolean", "options": [true, false]},
+                  "validators": [],
+                  "help": "If set to 'true', this component will be tracked by PageLevelProgress"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,76 @@
+<div class="page-level-progress-inner" role="region" aria-label="{{_globals._extensions._pageLevelProgress.pageLevelProgress}}" {{#if _globals._extensions._pageLevelProgress.pageLevelProgress}}tabindex="0"{{/if}}>
+    <div role="list">
+    {{#each components}}
+        {{#if _isPartOfAssessment}}
+            <div role="listitem" class="page-level-progress-item drawer-item">
+                {{#if _isVisible}}
+                <button class="base page-level-progress-item-title clearfix drawer-item-open" tabindex="0" role="button" data-page-level-progress-id="{{_id}}" aria-label="{{title}} {{#if _isInteractionComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}">
+                {{else}}
+                <div class="page-level-progress-item-title drawer-item-open disabled clearfix">
+                    <span class="aria-label prevent-default" tabindex="0" role="button">{{_globals._accessibility._ariaLabels.locked}}. {{title}} {{#if _isComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}</span>
+                {{/if}}
+                    <div class="page-level-progress-item-title-inner accessible-text-block h5">
+                    {{{title}}}
+                    </div>
+                    {{#if _isInteractionComplete}}
+                        <div class="page-level-progress-indicator page-level-progress-indicator-{{#if _isInteractionComplete}}complete{{else}}incomplete{{/if}}">
+                            <div class="page-level-progress-indicator-bar">
+                            </div>
+                        </div>
+                    {{else}}
+                        {{#if _isOptional}}
+                            <div class="page-level-progress-item-optional-text">
+                            {{_globals._extensions._pageLevelProgress.optionalContent}}
+                            </div>
+                        {{else}}
+                            <div class="page-level-progress-indicator page-level-progress-indicator-{{#if _isInteractionComplete}}complete{{else}}incomplete{{/if}}">
+                                <div class="page-level-progress-indicator-bar">
+                                </div>
+                            </div>
+                        {{/if}}
+                    {{/if}}
+                {{#if _isVisible}}
+                </button>
+                {{else}}
+                </div>
+                {{/if}}
+            </div>
+        {{else}}
+            <div role="listitem" class="page-level-progress-item drawer-item">
+                {{#if _isVisible}}
+                <button class="base page-level-progress-item-title clearfix drawer-item-open" tabindex="0" role="button" data-page-level-progress-id="{{_id}}" aria-label="{{title}} {{#if _isComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}">
+                {{else}}
+                <div class="page-level-progress-item-title drawer-item-open disabled clearfix">
+                    <span class="aria-label prevent-default" tabindex="0" role="button">{{_globals._accessibility._ariaLabels.locked}}. {{title}} {{#if _isComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}</span>
+                {{/if}}
+                    <div class="page-level-progress-item-title-inner accessible-text-block h5">
+                    {{{title}}}
+                    </div>
+                    {{#if _isComplete}}
+                        <div class="page-level-progress-indicator page-level-progress-indicator-{{#if _isComplete}}complete{{else}}incomplete{{/if}}">
+                            <div class="page-level-progress-indicator-bar">
+                            </div>
+                        </div>
+                    {{else}}
+                        {{#if _isOptional}}
+                            <div class="page-level-progress-item-optional-text">
+                            {{_globals._extensions._pageLevelProgress.optionalContent}}
+                            </div>
+                        {{else}}
+                            <div class="page-level-progress-indicator page-level-progress-indicator-{{#if _isComplete}}complete{{else}}incomplete{{/if}}">
+                                <div class="page-level-progress-indicator-bar">
+                                </div>
+                            </div>
+                        {{/if}}
+                    {{/if}}
+                {{#if _isVisible}}
+                </button>
+                {{else}}
+                </div>
+                {{/if}}
+            </div>
+        {{/if}}
+    {{/each}}
+    </div>
+    <div class="aria-label a11y-ignore-focus prevent-default" tabindex="0" aria-label="{{_globals._extensions._pageLevelProgress.pageLevelProgressEnd}}"/>
+</div>
