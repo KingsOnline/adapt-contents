@@ -15,26 +15,6 @@ body.toc-hide {
   }
 }
 
-.contents-inner {
-  top: 64px;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  position: relative !important;
-  background-color: #ffffff;
-  color: #0a2d50;
-  border-right: 4px solid #0a2d50;
-  border-bottom: 4px solid #0a2d50;
-  left: 0 !important;
-  width: 320px;
-  height: 100%;
-  top: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  z-index: 501;
-}
-
 .contents {
   background-color: @navigation-icon-color;
   color: @navigation-color;
@@ -51,6 +31,26 @@ body.toc-hide {
     border-bottom: 1px solid @drawer-border-color;
   }
 
+  .contents-inner {
+    top: 64px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: relative !important;
+    background-color: #ffffff;
+    color: #0a2d50;
+    border-right: 4px solid #0a2d50;
+    border-bottom: 4px solid #0a2d50;
+    left: 0 !important;
+    width: 320px;
+    height: 100%;
+    top: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    z-index: 501;
+  }
+
   .drawer-toolbar .icon {
     color: @drawer-color;
     padding: @navigation-padding;
@@ -62,8 +62,8 @@ body.toc-hide {
     }
   }
 
-  .drawer-holder {
-    //padding-top: ((@navigation-padding * 2) + @icon-size + 1);
+  .page-level-progress-inner {
+    margin-top: 64px;
   }
 
   .drawer-inner {
@@ -91,6 +91,7 @@ body.toc-hide {
       background-color: transparent;
       text-decoration: none;
       width: 100%;
+      .no-box-shadow;
 
       .no-touch &:hover {
         background-color: @drawer-item-color-hover;
@@ -124,6 +125,7 @@ body.toc-hide {
   text-decoration: none;
   padding: @item-padding;
   display: block;
+  .no-box-shadow;
 
   &.drawer-item-open.disabled {
     box-sizing: border-box;
@@ -199,7 +201,6 @@ body.toc-hide {
 }
 
 .page-level-progress-navigation {
-  padding: 0 53px !important;
   @media all and (max-width:(@device-width-medium - 1px)) {
     padding: (@navigation-padding-mobile+6px);
   }
