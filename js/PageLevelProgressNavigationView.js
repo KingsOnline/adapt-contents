@@ -33,8 +33,9 @@ define(function(require) {
     },
 
     events: {
-      'click': 'onProgressClicked'
+      'click': 'onProgressClicked',
     },
+
 
     render: function() {
       console.log(components);
@@ -46,28 +47,43 @@ define(function(require) {
 
       // the drawer
       $('body').append('<div class="contents"><div class="contents-inner"></div></div>');
-      var components = this.collection.toJSON();
-      var data = {
-        components: components,
-        _globals: Adapt.course.get('_globals')
-      };
       var plpTemplate = Handlebars.templates['pageLevelProgress'];
       console.log(this.$el.html(plpTemplate(data)));
       $('.contents-inner').html(plpTemplate(data));
+      this.setupPLPListener();
 
       // the button
-      var template = Handlebars.templates['pageLevelProgressNavigation'];
-      $('.navigation-drawer-toggle-button').after(this.$el.html(template(data)));
+      var navTemplate = Handlebars.templates['pageLevelProgressNavigation'];
+      $('.navigation-drawer-toggle-button').after(this.$el.html(navTemplate(data)));
       return this;
     },
 
     refreshProgressBar: function() {
-      var currentPageComponents = this.model.findDescendants('components').where({'_isAvailable': true});
+      var currentPageComponents = this.model.findDescendants('components').where({
+        '_isAvailable': true
+      });
       var availableChildren = completionCalculations.filterAvailableChildren(currentPageComponents);
       var enabledProgressComponents = completionCalculations.getPageLevelProgressEnabledModels(availableChildren);
 
       this.collection = new Backbone.Collection(enabledProgressComponents);
       this.updateProgressBar();
+    },
+
+    setupPLPListener: function() {
+      console.log(this);
+      var componentsPLP = Adapt.findById(Adapt.location._currentId).findDescendants('components').filter(function(model) {
+        if (!model.get('_pageLevelProgress') || !model.get('_pageLevelProgress')._isEnabled) return false;
+        return true;
+      });
+
+      _.each(componentsPLP, function(component, index) {
+        component.on("change", function() {
+          if (component.hasChanged("_isComplete")) {
+            var $PlpItem = $('.page-level-progress-indicator').get(index);
+            $($PlpItem).removeClass('page-level-progress-indicator-incomplete').addClass('page-level-progress-indicator-complete');
+          }
+        });
+      });
     },
 
     updateProgressBar: function() {
@@ -91,16 +107,38 @@ define(function(require) {
     },
 
     onProgressClicked: function(event) {
-      var $body = $('body');
-      if ($body.hasClass('toc-hide')) {
-        $body.removeClass('toc-hide');
+      if ($('body').hasClass('toc-hide')) {
+        Adapt.trigger('contents:open');
+      } else {
+        Adapt.trigger('contents:close');
       }
-      else {
-        $body.addClass('toc-hide');
-      }
-
     }
+  });
 
+  $('body').on('click','.page-level-progress-item button', function(event){
+    console.log('scroll to ' + event.currentTarget);
+    if (event && event.preventDefault) event.preventDefault();
+    var currentComponentSelector = '.' + $(event.currentTarget).attr('data-page-level-progress-id');
+    var $currentComponent = $(currentComponentSelector);
+    Adapt.scrollTo($currentComponent, {
+      duration: 400
+    });
+  });
+
+  Adapt.on('contents:open', function() {
+    $('body').removeClass('toc-hide');
+  });
+
+  Adapt.on('contents:close', function() {
+    $('body').addClass('toc-hide');
+  });
+
+  Adapt.on('sideView:open', function() {
+    $('body').addClass('toc-hide');
+  });
+
+  Adapt.on('sideView:close', function() {
+    $('body').removeClass('toc-hide');
   });
 
   return PageLevelProgressNavigationView;
