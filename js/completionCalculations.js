@@ -43,8 +43,8 @@ define([
                 "assessmentTotal": assessmentComponentsTotal
             };
 
-            if (contentObjectModel.get("_pageLevelProgress") && contentObjectModel.get("_pageLevelProgress")._showPageCompletion !== false 
-                && Adapt.course.get("_pageLevelProgress") && Adapt.course.get("_pageLevelProgress")._showPageCompletion !== false) {
+            if (contentObjectModel.get("_contents") && contentObjectModel.get("_contents")._showPageCompletion !== false 
+                && Adapt.course.get("_contents") && Adapt.course.get("_contents")._showPageCompletion !== false) {
                 //optionally add one point extra for page completion to eliminate incomplete pages and full progress bars
                 // if _showPageCompletion is true then the progress bar should also consider it so add 1 to nonAssessmentTotal
                 pageCompletion.nonAssessmentCompleted += isComplete;
@@ -104,8 +104,8 @@ define([
     //Get only those models who were enabled for pageLevelProgress
     function getPageLevelProgressEnabledModels(models) {
         return _.filter(models, function(model) {
-            if (model.get('_pageLevelProgress')) {
-                return model.get('_pageLevelProgress')._isEnabled;
+            if (model.get('_contents')) {
+                return model.get('_contents')._isEnabled;
             }
         });
     }

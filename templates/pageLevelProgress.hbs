@@ -1,4 +1,4 @@
-<div class="page-level-progress-inner" role="region" aria-label="{{_globals._extensions._pageLevelProgress.pageLevelProgress}}" {{#if _globals._extensions._pageLevelProgress.pageLevelProgress}}tabindex="0"{{/if}}>
+<div class="page-level-progress-inner" role="region" aria-label="{{_globals._extensions._contents.pageLevelProgress}}" {{#if _globals._extensions._contents.pageLevelProgress}}tabindex="0"{{/if}}>
     <div role="list">
     {{#each components}}
         {{#if _isPartOfAssessment}}
@@ -20,7 +20,7 @@
                     {{else}}
                         {{#if _isOptional}}
                             <div class="page-level-progress-item-optional-text">
-                            {{_globals._extensions._pageLevelProgress.optionalContent}}
+                            {{_globals._extensions._contents.optionalContent}}
                             </div>
                         {{else}}
                             <div class="page-level-progress-indicator page-level-progress-indicator-{{#if _isInteractionComplete}}complete{{else}}incomplete{{/if}}">
@@ -54,7 +54,7 @@
                     {{else}}
                         {{#if _isOptional}}
                             <div class="page-level-progress-item-optional-text">
-                            {{_globals._extensions._pageLevelProgress.optionalContent}}
+                            {{_globals._extensions._contents.optionalContent}}
                             </div>
                         {{else}}
                             <div class="page-level-progress-indicator page-level-progress-indicator-{{#if _isComplete}}complete{{else}}incomplete{{/if}}">
@@ -72,5 +72,5 @@
         {{/if}}
     {{/each}}
     </div>
-    <div class="aria-label a11y-ignore-focus prevent-default" tabindex="0" aria-label="{{_globals._extensions._pageLevelProgress.pageLevelProgressEnd}}"/>
+    <div class="aria-label a11y-ignore-focus prevent-default" tabindex="0" aria-label="{{_globals._extensions._contents.pageLevelProgressEnd}}"/>
 </div>

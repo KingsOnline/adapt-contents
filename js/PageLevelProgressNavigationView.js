@@ -21,8 +21,8 @@ define(function(require) {
       this.$el.attr('role', 'button');
       this.ariaText = '';
 
-      if (Adapt.course.has('_globals') && Adapt.course.get('_globals')._extensions && Adapt.course.get('_globals')._extensions._pageLevelProgress && Adapt.course.get('_globals')._extensions._pageLevelProgress.pageLevelProgressIndicatorBar) {
-        this.ariaText = Adapt.course.get('_globals')._extensions._pageLevelProgress.pageLevelProgressIndicatorBar + ' ';
+      if (Adapt.course.has('_globals') && Adapt.course.get('_globals')._extensions && Adapt.course.get('_globals')._extensions._contents && Adapt.course.get('_globals')._extensions._contents.pageLevelProgressIndicatorBar) {
+        this.ariaText = Adapt.course.get('_globals')._extensions._contents.pageLevelProgressIndicatorBar + ' ';
       }
 
       this.render();
@@ -72,7 +72,7 @@ define(function(require) {
     setupPLPListener: function() {
       console.log(this);
       var componentsPLP = Adapt.findById(Adapt.location._currentId).findDescendants('components').filter(function(model) {
-        if (!model.get('_pageLevelProgress') || !model.get('_pageLevelProgress')._isEnabled) return false;
+        if (!model.get('_contents') || !model.get('_contents')._isEnabled) return false;
         return true;
       });
 

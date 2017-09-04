@@ -11,8 +11,8 @@ define(function(require) {
             this.listenTo(Adapt, 'remove', this.remove);
 
             this.ariaText = '';
-            if (Adapt.course.get('_globals')._extensions && Adapt.course.get('_globals')._extensions._pageLevelProgress && Adapt.course.get('_globals')._extensions._pageLevelProgress.pageLevelProgressMenuBar) {
-                this.ariaText = Adapt.course.get('_globals')._extensions._pageLevelProgress.pageLevelProgressMenuBar + ' ';
+            if (Adapt.course.get('_globals')._extensions && Adapt.course.get('_globals')._extensions._contents && Adapt.course.get('_globals')._extensions._contents.pageLevelProgressMenuBar) {
+                this.ariaText = Adapt.course.get('_globals')._extensions._contents.pageLevelProgressMenuBar + ' ';
             }
 
             this.render();

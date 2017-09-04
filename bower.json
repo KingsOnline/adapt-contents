@@ -13,5 +13,5 @@
         "adapt-extension"
     ],
     "license": "GPLv3",
-    "targetAttribute": "_pageLevelProgress"
+    "targetAttribute": "_contents"
 }

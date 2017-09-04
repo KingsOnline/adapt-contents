@@ -19,11 +19,11 @@ define(function(require) {
         if (view.model.get('_id') == Adapt.location._currentId) return;
 
         // do not proceed until pageLevelProgress enabled on course.json
-        if (!Adapt.course.get('_pageLevelProgress') || !Adapt.course.get('_pageLevelProgress')._isEnabled) {
+        if (!Adapt.course.get('_contents') || !Adapt.course.get('_contents')._isEnabled) {
             return;
         }
 
-        var pageLevelProgress = view.model.get('_pageLevelProgress');
+        var pageLevelProgress = view.model.get('_contents');
         var viewType = view.model.get('_type');
 
         // Progress bar should not render for course viewType
@@ -52,7 +52,7 @@ define(function(require) {
     Adapt.on('router:page', function(pageModel) {
 
         // do not proceed until pageLevelProgress enabled on course.json
-        if (!Adapt.course.get('_pageLevelProgress') || !Adapt.course.get('_pageLevelProgress')._isEnabled) {
+        if (!Adapt.course.get('_contents') || !Adapt.course.get('_contents')._isEnabled) {
             return;
         }
 
