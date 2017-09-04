@@ -4,7 +4,7 @@ define(function(require) {
   var Backbone = require('backbone');
   var completionCalculations = require('./completionCalculations');
 
-  var PageLevelProgressView = require('extensions/adapt-contents/js/PageLevelProgressView');
+  var contentsView = require('./contentsView');
 
   var PageLevelProgressNavigationView = Backbone.View.extend({
 
@@ -46,11 +46,9 @@ define(function(require) {
       };
 
       // the drawer
-      $('body').append('<div class="contents"><div class="contents-inner"></div></div>');
-      var plpTemplate = Handlebars.templates['pageLevelProgress'];
-      console.log(this.$el.html(plpTemplate(data)));
-      $('.contents-inner').html(plpTemplate(data));
-      this.setupPLPListener();
+      contentsView.createContents(data);
+
+      contentsView.listenForCompletition();
 
       // the button
       var navTemplate = Handlebars.templates['pageLevelProgressNavigation'];
@@ -70,7 +68,6 @@ define(function(require) {
     },
 
     setupPLPListener: function() {
-      console.log(this);
       var componentsPLP = Adapt.findById(Adapt.location._currentId).findDescendants('components').filter(function(model) {
         if (!model.get('_contents') || !model.get('_contents')._isEnabled) return false;
         return true;
@@ -115,15 +112,7 @@ define(function(require) {
     }
   });
 
-  $('body').on('click','.page-level-progress-item button', function(event){
-    console.log('scroll to ' + event.currentTarget);
-    if (event && event.preventDefault) event.preventDefault();
-    var currentComponentSelector = '.' + $(event.currentTarget).attr('data-page-level-progress-id');
-    var $currentComponent = $(currentComponentSelector);
-    Adapt.scrollTo($currentComponent, {
-      duration: 400
-    });
-  });
+
 
   Adapt.on('contents:open', function() {
     $('body').removeClass('toc-hide');
