@@ -25,6 +25,14 @@ define(function(require) {
     });
   }
 
+  Adapt.on('router:menu', function(){
+      Adapt.trigger('contents:close');
+  });
+
+  Adapt.on('router:page', function(){
+      Adapt.trigger('contents:open');
+  });
+
   $('body').on('click','.page-level-progress-item button', function(event){
     console.log('scroll to ' + event.currentTarget);
     if (event && event.preventDefault) event.preventDefault();
