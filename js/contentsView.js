@@ -18,10 +18,8 @@ define(function(require) {
     },
 
     setupOnceListeners: _.once(function() {
-      this.listenTo(Adapt, 'router:page contents:open', this.openContents);
-      this.listenTo(Adapt, 'contents:close router:menu', this.closeContents);
-      this.listenTo(Adapt, 'sideview:open', this.sideViewOpened);
-      this.listenTo(Adapt, 'sideview:close', this.sideViewClosed);
+      this.listenTo(Adapt, 'router:page contents:open sideView:close', this.openContents);
+      this.listenTo(Adapt, 'contents:close router:menu sideView:open', this.closeContents);
     }),
 
     moveToComponent: function(event) {
@@ -72,16 +70,7 @@ define(function(require) {
     },
 
     closeContents: function() {
-      console.log('clos contents');
       $('body').addClass('toc-hide');
-    },
-
-    sideViewOpened: function() {
-      $('body').addClass('toc-hide');
-    },
-
-    sideViewClosed: function() {
-      $('body').removeClass('toc-hide');
     }
   });
 
