@@ -4,9 +4,37 @@ define(function(require) {
   var Backbone = require('backbone');
 
   var contentsView = Backbone.View.extend({
+
+    className: 'contents',
+    tagName: 'div',
+
     initialize: function() {
-      console.log(this);
+      this.setupOnceListeners();
       this.render();
+    },
+
+    events: {
+      'click .page-level-progress-item button': 'moveToComponent'
+    },
+
+    setupOnceListeners: _.once(function() {
+      this.listenTo(Adapt, 'router:page contents:open', this.openContents);
+      this.listenTo(Adapt, 'contents:close router:menu', this.closeContents);
+      this.listenTo(Adapt, 'sideview:open', this.sideViewOpened);
+      this.listenTo(Adapt, 'sideview:close', this.sideViewClosed);
+    }),
+
+    moveToComponent: function(event) {
+      if (event && event.preventDefault)
+        event.preventDefault();
+      var currentComponentSelector = '.' + $(event.currentTarget).attr('data-page-level-progress-id');
+      var $currentComponent = $(currentComponentSelector);
+      Adapt.scrollTo($currentComponent, {
+        duration: 400
+      });
+    },
+
+    render: function() {
       this.createContents();
       this.populateContents(this.model);
       this.listenForCompletition();
@@ -14,11 +42,11 @@ define(function(require) {
 
     createContents: _.once(function() {
       var template = Handlebars.templates.contents;
-      $('html').find('body').append(template());
+      $('html').find('body').append(this.$el.html(template()));
     }),
 
     populateContents: function(data) {
-      var plpTemplate = Handlebars.templates['pageLevelProgress'];
+      var plpTemplate = Handlebars.templates.pageLevelProgress;
       $('.contents-inner').html(plpTemplate(data));
     },
 
@@ -28,6 +56,7 @@ define(function(require) {
           return false;
         return true;
       });
+
       _.each(componentsPLP, function(component, index) {
         component.on("change", function() {
           if (component.hasChanged("_isComplete")) {
@@ -38,56 +67,23 @@ define(function(require) {
       });
     },
 
-    placeInContents: function() {}
+    openContents: function() {
+      $('body').removeClass('toc-hide');
+    },
 
-  });
+    closeContents: function() {
+      console.log('clos contents');
+      $('body').addClass('toc-hide');
+    },
 
-  Adapt.on('router:menu', function() {
-    Adapt.trigger('contents:close');
-  });
+    sideViewOpened: function() {
+      $('body').addClass('toc-hide');
+    },
 
-  Adapt.on('router:page', function() {
-    Adapt.trigger('contents:open');
-  });
-
-  $('body').on('click', '.page-level-progress-item button', function(event) {
-    console.log('scroll to ' + event.currentTarget);
-    if (event && event.preventDefault)
-      event.preventDefault();
-    var currentComponentSelector = '.' + $(event.currentTarget).attr('data-page-level-progress-id');
-    var $currentComponent = $(currentComponentSelector);
-    Adapt.scrollTo($currentComponent, {duration: 400});
+    sideViewClosed: function() {
+      $('body').removeClass('toc-hide');
+    }
   });
 
   return contentsView;
 });
-
-// function createContents() {
-//   $('body').append('<div class="contents"><div class="contents-inner"></div></div>');
-// }
-//
-// function populateContents(data) {
-//   var plpTemplate = Handlebars.templates['pageLevelProgress'];
-//   $('.contents-inner').html(plpTemplate(data));
-// }
-//
-// function listenForCompletition() {
-//   var componentsPLP = Adapt.findById(Adapt.location._currentId).findDescendants('components').filter(function(model) {
-//     if (!model.get('_contents') || !model.get('_contents')._isEnabled)
-//       return false;
-//     return true;
-//   });
-//
-//   _.each(componentsPLP, function(component, index) {
-//     component.on("change", function() {
-//       if (component.hasChanged("_isComplete")) {
-//         var $PlpItem = $('.page-level-progress-indicator').get(index);
-//         $($PlpItem).removeClass('page-level-progress-indicator-incomplete').addClass('page-level-progress-indicator-complete');
-//       }
-//     });
-//   });
-// }
-//
-
-//
-// return {createContents: createContents, listenForCompletition: listenForCompletition, populateContents: populateContents};

@@ -18,6 +18,7 @@ define(function(require) {
       this.listenTo(Adapt, 'pageLevelProgress:update', this.refreshProgressBar);
       this.listenTo(this.collection, 'change:_isInteractionComplete', this.updateProgressBar);
       this.listenTo(this.model, 'change:_isInteractionComplete', this.updateProgressBar);
+
       this.$el.attr('role', 'button');
       this.ariaText = '';
 
@@ -33,7 +34,7 @@ define(function(require) {
     },
 
     events: {
-      'click': 'onProgressClicked',
+      'click': 'onContentsClicked',
     },
 
 
@@ -101,30 +102,17 @@ define(function(require) {
       this.model.set('completedChildrenAsPercentage', percentageComplete);
     },
 
-    onProgressClicked: function(event) {
+    onContentsClicked: function(event) {
       if ($('body').hasClass('toc-hide')) {
         Adapt.trigger('contents:open');
       } else {
         Adapt.trigger('contents:close');
       }
     }
+
   });
 
-  Adapt.on('contents:open', function() {
-    $('body').removeClass('toc-hide');
-  });
 
-  Adapt.on('contents:close', function() {
-    $('body').addClass('toc-hide');
-  });
-
-  Adapt.on('sideView:open', function() {
-    $('body').addClass('toc-hide');
-  });
-
-  Adapt.on('sideView:close', function() {
-    $('body').removeClass('toc-hide');
-  });
 
   return PageLevelProgressNavigationView;
 
