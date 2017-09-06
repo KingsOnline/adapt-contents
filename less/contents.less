@@ -24,14 +24,18 @@ body.toc-hide {
   margin-left: 280px !important;
 }
 
+@media all and (max-width:(@device-width-large)) {
+  #wrapper {
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+}
+
 .contents {
   background-color: @navigation-icon-color;
   color: @navigation-color;
-  border-right: 4px solid @navigation-color;
-  border-bottom: 4px solid @navigation-color;
-
-  // makes it appear on the left
-  left: 0 !important;
+  border-right: 2px solid @navigation-color;
+  border-bottom: 2px solid @navigation-color;
 
   .drawer-toolbar {
     position: absolute;
@@ -41,12 +45,8 @@ body.toc-hide {
   }
 
   .contents-inner {
-    position: relative !important;
     background-color: #ffffff;
     color: #0a2d50;
-    border-right: 4px solid #0a2d50;
-    border-bottom: 4px solid #0a2d50;
-    width: 320px;
     height: 100%;
     top: 0;
     overflow-y: auto;
