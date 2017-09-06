@@ -10,7 +10,7 @@ define(function(require) {
 
     tagName: 'button',
 
-    className: 'base page-level-progress-navigation',
+    className: 'base contents-navigation',
 
     initialize: function() {
       this.listenTo(Adapt, 'remove', this.remove);
@@ -51,7 +51,7 @@ define(function(require) {
       contentsView.listenForCompletition();
 
       // the button
-      var navTemplate = Handlebars.templates['pageLevelProgressNavigation'];
+      var navTemplate = Handlebars.templates['contentsNavigation'];
       $('.navigation-drawer-toggle-button').after(this.$el.html(navTemplate(data)));
       return this;
     },

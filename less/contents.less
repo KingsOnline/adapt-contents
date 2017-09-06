@@ -190,45 +190,12 @@ body.toc-hide {
   width: 0;
 }
 
-.page-level-progress-navigation {
+.contents-navigation {
   @media all and (max-width:(@device-width-medium - 1px)) {
     padding: (@navigation-padding-mobile+6px);
   }
-  float: right;
-
-  .dir-rtl & {
-    float: left;
-  }
+  float: left;
   display: inline-block;
-
-  .no-touch &:hover {
-    .page-level-progress-navigation-completion {
-      border-color: darken(@background-color, 15%);
-    }
-
-    .page-level-progress-navigation-bar {
-      background-color: darken(@primary-color, 10%);
-    }
-  }
-}
-
-.page-level-progress-navigation-completion {
-  width: 100px;
-  height: 8px;
-  overflow: hidden;
-  border: 2px solid @background-color;
-  position: relative;
-  border-radius: 5px;
-  @media all and (max-width:(@device-width-small - 1px)) {
-    width: 50px;
-  }
-}
-
-.page-level-progress-navigation-bar {
-  height: 100%;
-  position: absolute;
-  bottom: 0;
-  background-color: @primary-color;
 }
 
 .menu {
