@@ -44,16 +44,15 @@ define(function(require) {
         _globals: Adapt.course.get('_globals')
       };
 
-      // the drawer
-      contentsView.createContents(data);
-
-      contentsView.listenForCompletition();
+      new contentsView({model: data});
 
       // the button
-      var navTemplate = Handlebars.templates['contentsNavigation'];
+      var navTemplate = Handlebars.templates.contentsNavigation;
       $('.navigation-drawer-toggle-button').after(this.$el.html(navTemplate(data)));
       return this;
     },
+
+
 
     refreshProgressBar: function() {
       var currentPageComponents = this.model.findDescendants('components').where({
