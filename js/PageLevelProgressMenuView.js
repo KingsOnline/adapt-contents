@@ -22,9 +22,6 @@ define(function(require) {
             }, this));
         },
 
-        events: {
-        },
-
         render: function() {
 
             var data = this.model.toJSON();
