@@ -2,7 +2,7 @@
   .transition-time(1s);
   width: 280px;
   height: calc(~'100% - 64px');
-  top: 64px;
+  top: (@navigation-padding * 2) + @icon-size;
   position: fixed;
 }
 
@@ -46,14 +46,9 @@ body.toc-hide {
   }
 
   .contents-inner {
-    background-color: #ffffff;
-    color: #0a2d50;
-    height: 100%;
-    top: 0;
-    overflow-y: auto;
+    overflow-y:  scroll;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
-
   }
 
   .drawer-toolbar .icon {

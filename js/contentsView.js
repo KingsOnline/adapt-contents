@@ -6,13 +6,15 @@ define(function(require) {
   var contentsView = Backbone.View.extend({
     initialize: function() {
       console.log(this);
+      this.render();
       this.createContents();
       this.populateContents(this.model);
       this.listenForCompletition();
     },
 
     createContents: _.once(function() {
-      $('body').append('<div class="contents"><div class="contents-inner"></div></div>');
+      var template = Handlebars.templates.contents;
+      $('html').find('body').append(template());
     }),
 
     populateContents: function(data) {
