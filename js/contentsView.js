@@ -25,11 +25,11 @@ define(function(require) {
     });
   }
 
-  Adapt.on('router:menu', function(){
+  Adapt.on('router:menu', function() {
       Adapt.trigger('contents:close');
   });
 
-  Adapt.on('router:page', function(){
+  Adapt.on('router:page', function() {
       Adapt.trigger('contents:open');
   });
 

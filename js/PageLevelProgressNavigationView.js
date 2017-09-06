@@ -38,7 +38,6 @@ define(function(require) {
 
 
     render: function() {
-      console.log(components);
       var components = this.collection.toJSON();
       var data = {
         components: components,
@@ -111,8 +110,6 @@ define(function(require) {
       }
     }
   });
-
-
 
   Adapt.on('contents:open', function() {
     $('body').removeClass('toc-hide');
