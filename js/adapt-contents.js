@@ -5,11 +5,11 @@ define(function(require) {
     var completionCalculations = require('./completionCalculations');
 
     var PageLevelProgressMenuView = require('extensions/adapt-contents/js/PageLevelProgressMenuView');
-    var PageLevelProgressNavigationView = require('extensions/adapt-contents/js/PageLevelProgressNavigationView');
+    var contentsNavigationView = require('extensions/adapt-contents/js/contentsNavigationView');
 
     function setupPageLevelProgress(pageModel, enabledProgressComponents) {
 
-        new PageLevelProgressNavigationView({model: pageModel, collection: new Backbone.Collection(enabledProgressComponents) });
+        new contentsNavigationView({model: pageModel, collection: new Backbone.Collection(enabledProgressComponents) });
 
     }
 
