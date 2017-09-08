@@ -24,7 +24,7 @@ define(function(require) {
     },
 
     events: {
-      'click': 'onContentsClicked',
+      'click': 'onContentsClicked'
     },
 
     render: function() {
@@ -42,6 +42,7 @@ define(function(require) {
     },
 
     onContentsClicked: function(event) {
+      event.preventDefault();
       if ($('body').hasClass('toc-hide')) {
         Adapt.trigger('contents:open');
       } else {

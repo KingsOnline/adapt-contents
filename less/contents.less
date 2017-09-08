@@ -1,6 +1,6 @@
 .contents {
   .transition-time(1s);
-  width: 280px;
+  width: 230px;
   height: calc(~'100% - 64px');
   top: (@navigation-padding * 2) + @icon-size;
   position: fixed;
@@ -8,9 +8,8 @@
 
 body.toc-hide {
   .contents {
-    margin-left: -320px;
-    width: 0;
-    .transition-time(1.5s);
+    margin-left: -230px;
+    .transition-time(1s);
   }
 
   #wrapper {
@@ -20,11 +19,11 @@ body.toc-hide {
 }
 
 #wrapper {
-  width: calc(~'100% - 280px') !important;
-  margin-left: 280px !important;
+  width: calc(~'100% - 230px') !important;
+  margin-left: 230px !important;
 }
 
-@media all and (max-width:(@device-width-large)) {
+@media all and (max-width:(@device-width-large + 123)) {
   #wrapper {
     width: 100% !important;
     margin-left: 0 !important;
@@ -147,7 +146,7 @@ body.toc-hide {
   .dir-rtl & {
     float: right;
   }
-  width: 80%;
+  width: 90%;
 }
 
 .page-level-progress-item-optional-text {

@@ -30,7 +30,6 @@ define(function(require) {
         if (viewType == 'course') return;
 
         if (pageLevelProgress && pageLevelProgress._isEnabled) {
-
             var completionObject = completionCalculations.calculateCompletion(view.model);
 
             //take all non-assessment components and subprogress info into the percentage
@@ -42,6 +41,7 @@ define(function(require) {
             var percentageComplete = Math.floor((completed / total)*100);
 
             view.model.set('completedChildrenAsPercentage', percentageComplete);
+
             view.$el.find('.menu-item-inner').append(new PageLevelProgressMenuView({model: view.model}).$el);
 
         }

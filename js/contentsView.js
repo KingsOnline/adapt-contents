@@ -67,6 +67,10 @@ define(function(require) {
 
     openContents: function() {
       $('body').removeClass('toc-hide');
+      console.log(Adapt);
+      $('#wrapper').one('click', function(){
+          console.log('wrap');
+      });
     },
 
     closeContents: function() {
