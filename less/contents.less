@@ -13,7 +13,7 @@ body.toc-hide {
   }
 
   #wrapper {
-    width:  100% !important;
+    width: 100% !important;
     margin-left: 0 !important;
   }
 }
@@ -23,10 +23,18 @@ body.toc-hide {
   margin-left: 230px !important;
 }
 
-@media all and (max-width:(@device-width-large + 123)) {
+@media all and (max-width:(@device-width-large + 230)) {
   #wrapper {
     width: 100% !important;
     margin-left: 0 !important;
+  }
+}
+
+// margin around outside when it's tight
+@media all and (max-width:(@device-width-large + 230)) and (min-width:(@device-width-large + 123)) {
+  #wrapper {
+    width:  calc(~'100% - 250px') !important;
+    margin-left: 240px !important;
   }
 }
 
@@ -45,7 +53,7 @@ body.toc-hide {
   }
 
   .contents-inner {
-    overflow-y:  scroll;
+    overflow-y: scroll;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
   }
