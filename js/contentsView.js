@@ -13,13 +13,24 @@ define(function(require) {
       this.render();
     },
 
+    checkOverlayMode: function() {
+      if (Adapt.device.screenWidth > 1024) {
+        return false;
+      }
+      return true;
+    },
+
     events: {
       'click .page-level-progress-item button': 'moveToComponent'
     },
 
     setupOnceListeners: _.once(function() {
       this.listenTo(Adapt, 'router:page contents:open sideView:close', this.openContents);
-      this.listenTo(Adapt, 'contents:close router:menu sideView:open', this.closeContents);
+      this.listenTo(Adapt, 'router:menu contents:close sideView:open', this.closeContents);
+      this.listenTo(Adapt, "device:resize", function() {
+        this.overlayMode = this.checkOverlayMode();
+      });
+      this.overlayMode = this.checkOverlayMode();
     }),
 
     moveToComponent: function(event) {
@@ -30,10 +41,16 @@ define(function(require) {
       Adapt.scrollTo($currentComponent, {
         duration: 400
       });
+      if (this.overlayMode) {
+        Adapt.trigger('contents:close');
+      }
     },
 
     render: function() {
       this.createContents();
+      if (this.overlayMode) {
+        Adapt.trigger('contents:close');
+      }
       this.populateContents(this.model);
       this.listenForCompletition();
     },
@@ -67,14 +84,17 @@ define(function(require) {
 
     openContents: function() {
       $('body').removeClass('toc-hide');
-      console.log(Adapt);
-      $('#wrapper').one('click', function(){
-          console.log('wrap');
+      var overlayMode = this.overlayMode;
+      $('#wrapper').on('click', function() {
+        if(overlayMode) {
+          Adapt.trigger('contents:close');
+        }
       });
     },
 
     closeContents: function() {
       $('body').addClass('toc-hide');
+      $('#wrapper').off('click');
     }
   });
 
