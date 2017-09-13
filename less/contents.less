@@ -28,7 +28,6 @@ body.toc-hide {
     margin-left: 0 !important;
   }
 }
-
 // margin around outside when it's tight
 @media all and (max-width:(@device-width-large + 230)) and (min-width:(@device-width-large + 123)) {
   #wrapper {
@@ -101,7 +100,6 @@ body.toc-hide {
   .drawer-item-open {
     padding: @drawer-item-padding-top @drawer-item-padding-right @drawer-item-padding-bottom @drawer-item-padding-left;
     .transition-background-color;
-
     //stops rollover of drawar items on touch devices
     .no-touch &:hover {
       background-color: @drawer-color;
@@ -189,14 +187,24 @@ body.toc-hide {
   width: 0;
 }
 
-button.contents-navigation {
-  @media all and (max-width:(@device-width-medium - 1px)) {
-    padding: (@navigation-padding-mobile+6px);
-  }
+button.contents-navigation.base {
   float: left;
   display: inline-block;
   height: (@navigation-padding * 2) + @icon-size;
   border-radius: 0;
+
+  .no-touch &:hover {
+    background-color: @pale-grey-blue;
+
+    .contents-navigation-icon.icon,
+    .contents-navigation-text {
+      color: darken(@navigation-color, 10%);
+      -webkit-transition: color 0.25s ease-in;
+      -moz-transition: color 0.25s ease-in;
+      -ms-transition: color 0.25s ease-in;
+      transition: color 0.25s ease-in;
+    }
+  }
 
   .contents-navigation-icon.icon {
     float: left;
@@ -208,7 +216,6 @@ button.contents-navigation {
     line-height: 180%;
     margin: 20px 32px 20px 0;
   }
-
 }
 
 .menu {
