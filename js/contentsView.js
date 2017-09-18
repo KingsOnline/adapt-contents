@@ -25,7 +25,8 @@ define(function(require) {
     },
 
     setupOnceListeners: _.once(function() {
-      this.listenTo(Adapt, 'router:page contents:open sideView:close', this.openContents);
+      this.listenTo(Adapt, 'contents:open', this.openContents);
+      this.listenTo(Adapt, 'router:page sideView:close', this.checkDesktop);
       this.listenTo(Adapt, 'router:menu contents:close sideView:open', this.closeContents);
       this.listenTo(Adapt, "device:resize", function() {
         this.overlayMode = this.checkOverlayMode();
@@ -80,6 +81,12 @@ define(function(require) {
           }
         });
       });
+    },
+
+    checkDesktop: function() {
+      if(!this.overlayMode){
+        this.openContents();
+      }
     },
 
     openContents: function() {
