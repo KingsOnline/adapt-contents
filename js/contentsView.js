@@ -14,7 +14,7 @@ define(function(require) {
     },
 
     checkOverlayMode: function() {
-      if (Adapt.device.screenWidth > 1024) {
+      if (Adapt.device.screenWidth >= 1025) {
         return false;
       }
       return true;
