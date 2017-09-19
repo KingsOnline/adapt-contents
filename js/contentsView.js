@@ -52,6 +52,7 @@ define(function(require) {
       if (this.overlayMode) {
         Adapt.trigger('contents:close');
       }
+      console.log(this.model);
       this.populateContents(this.model);
       this.listenForCompletition();
     },
