@@ -65,29 +65,12 @@ define(function(require) {
       '_isAvailable': true
     });
     var availableComponents = completionCalculations.filterAvailableChildren(currentPageComponents);
-    var enabledProgressComponents = completionCalculations.getPageLevelProgressEnabledModels(availableComponents);
+    var contentsList = completionCalculations.getPageLevelProgressEnabledModels(availableComponents);
     if (Adapt.course.get('_contents')._showArticleTitles) {
-      console.log(Adapt.articles.models[0]);
-
-      var articles = pageModel.findDescendants('articles').models;
-      console.log(articles);
-      var articleCount = 0;
-      var contentsList = [];
-      contentsList.push(articles[articleCount]);
-      for (var components in enabledProgressComponents) {
-        console.log(enabledProgressComponents[components]);
-        console.log(enabledProgressComponents[components].getParent().getParent());
-        var componentArticle = enabledProgressComponents[components].getParent().getParent();
-        if(componentArticle != articles[articleCount]) {
-          console.log('increment article');
-          articleCount++;
-          contentsList.push(articles[articleCount]);
-        }
-        contentsList.push(enabledProgressComponents[components]);
-      }
+    contentsList = completionCalculations.generateListWithTitles(pageModel.findDescendants('articles').models, contentsList);
     }
 
-    if (enabledProgressComponents.length > 0) {
+    if (contentsList.length > 0) {
       setupPageLevelProgress(pageModel, contentsList);
     }
 

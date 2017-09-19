@@ -1,7 +1,7 @@
 define([
     'coreJS/adapt'
 ], function(Adapt) {
-    
+
     // Calculate completion of a contentObject
     function calculateCompletion(contentObjectModel) {
 
@@ -43,7 +43,7 @@ define([
                 "assessmentTotal": assessmentComponentsTotal
             };
 
-            if (contentObjectModel.get("_contents") && contentObjectModel.get("_contents")._showPageCompletion !== false 
+            if (contentObjectModel.get("_contents") && contentObjectModel.get("_contents")._showPageCompletion !== false
                 && Adapt.course.get("_contents") && Adapt.course.get("_contents")._showPageCompletion !== false) {
                 //optionally add one point extra for page completion to eliminate incomplete pages and full progress bars
                 // if _showPageCompletion is true then the progress bar should also consider it so add 1 to nonAssessmentTotal
@@ -121,6 +121,24 @@ define([
         }
     }
 
+    function generateListWithTitles(articleModels, componentModels) {
+      var articleCount = 0;
+      var contentsList = [];
+      contentsList.push(articleModels[articleCount]);
+      for (var components in componentModels) {
+        console.log(componentModels[components]);
+        console.log(componentModels[components].getParent().getParent());
+        var componentArticle = componentModels[components].getParent().getParent();
+        if(componentArticle != articleModels[articleCount]) {
+          console.log('increment article');
+          articleCount++;
+          contentsList.push(articleModels[articleCount]);
+        }
+        contentsList.push(componentModels[components]);
+      }
+      return contentsList;
+    }
+
     function filterAvailableChildren(children) {
         var availableChildren = [];
 
@@ -137,7 +155,8 @@ define([
     return {
     	calculateCompletion: calculateCompletion,
     	getPageLevelProgressEnabledModels: getPageLevelProgressEnabledModels,
-        filterAvailableChildren: filterAvailableChildren
+        filterAvailableChildren: filterAvailableChildren,
+        generateListWithTitles: generateListWithTitles
     };
 
 })
