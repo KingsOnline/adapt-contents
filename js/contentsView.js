@@ -52,7 +52,6 @@ define(function(require) {
       if (this.overlayMode) {
         Adapt.trigger('contents:close');
       }
-      console.log(this.model);
       this.populateContents(this.model);
       this.listenForCompletition();
     },
@@ -64,7 +63,6 @@ define(function(require) {
 
     populateContents: function(data) {
       var plpTemplate = Handlebars.templates.contents;
-      console.log(plpTemplate(data));
       $('.contents-inner').html(plpTemplate(data));
     },
 
