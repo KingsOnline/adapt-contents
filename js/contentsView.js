@@ -63,7 +63,8 @@ define(function(require) {
     }),
 
     populateContents: function(data) {
-      var plpTemplate = Handlebars.templates.pageLevelProgress;
+      var plpTemplate = Handlebars.templates.contents;
+      console.log(plpTemplate(data));
       $('.contents-inner').html(plpTemplate(data));
     },
 

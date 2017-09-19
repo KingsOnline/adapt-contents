@@ -28,9 +28,9 @@ define(function(require) {
     },
 
     render: function() {
-      var components = this.collection.toJSON();
+      var entries = this.collection.toJSON();
       var data = {
-        components: components,
+        entries: entries,
         _globals: Adapt.course.get('_globals')
       };
 
