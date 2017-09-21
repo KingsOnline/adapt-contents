@@ -73,6 +73,8 @@ define(function(require) {
         return true;
       });
 
+      var context = this;
+
       _.each(componentsPLP, function(component, index) {
         component.on("change", function() {
           if (component.hasChanged("_isComplete")) {
@@ -80,7 +82,30 @@ define(function(require) {
             $($PlpItem).removeClass('page-level-progress-indicator-incomplete').addClass('page-level-progress-indicator-complete');
           }
         });
+
+
+        $(this).on('resize scroll', function() {
+          if(context.isInViewport('.' + component.get('_id'))) {
+            var $PlpItem = $('.page-level-progress-item-title').get(index);
+            $($PlpItem).css('background-color','red');
+          } else {
+            var $PlpItem = $('.page-level-progress-item-title').get(index);
+            $($PlpItem).css('background-color','lightgrey');
+          }
+          });
+
       });
+
+    },
+
+    isInViewport: function(component) {
+      var elementTop = $(component).offset().top;
+      var elementBottom = elementTop + $(component).outerHeight();
+
+      var viewportTop = $(window).scrollTop();
+      var viewportBottom = viewportTop + $(window).height();
+
+      return elementBottom > viewportTop && elementTop < viewportBottom;
     },
 
     checkDesktop: function() {
