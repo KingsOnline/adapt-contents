@@ -126,11 +126,8 @@ define([
       var contentsList = [];
       contentsList.push(articleModels[articleCount]);
       for (var components in componentModels) {
-        console.log(componentModels[components]);
-        console.log(componentModels[components].getParent().getParent());
         var componentArticle = componentModels[components].getParent().getParent();
         if(componentArticle != articleModels[articleCount]) {
-          console.log('increment article');
           articleCount++;
           contentsList.push(articleModels[articleCount]);
         }
