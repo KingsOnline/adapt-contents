@@ -52,8 +52,9 @@ define(function(require) {
       if (this.overlayMode) {
         Adapt.trigger('contents:close');
       }
-      this.populateContents(this.model);
+      this.populateContents();
       this.listenForCompletition();
+      this.updateCurrentLocation();
     },
 
     createContents: _.once(function() {
@@ -61,62 +62,69 @@ define(function(require) {
       $('html').find('body').append(this.$el.html(template()));
     }),
 
-    populateContents: function(data) {
-      var plpTemplate = Handlebars.templates.contents;
+    getEntriesModels: function (array, componentsOnly) {
       var entriesModels = [];
-      console.log(data.entries);
-      _.each(data.entries.models, function(item, index) {
+      _.each(array, function(item, index) {
+        if(componentsOnly && item.get('_type') == 'article') return;
         entriesModels.push(item.attributes);
       });
-      console.log(data);
-      console.log({'entriesModels':entriesModels,'_globals':data._globals});
-      $('.contents-inner').html(plpTemplate({'entries':entriesModels,'_globals':data._globals}));
+      return entriesModels;
+    },
+
+    filterComponents: function(array) {
+      var entriesModels = [];
+      _.each(array, function(item, index) {
+        if(item.attributes._type == 'article') return;
+        entriesModels.push(item);
+      });
+      return entriesModels;
+    },
+
+    populateContents: function() {
+      var plpTemplate = Handlebars.templates.contents;
+      var entriesModels = this.getEntriesModels(this.model.entries.models, false);
+      $('.contents-inner').html(plpTemplate({'entries':entriesModels,'_globals':this.model._globals}));
     },
 
     listenForCompletition: function() {
-      var componentsPLP = Adapt.findById(Adapt.location._currentId).findDescendants('components').filter(function(model) {
-        if (!model.get('_contents') || !model.get('_contents')._isEnabled)
-          return false;
-        return true;
-      });
+      var entriesModels = this.filterComponents(this.model.entries.models);
+      console.log(entriesModels)
+      _.each(entriesModels, function(item, index) {
 
-      var context = this;
-
-      _.each(componentsPLP, function(component, index) {
-        component.on("change", function() {
-          if (component.hasChanged("_isComplete")) {
-            var $PlpItem = $('.page-level-progress-indicator').get(index);
+        var $PlpItem = $('.page-level-progress-indicator').get(index);
+        item.on("change", function() {
+          if (item.hasChanged("_isComplete")) {
             $($PlpItem).removeClass('page-level-progress-indicator-incomplete').addClass('page-level-progress-indicator-complete');
           }
         });
-
-
-        $(this).on('resize scroll', function() {
-          if(context.isInViewport('.' + component.get('_id'))) {
-            var $PlpItem = $('.page-level-progress-item-title').get(index);
-            $($PlpItem).css('background-color','red');
-          } else {
-            var $PlpItem = $('.page-level-progress-item-title').get(index);
-            $($PlpItem).css('background-color','lightgrey');
-          }
-          });
-
       });
-
     },
 
-    isInViewport: function(component) {
+    updateCurrentLocation: function() {
+      var entriesModels = this.getEntriesModels(this.model.entries.models, false);
+      var context = this;
+      $(window).on('resize scroll', function() {
+        var viewportTop = $(window).scrollTop();
+        var viewportBottom = viewportTop + $(window).height();
+        _.each(entriesModels, function(item, index) {
+          var $PlpItem = $('.page-level-progress-item-title').get(index);
+          if (context.isInViewport('.' + item._id, viewportTop, viewportBottom)) {
+            $($PlpItem).addClass('highlight');
+          } else {
+            $($PlpItem).removeClass('highlight');
+          }
+        });
+      });
+    },
+
+    isInViewport: function(component, viewportTop, viewportBottom) {
       var elementTop = $(component).offset().top;
       var elementBottom = elementTop + $(component).outerHeight();
-
-      var viewportTop = $(window).scrollTop();
-      var viewportBottom = viewportTop + $(window).height();
-
       return elementBottom > viewportTop && elementTop < viewportBottom;
     },
 
     checkDesktop: function() {
-      if(!this.overlayMode){
+      if (!this.overlayMode) {
         this.openContents();
       }
     },
@@ -125,7 +133,7 @@ define(function(require) {
       $('body').removeClass('toc-hide');
       var overlayMode = this.overlayMode;
       $('#wrapper').on('click', function() {
-        if(overlayMode) {
+        if (overlayMode) {
           Adapt.trigger('contents:close');
         }
       });

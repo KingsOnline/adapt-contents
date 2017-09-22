@@ -114,9 +114,17 @@ body.toc-hide {
   padding: @item-padding;
   display: block;
 
+  &.highlight {
+    background-color: darken(@drawer-item-color, 15%);
+  }
+
   &.contents-article-title {
     font-weight: 600;
     text-align: center;
+
+    &.highlight {
+      background-color: darken(@drawer-item-color, 5%);
+    }
   }
 
   &.drawer-item-open.disabled {
