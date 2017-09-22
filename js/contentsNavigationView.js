@@ -28,12 +28,10 @@ define(function(require) {
     },
 
     render: function() {
-      var entries = this.collection.toJSON();
       var data = {
-        entries: entries,
+        entries: this.collection,
         _globals: Adapt.course.get('_globals')
       };
-
       new contentsView({model: data});
 
       var navTemplate = Handlebars.templates.contentsNavigation;

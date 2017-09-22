@@ -63,7 +63,14 @@ define(function(require) {
 
     populateContents: function(data) {
       var plpTemplate = Handlebars.templates.contents;
-      $('.contents-inner').html(plpTemplate(data));
+      var entriesModels = [];
+      console.log(data.entries);
+      _.each(data.entries.models, function(item, index) {
+        entriesModels.push(item.attributes);
+      });
+      console.log(data);
+      console.log({'entriesModels':entriesModels,'_globals':data._globals});
+      $('.contents-inner').html(plpTemplate({'entries':entriesModels,'_globals':data._globals}));
     },
 
     listenForCompletition: function() {
