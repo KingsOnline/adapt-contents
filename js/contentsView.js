@@ -62,10 +62,10 @@ define(function(require) {
       $('html').find('body').append(this.$el.html(template()));
     }),
 
-    getEntriesModels: function (array, componentsOnly) {
+    getEntriesModels: function(array, componentsOnly) {
       var entriesModels = [];
       _.each(array, function(item, index) {
-        if(componentsOnly && item.get('_type') == 'article') return;
+        if (componentsOnly && item.get('_type') == 'article') return;
         entriesModels.push(item.attributes);
       });
       return entriesModels;
@@ -74,7 +74,7 @@ define(function(require) {
     filterComponents: function(array) {
       var entriesModels = [];
       _.each(array, function(item, index) {
-        if(item.attributes._type == 'article') return;
+        if (item.attributes._type == 'article') return;
         entriesModels.push(item);
       });
       return entriesModels;
@@ -83,7 +83,10 @@ define(function(require) {
     populateContents: function() {
       var plpTemplate = Handlebars.templates.contents;
       var entriesModels = this.getEntriesModels(this.model.entries.models, false);
-      $('.contents-inner').html(plpTemplate({'entries':entriesModels,'_globals':this.model._globals}));
+      $('.contents-inner').html(plpTemplate({
+        'entries': entriesModels,
+        '_globals': this.model._globals
+      }));
     },
 
     listenForCompletition: function() {
@@ -108,7 +111,7 @@ define(function(require) {
         var viewportBottom = viewportTop + $(window).height();
         _.each(entriesModels, function(item, index) {
           var $PlpItem = $('.page-level-progress-item-title').get(index);
-          if (context.isInViewport('.' + item._id, viewportTop, viewportBottom)) {
+          if (context.isInViewport(item, viewportTop, viewportBottom)) {
             $($PlpItem).addClass('highlight');
           } else {
             $($PlpItem).removeClass('highlight');
@@ -117,9 +120,15 @@ define(function(require) {
       });
     },
 
-    isInViewport: function(component, viewportTop, viewportBottom) {
-      var elementTop = $(component).offset().top;
-      var elementBottom = elementTop + $(component).outerHeight();
+    isInViewport: function(entry, viewportTop, viewportBottom) {
+      var $div;
+      if (entry._type == 'article') {
+        $div = $('.' + entry._id);
+      } else {
+        $div = $('.' + entry._id).find('.component-body');
+      }
+      var elementTop = $($div).offset().top;
+      var elementBottom = elementTop + $($div).outerHeight();
       return elementBottom > viewportTop && elementTop < viewportBottom;
     },
 
