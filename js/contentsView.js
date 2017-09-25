@@ -9,7 +9,7 @@ define(function(require) {
     tagName: 'div',
 
     initialize: function() {
-      this.setupOnceListeners();
+      this.setupListeners();
       this.listenTo(Adapt, 'pageView:postRender', this.render);
       this.listenTo(Adapt, 'pageView:ready', this.scrollHandler);
       this.listenTo(Adapt, 'router:location', this.stopScrollListener);
@@ -26,7 +26,7 @@ define(function(require) {
       'click .page-level-progress-item button': 'moveToComponent'
     },
 
-    setupOnceListeners: _.once(function() {
+    setupListeners: function() {
       this.listenTo(Adapt, 'contents:open', this.openContents);
       this.listenTo(Adapt, 'router:page sideView:close', this.checkDesktop);
       this.listenTo(Adapt, 'router:menu contents:close sideView:open', this.closeContents);
@@ -34,7 +34,7 @@ define(function(require) {
         this.overlayMode = this.checkOverlayMode();
       });
       this.overlayMode = this.checkOverlayMode();
-    }),
+    },
 
     moveToComponent: function(event) {
       if (event && event.preventDefault)
