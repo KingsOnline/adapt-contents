@@ -11,8 +11,10 @@ define(function(require) {
     initialize: function() {
       this.setupListeners();
       this.listenTo(Adapt, 'pageView:postRender', this.render);
-      this.listenTo(Adapt, 'pageView:ready', this.scrollHandler);
-      this.listenTo(Adapt, 'router:location', this.stopScrollListener);
+      if(Adapt.course.get('_contents')._showPagePosition) {
+        this.listenTo(Adapt, 'pageView:ready', this.scrollHandler);
+        this.listenTo(Adapt, 'router:location', this.stopScrollListener);
+      }
     },
 
     checkOverlayMode: function() {
