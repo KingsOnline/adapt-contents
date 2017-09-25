@@ -11,6 +11,7 @@ define(function(require) {
     initialize: function() {
       this.setupOnceListeners();
       this.render();
+      this.listenTo(Adapt, 'router:location', this.stopScrollListener);
     },
 
     checkOverlayMode: function() {
@@ -28,6 +29,7 @@ define(function(require) {
       this.listenTo(Adapt, 'contents:open', this.openContents);
       this.listenTo(Adapt, 'router:page sideView:close', this.checkDesktop);
       this.listenTo(Adapt, 'router:menu contents:close sideView:open', this.closeContents);
+
       this.listenTo(Adapt, "device:resize", function() {
         this.overlayMode = this.checkOverlayMode();
       });
@@ -91,9 +93,7 @@ define(function(require) {
 
     listenForCompletition: function() {
       var entriesModels = this.filterComponents(this.model.entries.models);
-      console.log(entriesModels)
       _.each(entriesModels, function(item, index) {
-
         var $PlpItem = $('.page-level-progress-indicator').get(index);
         item.on("change", function() {
           if (item.hasChanged("_isComplete")) {
@@ -130,6 +130,10 @@ define(function(require) {
       var elementTop = $($div).offset().top;
       var elementBottom = elementTop + $($div).outerHeight();
       return elementBottom > viewportTop && elementTop < viewportBottom;
+    },
+
+    stopScrollListener: function() {
+      $(window).off('resize scroll');
     },
 
     checkDesktop: function() {
