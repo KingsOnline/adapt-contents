@@ -43,14 +43,6 @@ define([
                 "assessmentTotal": assessmentComponentsTotal
             };
 
-            if (contentObjectModel.get("_contents") && contentObjectModel.get("_contents")._showPageCompletion !== false
-                && Adapt.course.get("_contents") && Adapt.course.get("_contents")._showPageCompletion !== false) {
-                //optionally add one point extra for page completion to eliminate incomplete pages and full progress bars
-                // if _showPageCompletion is true then the progress bar should also consider it so add 1 to nonAssessmentTotal
-                pageCompletion.nonAssessmentCompleted += isComplete;
-                pageCompletion.nonAssessmentTotal += 1;
-            }
-
             return pageCompletion;
         }
         // If it's a sub-menu
