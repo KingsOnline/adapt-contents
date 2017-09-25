@@ -11,6 +11,7 @@ define(function(require) {
     initialize: function() {
       this.setupOnceListeners();
       this.listenTo(Adapt, 'pageView:postRender', this.render);
+      this.listenTo(Adapt, 'pageView:ready', this.scrollHandler);
       this.listenTo(Adapt, 'router:location', this.stopScrollListener);
     },
 
@@ -54,9 +55,7 @@ define(function(require) {
       }
       this.populateContents();
       this.listenForCompletition();
-      this.updateCurrentLocation();
     },
-
 
     getEntriesModels: function(array, componentsOnly) {
       var entriesModels = [];
@@ -97,22 +96,26 @@ define(function(require) {
       });
     },
 
-    updateCurrentLocation: function() {
-      var entriesModels = this.getEntriesModels(this.model.entries.models, false);
+    scrollHandler: function() {
       var context = this;
-      $(window).on('resize scroll', function() {
-        var viewportTop = $(window).scrollTop();
-        var viewportBottom = viewportTop + $(window).height();
-        _.each(entriesModels, function(item, index) {
-          var $PlpItem = $('.page-level-progress-item-title').get(index);
-          if (context.isInViewport(item, viewportTop, viewportBottom)) {
-            $($PlpItem).addClass('highlight');
-          } else {
-            $($PlpItem).removeClass('highlight');
-          }
+      var entriesModels = this.getEntriesModels(this.model.entries.models, false);
+        $(window).on('resize scroll', function() {
+          context.updateCurrentLocation(context, entriesModels);
         });
-      });
     },
+
+    updateCurrentLocation: _.throttle(function(context, entriesModels) {
+      var viewportTop = $(window).scrollTop();
+      var viewportBottom = viewportTop + $(window).height();
+      _.each(entriesModels, function(item, index) {
+        var $PlpItem = $('.page-level-progress-item-title').get(index);
+        if (context.isInViewport(item, viewportTop, viewportBottom)) {
+          $($PlpItem).addClass('highlight');
+        } else {
+          $($PlpItem).removeClass('highlight');
+        }
+      });
+    }, 50),
 
     isInViewport: function(entry, viewportTop, viewportBottom) {
       var $div;
