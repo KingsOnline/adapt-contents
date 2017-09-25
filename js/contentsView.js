@@ -10,7 +10,7 @@ define(function(require) {
 
     initialize: function() {
       this.setupOnceListeners();
-      this.render();
+      this.listenTo(Adapt, 'pageView:postRender', this.render);
       this.listenTo(Adapt, 'router:location', this.stopScrollListener);
     },
 
@@ -29,7 +29,6 @@ define(function(require) {
       this.listenTo(Adapt, 'contents:open', this.openContents);
       this.listenTo(Adapt, 'router:page sideView:close', this.checkDesktop);
       this.listenTo(Adapt, 'router:menu contents:close sideView:open', this.closeContents);
-
       this.listenTo(Adapt, "device:resize", function() {
         this.overlayMode = this.checkOverlayMode();
       });
@@ -50,7 +49,6 @@ define(function(require) {
     },
 
     render: function() {
-      this.createContents();
       if (this.overlayMode) {
         Adapt.trigger('contents:close');
       }
@@ -59,10 +57,6 @@ define(function(require) {
       this.updateCurrentLocation();
     },
 
-    createContents: _.once(function() {
-      var template = Handlebars.templates.contents;
-      $('html').find('body').append(this.$el.html(template()));
-    }),
 
     getEntriesModels: function(array, componentsOnly) {
       var entriesModels = [];
@@ -85,10 +79,10 @@ define(function(require) {
     populateContents: function() {
       var plpTemplate = Handlebars.templates.contents;
       var entriesModels = this.getEntriesModels(this.model.entries.models, false);
-      $('.contents-inner').html(plpTemplate({
+      $('html').find('body').append(this.$el.html(plpTemplate({
         'entries': entriesModels,
         '_globals': this.model._globals
-      }));
+      })));
     },
 
     listenForCompletition: function() {
@@ -133,6 +127,7 @@ define(function(require) {
     },
 
     stopScrollListener: function() {
+      this.remove();
       $(window).off('resize scroll');
     },
 
