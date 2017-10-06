@@ -1,8 +1,8 @@
 {
-  "type":"object",
+  "type": "object",
   "$schema": "http://json-schema.org/draft-04/schema",
   "id": "http://jsonschema.net",
-  "required":false,
+  "required": false,
   "globals": {
     "pageLevelProgress": {
       "type": "string",
@@ -45,17 +45,17 @@
       "translatable": true
     }
   },
-  "properties":{
+  "properties": {
     "pluginLocations": {
-      "type":"object",
-      "required":true,
-      "properties":{
+      "type": "object",
+      "required": true,
+      "properties": {
         "config": {
-          "type":"object"
+          "type": "object"
         },
         "course": {
-          "type":"object",
-          "properties":{
+          "type": "object",
+          "properties": {
             "_contents": {
               "type": "object",
               "required": false,
@@ -63,23 +63,26 @@
               "properties": {
                 "_isEnabled": {
                   "type": "boolean",
-                  "required":true,
+                  "required": true,
                   "default": true,
                   "title": "Is enabled",
-                  "inputType": {"type": "Boolean", "options": [true, false]},
+                  "inputType": {
+                    "type": "Boolean",
+                    "options": [true, false]
+                  },
                   "validators": [],
-                  "help": "If set to 'false', Page Level Progress will be disabled on all components, pages, and menus"
+                  "help": "If set to 'false', Contents will be disabled on all components, pages, and menus"
                 },
                 "_showArticleTitles": {
                   "type": "boolean",
-                  "required":true,
+                  "required": true,
                   "default": false,
                   "title": "Show Articles in the Contents list",
                   "inputType": "Checkbox"
                 },
                 "_showPagePosition": {
                   "type": "boolean",
-                  "required":true,
+                  "required": true,
                   "default": false,
                   "title": "Highlight the Component/Article the learner is currently on",
                   "inputType": "Checkbox"
@@ -89,8 +92,8 @@
           }
         },
         "contentobject": {
-          "type":"object",
-          "properties":{
+          "type": "object",
+          "properties": {
             "_contents": {
               "type": "object",
               "required": false,
@@ -98,10 +101,13 @@
               "properties": {
                 "_isEnabled": {
                   "type": "boolean",
-                  "required":true,
+                  "required": true,
                   "default": true,
                   "title": "Is enabled",
-                  "inputType": {"type": "Boolean", "options": [true, false]},
+                  "inputType": {
+                    "type": "Boolean",
+                    "options": [true, false]
+                  },
                   "validators": [],
                   "help": "If set to 'true', a progress bar will be displayed"
                 }
@@ -110,14 +116,14 @@
           }
         },
         "article": {
-          "type":"object"
+          "type": "object"
         },
         "block": {
-          "type":"object"
+          "type": "object"
         },
         "component": {
-          "type":"object",
-          "properties":{
+          "type": "object",
+          "properties": {
             "_contents": {
               "type": "object",
               "required": false,
@@ -125,10 +131,13 @@
               "properties": {
                 "_isEnabled": {
                   "type": "boolean",
-                  "required":true,
+                  "required": true,
                   "default": true,
                   "title": "Is enabled",
-                  "inputType": {"type": "Boolean", "options": [true, false]},
+                  "inputType": {
+                    "type": "Boolean",
+                    "options": [true, false]
+                  },
                   "validators": [],
                   "help": "If set to 'true', this component will be tracked by Contents"
                 }
