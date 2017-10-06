@@ -88,14 +88,28 @@ define(function(require) {
 
     listenForCompletition: function() {
       var entriesModels = this.filterComponents(this.model.entries.models);
+      var context = this;
       _.each(entriesModels, function(item, index) {
         var $PlpItem = $('.page-level-progress-indicator').get(index);
         item.on("change", function() {
           if (item.hasChanged("_isComplete")) {
             $($PlpItem).removeClass('page-level-progress-indicator-incomplete').addClass('page-level-progress-indicator-complete');
+            if(context.checkPageComplete(entriesModels)) {
+              Adapt.trigger('contents:pageComplete');
+            }
           }
         });
       });
+    },
+
+    checkPageComplete: function(entriesModels) {
+      var returnValue = true;
+        _.each(entriesModels, function(item, index) {
+          if(!item.get('_isComplete')) {
+            returnValue = false;
+          }
+        });
+        return returnValue;
     },
 
     scrollHandler: function() {
