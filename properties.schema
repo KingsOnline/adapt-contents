@@ -70,11 +70,11 @@
                   "validators": [],
                   "help": "If set to 'false', Page Level Progress will be disabled on all components, pages, and menus"
                 },
-                "_showPageCompletion": {
+                "_showArticleTitles": {
                   "type": "boolean",
-                  "required":true,
-                  "default": true,
-                  "title": "Show page completion",
+                  "required": false,
+                  "default": false,
+                  "title": "Show Article titles",
                   "inputType": {"type": "Boolean", "options": [true, false]},
                   "validators": [],
                   "help": "If set to 'false', Page Level Progress will not represent page completion in progress bar"
@@ -100,14 +100,19 @@
                   "validators": [],
                   "help": "If set to 'true', a progress bar will be displayed"
                 },
-                "_showPageCompletion": {
+                "_showArticleTitles": {
                   "type": "boolean",
                   "required":true,
-                  "default": true,
-                  "title": "Show page completion",
-                  "inputType": {"type": "Boolean", "options": [true, false]},
-                  "validators": [],
-                  "help": "If set to 'false', Page Level Progress will not represent page completion in progress bar"
+                  "default": false,
+                  "title": "Show Articles in the Contents list",
+                  "inputType": "Checkbox"
+                },
+                "_showPagePosition": {
+                  "type": "boolean",
+                  "required":true,
+                  "default": false,
+                  "title": "Highlight the Component/Article the learner is currently on",
+                  "inputType": "Checkbox"
                 }
               }
             }
