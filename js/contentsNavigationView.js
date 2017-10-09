@@ -29,7 +29,7 @@ define(function(require) {
 
     render: function() {
       var data = {
-        entries: this.collection,
+        pages: this.collection,
         _globals: Adapt.course.get('_globals')
       };
       new contentsView({model: data});

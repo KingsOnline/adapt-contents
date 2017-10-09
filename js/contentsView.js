@@ -60,11 +60,13 @@ define(function(require) {
     },
 
     getEntriesModels: function(array, componentsOnly) {
+      console.log(array);
       var entriesModels = [];
       _.each(array, function(item, index) {
         if (componentsOnly && item.get('_type') == 'article') return;
         entriesModels.push(item.attributes);
       });
+      console.log(entriesModels);
       return entriesModels;
     },
 
@@ -79,20 +81,32 @@ define(function(require) {
 
     populateContents: function() {
       var plpTemplate = Handlebars.templates.contents;
-      var entriesModels = this.getEntriesModels(this.model.entries.models, false);
+      var pages = this.model.pages;
+      console.log(pages);
+      var context = this;
+      var contentArray = pages;
+      console.log(contentArray);
+      _.each(contentArray, function(item, index) {
+        contentArray[index].entries = context.getEntriesModels(contentArray[index].entries, false);
+      });
+            console.log(contentArray);
       $('html').find('body').append(this.$el.html(plpTemplate({
-        'entries': entriesModels,
+        'page': contentArray,
         '_globals': this.model._globals
       })));
     },
 
     listenForCompletition: function() {
-      var entriesModels = this.filterComponents(this.model.entries.models);
+      console.log(this.model.pages[0].entries);
+      var entriesModels = this.filterComponents(this.model.pages[0].entries.models);
       var context = this;
+      console.log(entriesModels);
       _.each(entriesModels, function(item, index) {
         var $PlpItem = $('.page-level-progress-indicator').get(index);
+        console.log($PlpItem);
         item.on("change", function() {
           if (item.hasChanged("_isComplete")) {
+            console.log(entriesModels);
             $($PlpItem).removeClass('page-level-progress-indicator-incomplete').addClass('page-level-progress-indicator-complete');
             if(context.checkPageComplete(entriesModels)) {
               Adapt.trigger('contents:pageComplete');

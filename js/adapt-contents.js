@@ -7,11 +7,11 @@ define(function(require) {
   var PageLevelProgressMenuView = require('extensions/adapt-contents/js/PageLevelProgressMenuView');
   var contentsNavigationView = require('extensions/adapt-contents/js/contentsNavigationView');
 
-  function setupPageLevelProgress(pageModel, enabledProgressComponents) {
+  function setupPageLevelProgress(pageModel, contentsList) {
 
     new contentsNavigationView({
       model: pageModel,
-      collection: new Backbone.Collection(enabledProgressComponents)
+      collection: contentsList
     });
 
   }
@@ -54,24 +54,43 @@ define(function(require) {
   });
 
   // This should add/update progress on page navigation bar
-  Adapt.on('router:page', function(pageModel) {
+  Adapt.on('router:page', function() {
 
     // do not proceed until pageLevelProgress enabled on course.json
     if (!Adapt.course.get('_contents') || !Adapt.course.get('_contents')._isEnabled) {
       return;
     }
 
-    var currentPageComponents = pageModel.findDescendants('components').where({
-      '_isAvailable': true
+    var contentObjects = Adapt.contentObjects.models;
+    console.log(contentObjects);
+
+    var contentsList = [];
+
+    _.each(contentObjects, function(item, index) {
+
+      var currentPage = [{"contentObject": contentObjects[index]}];
+      var contents;
+
+      console.log(currentPage);
+      var pageModel = item;
+      var currentPageComponents = pageModel.findDescendants('components').where({
+        '_isAvailable': true
+      });
+      var availableComponents = completionCalculations.filterAvailableChildren(currentPageComponents);
+      var pageComponents = completionCalculations.getPageLevelProgressEnabledModels(availableComponents);
+      console.log(pageComponents);
+      if (Adapt.course.get('_contents')._showArticleTitles) {
+        contents = completionCalculations.generateListWithTitles(pageModel.findDescendants('articles').models, pageComponents);
+      } else {
+        contents = pageComponents;
+      }
+      contentsList.push({"contentObject": contentObjects[index],"entries": contents});
     });
-    var availableComponents = completionCalculations.filterAvailableChildren(currentPageComponents);
-    var contentsList = completionCalculations.getPageLevelProgressEnabledModels(availableComponents);
-    if (Adapt.course.get('_contents')._showArticleTitles) {
-    contentsList = completionCalculations.generateListWithTitles(pageModel.findDescendants('articles').models, contentsList);
-    }
+
+    console.log(contentsList);
 
     if (contentsList.length > 0) {
-      setupPageLevelProgress(pageModel, contentsList);
+      setupPageLevelProgress(contentObjects[0], contentsList);
     }
 
   });

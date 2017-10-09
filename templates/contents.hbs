@@ -1,11 +1,15 @@
 <div class="contents-inner">
   <div class="page-level-progress-inner" role="region" aria-label="{{_globals._extensions._contents.pageLevelProgress}}" {{#if _globals._extensions._contents.pageLevelProgress}} tabindex="0" {{/if}}>
     <div role="list">
-      {{#each entries}}
-        {{#if _isPartOfAssessment}}
-          <div role="listitem" class="page-level-progress-item drawer-item">
-            {{#if _isVisible}}
-              <button class="base page-level-progress-item-title clearfix drawer-item-open" tabindex="0" role="button" data-page-level-progress-id="{{_id}}" aria-label="{{title}} {{#if _isInteractionComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}">
+      {{#each page}}
+        <div class='contents-page'>
+          <div class='contents-page-title'>{{contentObject.attributes.title}}</div>
+          <div class='contents-page-entries'>
+            {{#each entries}}
+              {{#if _isPartOfAssessment}}
+                <div role="listitem" class="page-level-progress-item drawer-item">
+                  {{#if _isVisible}}
+                    <button class="base page-level-progress-item-title clearfix drawer-item-open" tabindex="0" role="button" data-page-level-progress-id="{{_id}}" aria-label="{{title}} {{#if _isInteractionComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}">
                 {{else}}
                 <div class="page-level-progress-item-title drawer-item-open disabled clearfix">
                     <span class="aria-label prevent-default" tabindex="0" role="button">{{_globals._accessibility._ariaLabels.locked}}. {{title}} {{#if _isComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}</span>
@@ -32,15 +36,16 @@
                     {{/if}}
                 {{#if _isVisible}}
                 </button>
-            {{else}}
+                  {{else}}
+                </div>
+                {{/if}}
           </div>
-          {{/if}}
-    </div>
-    {{else}}
-      <div role="listitem" class="page-level-progress-item drawer-item">
-          {{#if _isVisible}}
+          {{else}}
+            <div role="listitem" class="page-level-progress-item drawer-item">
+              {{#if _isVisible}}
 
-            <button class="base page-level-progress-item-title {{#equals _type 'article'}}contents-article-title {{/equals}}{{#equals _type 'component'}}contents-component-title {{/equals}}clearfix drawer-item-open" tabindex="0" role="button" data-page-level-progress-id="{{_id}}" aria-label="{{title}} {{#if _isComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}">
+                <button class="base page-level-progress-item-title {{#equals _type 'article'}}contents-article-title {{/equals}}{{#equals _type 'component'}}contents-component-title {{/equals}}clearfix drawer-item-open" tabindex="0" role="button" data-page-level-progress-id="{{_id}}"
+                  aria-label="{{title}} {{#if _isComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}">
                 {{else}}
                 <div class="page-level-progress-item-title drawer-item-open disabled clearfix">
                     <span class="aria-label prevent-default" tabindex="0" role="button">{{_globals._accessibility._ariaLabels.locked}}. {{title}} {{#if _isComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}</span>
@@ -69,12 +74,16 @@
                     {{/equals}}
                 {{#if _isVisible}}
                 </button>
-          {{else}}
-      </div>
-      {{/if}}
+              {{else}}
+            </div>
+            {{/if}}
+        </div>
+        {{/if}}
+        {{/each}}
+    </div>
   </div>
-  {{/if}}
   {{/each}}
+
 </div>
 <div class="aria-label a11y-ignore-focus prevent-default" tabindex="0" aria-label="{{_globals._extensions._contents.pageLevelProgressEnd}}" />
 </div>
