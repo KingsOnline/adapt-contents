@@ -81,34 +81,26 @@ define(function(require) {
 
     populateContents: function() {
       var plpTemplate = Handlebars.templates.contents;
-      var pages = this.model.pages;
-      console.log(pages);
       var context = this;
-      var contentArray = pages;
-      console.log(contentArray);
-      _.each(contentArray, function(item, index) {
-        contentArray[index].entries = context.getEntriesModels(contentArray[index].entries, false);
-      });
-            console.log(contentArray);
       $('html').find('body').append(this.$el.html(plpTemplate({
-        'page': contentArray,
+        'page': this.model.pages,
         '_globals': this.model._globals
       })));
     },
 
     listenForCompletition: function() {
-      console.log(this.model.pages[0].entries);
-      var entriesModels = this.filterComponents(this.model.pages[0].entries.models);
+      console.log(this.model.pages[0].contents);
+      var contentsModel = this.filterComponents(this.model.pages[0].contents.models);
       var context = this;
-      console.log(entriesModels);
-      _.each(entriesModels, function(item, index) {
+      console.log(contentsModel);
+      _.each(contentsModel, function(item, index) {
         var $PlpItem = $('.page-level-progress-indicator').get(index);
         console.log($PlpItem);
         item.on("change", function() {
           if (item.hasChanged("_isComplete")) {
-            console.log(entriesModels);
+            console.log(contentsModel);
             $($PlpItem).removeClass('page-level-progress-indicator-incomplete').addClass('page-level-progress-indicator-complete');
-            if(context.checkPageComplete(entriesModels)) {
+            if(context.checkPageComplete(contentsModel)) {
               Adapt.trigger('contents:pageComplete');
             }
           }

@@ -9,6 +9,8 @@ define(function(require) {
 
   function setupPageLevelProgress(pageModel, contentsList) {
 
+    console.log(contentsList);
+
     new contentsNavigationView({
       model: pageModel,
       collection: contentsList
@@ -62,32 +64,24 @@ define(function(require) {
     }
 
     var contentObjects = Adapt.contentObjects.models;
-    console.log(contentObjects);
-
     var contentsList = [];
 
     _.each(contentObjects, function(item, index) {
 
-      var currentPage = [{"contentObject": contentObjects[index]}];
       var contents;
-
-      console.log(currentPage);
       var pageModel = item;
       var currentPageComponents = pageModel.findDescendants('components').where({
         '_isAvailable': true
       });
       var availableComponents = completionCalculations.filterAvailableChildren(currentPageComponents);
       var pageComponents = completionCalculations.getPageLevelProgressEnabledModels(availableComponents);
-      console.log(pageComponents);
       if (Adapt.course.get('_contents')._showArticleTitles) {
         contents = completionCalculations.generateListWithTitles(pageModel.findDescendants('articles').models, pageComponents);
       } else {
         contents = pageComponents;
       }
-      contentsList.push({"contentObject": contentObjects[index],"entries": contents});
+      contentsList.push({"contentObject": contentObjects[index], "contents": contents});
     });
-
-    console.log(contentsList);
 
     if (contentsList.length > 0) {
       setupPageLevelProgress(contentObjects[0], contentsList);

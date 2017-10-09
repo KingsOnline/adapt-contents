@@ -5,7 +5,9 @@
         <div class='contents-page'>
           <div class='contents-page-title'>{{contentObject.attributes.title}}</div>
           <div class='contents-page-entries'>
-            {{#each entries}}
+            {{log contents}}
+            {{#each contents}}
+            {{#with attributes}}
               {{#if _isPartOfAssessment}}
                 <div role="listitem" class="page-level-progress-item drawer-item">
                   {{#if _isVisible}}
@@ -79,6 +81,7 @@
             {{/if}}
         </div>
         {{/if}}
+        {{/with}}
         {{/each}}
     </div>
   </div>
