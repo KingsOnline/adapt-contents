@@ -11,7 +11,7 @@ define(function(require) {
     initialize: function() {
       this.setupListeners();
       this.listenTo(Adapt, 'pageView:postRender', this.render);
-      if(Adapt.course.get('_contents')._showPagePosition) {
+      if (Adapt.course.get('_contents')._showPagePosition) {
         this.listenTo(Adapt, 'pageView:ready', this.scrollHandler);
         this.listenTo(Adapt, 'router:location', this.stopScrollListener);
       }
@@ -43,7 +43,8 @@ define(function(require) {
         event.preventDefault();
       var currentComponentSelector = '.' + $(event.currentTarget).attr('data-page-level-progress-id');
       var $currentComponent = $(currentComponentSelector);
-      Adapt.scrollTo($currentComponent, {
+      console.log($currentComponent);
+      Adapt.navigateToElement(currentComponentSelector, {
         duration: 400
       });
       if (this.overlayMode) {
@@ -90,17 +91,19 @@ define(function(require) {
 
     listenForCompletition: function() {
       console.log(this.model.pages[0].contents);
-      var contentsModel = this.filterComponents(this.model.pages[0].contents.models);
       var context = this;
+      var contentsModel = this.model.pages[0].contents;
+      console.log(contentsModel);
+      contentsModel = this.filterComponents(contentsModel);
       console.log(contentsModel);
       _.each(contentsModel, function(item, index) {
         var $PlpItem = $('.page-level-progress-indicator').get(index);
         console.log($PlpItem);
         item.on("change", function() {
           if (item.hasChanged("_isComplete")) {
-            console.log(contentsModel);
+            console.log($PlpItem);
             $($PlpItem).removeClass('page-level-progress-indicator-incomplete').addClass('page-level-progress-indicator-complete');
-            if(context.checkPageComplete(contentsModel)) {
+            if (context.checkPageComplete(contentsModel)) {
               Adapt.trigger('contents:pageComplete');
             }
           }
@@ -110,20 +113,20 @@ define(function(require) {
 
     checkPageComplete: function(entriesModels) {
       var returnValue = true;
-        _.each(entriesModels, function(item, index) {
-          if(!item.get('_isComplete')) {
-            returnValue = false;
-          }
-        });
-        return returnValue;
+      _.each(entriesModels, function(item, index) {
+        if (!item.get('_isComplete')) {
+          returnValue = false;
+        }
+      });
+      return returnValue;
     },
 
     scrollHandler: function() {
       var context = this;
       var entriesModels = this.getEntriesModels(this.model.entries.models, false);
-        $(window).on('resize scroll', function() {
-          context.updateCurrentLocation(context, entriesModels);
-        });
+      $(window).on('resize scroll', function() {
+        context.updateCurrentLocation(context, entriesModels);
+      });
     },
 
     updateCurrentLocation: _.throttle(function(context, entriesModels) {
