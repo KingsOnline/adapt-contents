@@ -36,6 +36,19 @@ body.toc-hide {
   }
 }
 
+.contents-page {
+  .contents-page-entries {
+    display: none;
+  }
+
+  &.active {
+    .contents-page-entries {
+      display: block;
+    }
+
+  }
+}
+
 .contents {
   background-color: @navigation-icon-color;
   color: @navigation-color;

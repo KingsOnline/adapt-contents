@@ -9,7 +9,9 @@ define(function(require) {
     tagName: 'div',
 
     initialize: function() {
+      this.listenTo(Adapt, 'remove', this.remove);
       this.setupListeners();
+      console.log('applied active');
       this.listenTo(Adapt, 'pageView:postRender', this.render);
       if (Adapt.course.get('_contents')._showPagePosition) {
         this.listenTo(Adapt, 'pageView:ready', this.scrollHandler);
@@ -25,7 +27,17 @@ define(function(require) {
     },
 
     events: {
-      'click .page-level-progress-item button': 'moveToComponent'
+      'click .page-level-progress-item button': 'moveToComponent',
+      'click .contents-page-title': 'openAccordion'
+    },
+
+    openAccordion: function(event) {
+      $('.contents-page').removeClass('active');
+      var $toggleButton = $(event.currentTarget);
+      var $accordionItem = $toggleButton.parent('.contents-page');
+      var isCurrentlyExpanded = $toggleButton.hasClass('selected');
+      $accordionItem.addClass('active');
+
     },
 
     setupListeners: function() {
@@ -57,6 +69,7 @@ define(function(require) {
         Adapt.trigger('contents:close');
       }
       this.populateContents();
+      $('.contents-page:first-child').addClass('active');
       this.listenForCompletition();
     },
 
