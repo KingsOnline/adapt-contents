@@ -19,10 +19,7 @@ define(function(require) {
     },
 
     checkOverlayMode: function() {
-      if (Adapt.device.screenWidth >= 1025) {
-        return false;
-      }
-      return true;
+      return Adapt.device.screenWidth <= 1025;
     },
 
     events: {
@@ -50,15 +47,12 @@ define(function(require) {
 
     getAdaptCoById: function() {
       var position = -1;
-      _.each(Adapt.contentObjects.models, function(co, i){
-        console.log(co.attributes._id);
-        console.log(Adapt.location._currentId);
-        if(co.attributes._id === Adapt.location._currentId) {
+      _.each(Adapt.contentObjects.models, function(co, i) {
+        if (co.attributes._id === Adapt.location._currentId) {
           position = i;
           return;
         }
       });
-      console.log(position);
       return position;
     },
 
@@ -67,7 +61,6 @@ define(function(require) {
         event.preventDefault();
       var currentComponentSelector = '.' + $(event.currentTarget).attr('data-page-level-progress-id');
       var $currentComponent = $(currentComponentSelector);
-      console.log($currentComponent);
       Adapt.navigateToElement(currentComponentSelector, {
         duration: 400
       });
@@ -81,7 +74,7 @@ define(function(require) {
         Adapt.trigger('contents:close');
       }
       this.populateContents();
-      $('.contents-page:eq('+ this.getAdaptCoById() +')').addClass('current-page');
+      $('.contents-page:eq(' + this.getAdaptCoById() + ')').addClass('current-page');
       this.listenForCompletition();
     },
 
@@ -114,13 +107,12 @@ define(function(require) {
 
     listenForCompletition: function() {
       var context = this;
-      var contentsModel = this.model.pages[0].contents;
+      var contentsModel = this.model.pages[this.getAdaptCoById()].contents;
       contentsModel = this.filterComponents(contentsModel);
       _.each(contentsModel, function(item, index) {
-        var $PlpItem = $('.page-level-progress-indicator').get(index);
+        var $PlpItem = $('.contents-page:eq(' + context.getAdaptCoById() + ')').find('.page-level-progress-indicator').get(index);
         item.on("change", function() {
           if (item.hasChanged("_isComplete")) {
-            console.log($PlpItem);
             $($PlpItem).removeClass('page-level-progress-indicator-incomplete').addClass('page-level-progress-indicator-complete');
             if (context.checkPageComplete(contentsModel)) {
               Adapt.trigger('contents:pageComplete');
@@ -142,7 +134,7 @@ define(function(require) {
 
     scrollHandler: function() {
       var context = this;
-      var entriesModels = this.getEntriesModels(this.model.pages[0].contents, false);
+      var entriesModels = this.getEntriesModels(this.model.pages[this.getAdaptCoById()].contents, false);
       $(window).on('resize scroll', function() {
         context.updateCurrentLocation(context, entriesModels);
       });
@@ -152,14 +144,14 @@ define(function(require) {
       var viewportTop = $(window).scrollTop();
       var viewportBottom = viewportTop + $(window).height();
       _.each(entriesModels, function(item, index) {
-        var $PlpItem = $('.page-level-progress-item-title').get(index);
+        var $PlpItem = $('.contents-page:eq(' + context.getAdaptCoById() + ')').find('.page-level-progress-item-title').get(index);
         if (context.isInViewport(item, viewportTop, viewportBottom)) {
           $($PlpItem).addClass('highlight');
         } else {
           $($PlpItem).removeClass('highlight');
         }
       });
-    }, 50),
+    }, 100),
 
     isInViewport: function(entry, viewportTop, viewportBottom) {
       var $div;
