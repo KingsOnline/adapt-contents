@@ -9,6 +9,7 @@ define(function(require) {
     tagName: 'div',
 
     initialize: function() {
+      $(window).off('resize scroll');
       this.listenTo(Adapt, 'remove', this.remove);
       this.setupListeners();
       this.listenTo(Adapt, 'pageView:postRender', this.render);
