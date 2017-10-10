@@ -11,7 +11,6 @@ define(function(require) {
     initialize: function() {
       this.listenTo(Adapt, 'remove', this.remove);
       this.setupListeners();
-      console.log('applied active');
       this.listenTo(Adapt, 'pageView:postRender', this.render);
       if (Adapt.course.get('_contents')._showPagePosition) {
         this.listenTo(Adapt, 'pageView:ready', this.scrollHandler);
@@ -37,7 +36,6 @@ define(function(require) {
       var $accordionItem = $toggleButton.parent('.contents-page');
       var isCurrentlyExpanded = $toggleButton.hasClass('selected');
       $accordionItem.addClass('active');
-
     },
 
     setupListeners: function() {
@@ -48,6 +46,20 @@ define(function(require) {
         this.overlayMode = this.checkOverlayMode();
       });
       this.overlayMode = this.checkOverlayMode();
+    },
+
+    getAdaptCoById: function() {
+      var position = -1;
+      _.each(Adapt.contentObjects.models, function(co, i){
+        console.log(co.attributes._id);
+        console.log(Adapt.location._currentId);
+        if(co.attributes._id === Adapt.location._currentId) {
+          position = i;
+          return;
+        }
+      });
+      console.log(position);
+      return position;
     },
 
     moveToComponent: function(event) {
@@ -69,18 +81,16 @@ define(function(require) {
         Adapt.trigger('contents:close');
       }
       this.populateContents();
-      $('.contents-page:first-child').addClass('active');
+      $('.contents-page:eq('+ this.getAdaptCoById() +')').addClass('current-page');
       this.listenForCompletition();
     },
 
     getEntriesModels: function(array, componentsOnly) {
-      console.log(array);
       var entriesModels = [];
       _.each(array, function(item, index) {
         if (componentsOnly && item.get('_type') == 'article') return;
         entriesModels.push(item.attributes);
       });
-      console.log(entriesModels);
       return entriesModels;
     },
 
@@ -103,15 +113,11 @@ define(function(require) {
     },
 
     listenForCompletition: function() {
-      console.log(this.model.pages[0].contents);
       var context = this;
       var contentsModel = this.model.pages[0].contents;
-      console.log(contentsModel);
       contentsModel = this.filterComponents(contentsModel);
-      console.log(contentsModel);
       _.each(contentsModel, function(item, index) {
         var $PlpItem = $('.page-level-progress-indicator').get(index);
-        console.log($PlpItem);
         item.on("change", function() {
           if (item.hasChanged("_isComplete")) {
             console.log($PlpItem);
@@ -136,7 +142,7 @@ define(function(require) {
 
     scrollHandler: function() {
       var context = this;
-      var entriesModels = this.getEntriesModels(this.model.entries.models, false);
+      var entriesModels = this.getEntriesModels(this.model.pages[0].contents, false);
       $(window).on('resize scroll', function() {
         context.updateCurrentLocation(context, entriesModels);
       });
