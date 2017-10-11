@@ -128,6 +128,7 @@ define(function(require) {
       _.each(entriesModels, function(item, index) {
         if (!item.get('_isComplete')) {
           returnValue = false;
+          return;
         }
       });
       return returnValue;
@@ -147,9 +148,10 @@ define(function(require) {
       _.each(entriesModels, function(item, index) {
         var $PlpItem = $('.contents-page:eq(' + context.getAdaptCoById() + ')').find('.page-level-progress-item-title').get(index);
         if (context.isInViewport(item, viewportTop, viewportBottom)) {
+          $('.contents-page:eq(' + context.getAdaptCoById() + ')').find('.page-level-progress-item-title').removeClass('highlight');
           $($PlpItem).addClass('highlight');
-        } else {
-          $($PlpItem).removeClass('highlight');
+          console.log($PlpItem);
+          return;
         }
       });
     }, 100),
