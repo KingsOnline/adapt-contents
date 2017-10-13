@@ -9,7 +9,6 @@ define(function(require) {
     tagName: 'div',
 
     initialize: function() {
-      $(window).off('resize scroll');
       this.listenTo(Adapt, 'remove', this.remove);
       this.setupListeners();
       this.listenTo(Adapt, 'pageView:postRender', this.render);
@@ -17,6 +16,7 @@ define(function(require) {
         this.listenTo(Adapt, 'pageView:ready', this.scrollHandler);
         this.listenTo(Adapt, 'router:location', this.stopScrollListener);
       }
+      this.listenTo(Adapt, 'menuView:ready', this.offScrolllistener);
     },
 
     checkOverlayMode: function() {
@@ -25,15 +25,19 @@ define(function(require) {
 
     events: {
       'click .page-level-progress-item button': 'moveToComponent',
-      'click .contents-page-title': 'openAccordion'
+      'click .contents-page-title': 'accordionPressed'
     },
 
-    openAccordion: function(event) {
-      $('.contents-page').removeClass('active');
+    accordionPressed: function(event) {
       var $toggleButton = $(event.currentTarget);
       var $accordionItem = $toggleButton.parent('.contents-page');
-      var isCurrentlyExpanded = $toggleButton.hasClass('selected');
-      $accordionItem.addClass('active');
+      if($accordionItem.hasClass('active')) {
+        $accordionItem.find('.contents-page-entries').slideUp(500);
+        $accordionItem.removeClass('active');
+      } else {
+        $accordionItem.find('.contents-page-entries').slideDown(500);
+        $accordionItem.addClass('active');
+      }
     },
 
     setupListeners: function() {
@@ -75,7 +79,8 @@ define(function(require) {
         Adapt.trigger('contents:close');
       }
       this.populateContents();
-      $('.contents-page:eq(' + this.getAdaptCoById() + ')').addClass('current-page');
+      $('.contents-page:eq(' + this.getAdaptCoById() + ')').addClass('active');
+      $('.contents-page:eq(' + this.getAdaptCoById() + ')').find('.contents-page-entries').show();
       this.listenForCompletition();
     },
 
@@ -144,14 +149,14 @@ define(function(require) {
 
     updateCurrentLocation: _.throttle(function(context, entriesModels) {
       var viewportTop = $(window).scrollTop();
-      var viewportBottom = viewportTop + $(window).height();
-      _.each(entriesModels, function(item, index) {
+      var viewportBottom = viewportTop + $(window).height() - 200;
+      Adapt.log.debug(viewportTop, viewportBottom);
+      _.findLastIndex(entriesModels, function(item, index) {
         var $PlpItem = $('.contents-page:eq(' + context.getAdaptCoById() + ')').find('.page-level-progress-item-title').get(index);
         if (context.isInViewport(item, viewportTop, viewportBottom)) {
           $('.contents-page:eq(' + context.getAdaptCoById() + ')').find('.page-level-progress-item-title').removeClass('highlight');
           $($PlpItem).addClass('highlight');
-          console.log($PlpItem);
-          return;
+          return item;
         }
       });
     }, 100),
@@ -193,6 +198,11 @@ define(function(require) {
       $('body').addClass('toc-hide');
       $('#wrapper').off('click');
     }
+  });
+
+  Adapt.on('menuView:ready', function(){
+    console.log('init');
+    $(window).off('resize scroll');
   });
 
   return contentsView;
