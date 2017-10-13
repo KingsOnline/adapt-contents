@@ -149,7 +149,7 @@ define(function(require) {
 
     updateCurrentLocation: _.throttle(function(context, entriesModels) {
       var viewportTop = $(window).scrollTop();
-      var viewportBottom = viewportTop + $(window).height() - 200;
+      var viewportBottom = viewportTop + $(window).height() - 250;
       Adapt.log.debug(viewportTop, viewportBottom);
       _.findLastIndex(entriesModels, function(item, index) {
         var $PlpItem = $('.contents-page:eq(' + context.getAdaptCoById() + ')').find('.page-level-progress-item-title').get(index);
