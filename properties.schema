@@ -75,15 +75,22 @@
                 },
                 "_showArticleTitles": {
                   "type": "boolean",
-                  "required": true,
+                  "required": false,
                   "default": false,
                   "title": "Show Articles in the Contents list",
                   "inputType": "Checkbox"
                 },
                 "_showPagePosition": {
                   "type": "boolean",
-                  "required": true,
-                  "default": false,
+                  "required": false,
+                  "default": true,
+                  "title": "Highlight the Component/Article the learner is currently on",
+                  "inputType": "Checkbox"
+                },
+                "_courseNavigation": {
+                  "type": "boolean",
+                  "required": false,
+                  "default": true,
                   "title": "Highlight the Component/Article the learner is currently on",
                   "inputType": "Checkbox"
                 }
