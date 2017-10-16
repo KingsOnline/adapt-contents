@@ -2,6 +2,7 @@ define(function(require) {
 
   var Adapt = require('coreJS/adapt');
   var Backbone = require('backbone');
+  var circleProgress = require('libraries/circle-progress');
 
   var contentsView = Backbone.View.extend({
 
