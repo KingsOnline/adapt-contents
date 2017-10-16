@@ -3,6 +3,7 @@ define(function(require) {
   var Adapt = require('coreJS/adapt');
   var Backbone = require('backbone');
   var circleProgress = require('libraries/circle-progress');
+  var completionCalculations = require('./completionCalculations');
 
   var contentsView = Backbone.View.extend({
 
@@ -83,6 +84,21 @@ define(function(require) {
       $('.contents-page:eq(' + this.getAdaptCoById() + ')').addClass('active');
       $('.contents-page:eq(' + this.getAdaptCoById() + ')').find('.contents-page-entries').show();
       this.listenForCompletition();
+      this.drawProgressCircle();
+    },
+
+    drawProgressCircle: function() {
+      var pages = this.model.pages;
+      _.each(pages, function(page, index) {
+        var completion = completionCalculations.calculateCompletion(page.contentObject);
+        $('.contents-page-title-progress-outline:eq(' + index + ')').circleProgress({
+          value: completion.nonAssessmentCompleted / completion.nonAssessmentTotal,
+          size: 20,
+          fill: {
+            gradient: ["red", "orange"]
+          }
+        });
+      });
     },
 
     getEntriesModels: function(array, componentsOnly) {
@@ -144,7 +160,6 @@ define(function(require) {
       var context = this;
       var entriesModels = this.getEntriesModels(this.model.pages[this.getAdaptCoById()].contents, false);
       $(window).on('scroll.contents', function() {
-
         context.updateCurrentLocation(context, entriesModels);
       });
     },
