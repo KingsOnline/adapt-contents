@@ -32,10 +32,10 @@ define(function(require) {
       var $toggleButton = $(event.currentTarget);
       var $accordionItem = $toggleButton.parent('.contents-page');
       if($accordionItem.hasClass('active')) {
-        $accordionItem.find('.contents-page-entries').slideUp(500);
+        $accordionItem.find('.contents-page-entries').slideUp(300);
         $accordionItem.removeClass('active');
       } else {
-        $accordionItem.find('.contents-page-entries').slideDown(500);
+        $accordionItem.find('.contents-page-entries').slideDown(300);
         $accordionItem.addClass('active');
       }
     },
@@ -142,7 +142,8 @@ define(function(require) {
     scrollHandler: function() {
       var context = this;
       var entriesModels = this.getEntriesModels(this.model.pages[this.getAdaptCoById()].contents, false);
-      $(window).on('resize scroll', function() {
+      $(window).on('scroll.contents', function() {
+
         context.updateCurrentLocation(context, entriesModels);
       });
     },
@@ -150,7 +151,6 @@ define(function(require) {
     updateCurrentLocation: _.throttle(function(context, entriesModels) {
       var viewportTop = $(window).scrollTop();
       var viewportBottom = viewportTop + $(window).height() - 250;
-      Adapt.log.debug(viewportTop, viewportBottom);
       _.findLastIndex(entriesModels, function(item, index) {
         var $PlpItem = $('.contents-page:eq(' + context.getAdaptCoById() + ')').find('.page-level-progress-item-title').get(index);
         if (context.isInViewport(item, viewportTop, viewportBottom)) {
@@ -175,7 +175,7 @@ define(function(require) {
 
     stopScrollListener: function() {
       this.remove();
-      $(window).off('resize scroll');
+      $(window).off('scroll.contents');
     },
 
     checkDesktop: function() {
@@ -200,9 +200,8 @@ define(function(require) {
     }
   });
 
-  Adapt.on('menuView:ready', function(){
-    console.log('init');
-    $(window).off('resize scroll');
+  Adapt.on('router:page router:menu', function(){
+    $(window).off('scroll.contents');
   });
 
   return contentsView;
