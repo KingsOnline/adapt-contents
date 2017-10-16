@@ -136,7 +136,9 @@ define(function(require) {
         var $PlpItem = $('.contents-page:eq(' + context.getAdaptCoById() + ')').find('.page-level-progress-indicator').get(index);
         item.on("change", function() {
           if (item.hasChanged("_isComplete")) {
+            var completion = completionCalculations.calculateCompletion(context.model.pages[context.getAdaptCoById()].contentObject);
             $($PlpItem).removeClass('page-level-progress-indicator-incomplete').addClass('page-level-progress-indicator-complete');
+            $('.contents-page-title-progress-outline:eq(' + context.getAdaptCoById() + ')').circleProgress('value', completion.nonAssessmentCompleted / completion.nonAssessmentTotal);
             if (context.checkPageComplete(contentsModel)) {
               Adapt.trigger('contents:pageComplete');
             }
