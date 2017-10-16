@@ -31,7 +31,7 @@ define(function(require) {
     accordionPressed: function(event) {
       var $toggleButton = $(event.currentTarget);
       var $accordionItem = $toggleButton.parent('.contents-page');
-      if($accordionItem.hasClass('active')) {
+      if ($accordionItem.hasClass('active')) {
         $accordionItem.find('.contents-page-entries').slideUp(300);
         $accordionItem.removeClass('active');
       } else {
@@ -52,8 +52,8 @@ define(function(require) {
 
     getAdaptCoById: function() {
       var position = -1;
-      _.each(Adapt.contentObjects.models, function(co, i) {
-        if (co.attributes._id === Adapt.location._currentId) {
+      _.find(this.model.pages, function(co, i) {
+        if (co.contentObject.attributes._id === Adapt.location._currentId) {
           position = i;
           return;
         }
@@ -200,7 +200,7 @@ define(function(require) {
     }
   });
 
-  Adapt.on('router:page router:menu', function(){
+  Adapt.on('router:page router:menu', function() {
     $(window).off('scroll.contents');
   });
 

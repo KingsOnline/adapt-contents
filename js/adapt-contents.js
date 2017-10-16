@@ -63,11 +63,17 @@ define(function(require) {
       return;
     }
 
-    var contentObjects = Adapt.contentObjects.models;
+
+    var contentObjects = [];
+
+    if(Adapt.course.get('_contents')._courseNavigation) {
+      contentObjects = Adapt.contentObjects.models;
+    } else {
+      contentObjects.push(Adapt.contentObjects._byAdaptID[Adapt.location._currentId][0]);
+    }
     var contentsList = [];
 
     _.each(contentObjects, function(item, index) {
-
       var contents;
       var pageModel = item;
       var currentPageComponents = pageModel.findDescendants('components').where({
@@ -84,7 +90,7 @@ define(function(require) {
     });
 
     if (contentsList.length > 0) {
-      setupPageLevelProgress(contentObjects[0], contentsList);
+      setupPageLevelProgress(Adapt.contentObjects._byAdaptID[Adapt.location._currentId][0], contentsList);
     }
 
   });
