@@ -2,8 +2,8 @@ define(function(require) {
 
   var Adapt = require('coreJS/adapt');
   var Backbone = require('backbone');
-  var circleProgress = require('libraries/circle-progress');
   var completionCalculations = require('./completionCalculations');
+  var circleProgress = require('libraries/circle-progress');
 
   var contentsView = Backbone.View.extend({
 
@@ -84,17 +84,18 @@ define(function(require) {
       $('.contents-page:eq(' + this.getAdaptCoById() + ')').addClass('active');
       $('.contents-page:eq(' + this.getAdaptCoById() + ')').find('.contents-page-entries').show();
       this.listenForCompletition();
-      this.drawProgressCircle();
+      console.log(Adapt.course.get('_contents')._courseNavigation._circleProgress._isEnabled);
+      if (Adapt.course.get('_contents')._courseNavigation._circleProgress._isEnabled) {
+        this.drawProgressCircle();
+      }
     },
 
     drawProgressCircle: function() {
       var pages = this.model.pages;
       _.each(pages, function(page, index) {
         var completion = completionCalculations.calculateCompletion(page.contentObject);
-        $('.contents-page-title-progress-outline:eq(' + index + ')').circleProgress({
-          value: completion.nonAssessmentCompleted / completion.nonAssessmentTotal,
-          size: 20,
-          fill: Adapt.course.get('_contents')._courseNavigation._circleProgress._color
+        $('.contents-page-title-progress:eq(' + index + ')').circleProgress({
+          value: completion.nonAssessmentCompleted / completion.nonAssessmentTotal
         });
       });
     },
@@ -134,11 +135,18 @@ define(function(require) {
         var $PlpItem = $('.contents-page:eq(' + context.getAdaptCoById() + ')').find('.page-level-progress-indicator').get(index);
         item.on("change", function() {
           if (item.hasChanged("_isComplete")) {
-            var completion = completionCalculations.calculateCompletion(context.model.pages[context.getAdaptCoById()].contentObject);
             $($PlpItem).removeClass('page-level-progress-indicator-incomplete').addClass('page-level-progress-indicator-complete');
-            $('.contents-page-title-progress-outline:eq(' + context.getAdaptCoById() + ')').circleProgress('value', completion.nonAssessmentCompleted / completion.nonAssessmentTotal);
+
+            if (Adapt.course.get('_contents')._courseNavigation._circleProgress._isEnabled) {
+              var completion = completionCalculations.calculateCompletion(context.model.pages[context.getAdaptCoById()].contentObject);
+              $('.contents-page-title-progress:eq(' + context.getAdaptCoById() + ')').circleProgress('value', completion.nonAssessmentCompleted / completion.nonAssessmentTotal);
+            }
+
             if (context.checkPageComplete(contentsModel)) {
               Adapt.trigger('contents:pageComplete');
+                $('.contents-page-title-progress:eq(' + context.getAdaptCoById() + ')').circleProgress({
+                  thickness: 10
+                });
             }
           }
         });

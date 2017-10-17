@@ -3,14 +3,17 @@
     <div role="list">
       {{#each page}}
         <div class='contents-page'>
-          <button class='contents-page-title'>{{contentObject.attributes.title}}</button>
+          <button class='contents-page-title'>
+            <div class='contents-page-title-progress' data-size='20' data-thickness='2' data-fill='#F00' />
+            <div class='contents-page-title-inner'>{{contentObject.attributes.title}}</div>
+          </button>
           <div class='contents-page-entries'>
             {{#each contents}}
-            {{#with attributes}}
-              {{#if _isPartOfAssessment}}
-                <div role="listitem" class="page-level-progress-item drawer-item">
-                  {{#if _isVisible}}
-                    <button class="base page-level-progress-item-title clearfix drawer-item-open" tabindex="0" role="button" data-page-level-progress-id="{{_id}}" aria-label="{{title}} {{#if _isInteractionComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}">
+              {{#with attributes}}
+                {{#if _isPartOfAssessment}}
+                  <div role="listitem" class="page-level-progress-item drawer-item">
+                    {{#if _isVisible}}
+                      <button class="base page-level-progress-item-title clearfix drawer-item-open" tabindex="0" role="button" data-page-level-progress-id="{{_id}}" aria-label="{{title}} {{#if _isInteractionComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}">
                 {{else}}
                 <div class="page-level-progress-item-title drawer-item-open disabled clearfix">
                     <span class="aria-label prevent-default" tabindex="0" role="button">{{_globals._accessibility._ariaLabels.locked}}. {{title}} {{#if _isComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}</span>
@@ -37,9 +40,9 @@
                     {{/if}}
                 {{#if _isVisible}}
                 </button>
-                  {{else}}
-                </div>
-                {{/if}}
+                    {{else}}
+                  </div>
+                  {{/if}}
           </div>
           {{else}}
             <div role="listitem" class="page-level-progress-item drawer-item">
