@@ -94,9 +94,7 @@ define(function(require) {
         $('.contents-page-title-progress-outline:eq(' + index + ')').circleProgress({
           value: completion.nonAssessmentCompleted / completion.nonAssessmentTotal,
           size: 20,
-          fill: {
-            gradient: ["red", "orange"]
-          }
+          fill: Adapt.course.get('_contents')._courseNavigation._circleProgress._color
         });
       });
     },

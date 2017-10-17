@@ -44,6 +44,7 @@ Several elements of **Page Level Progress** have been assigned a label using the
 
 *   Do not use in combination with the Page-level-progress extension
 *   Requires Framework version 2.1.0 +
+*   The `_circleProgress` feature does not work on IE8 and has no fall back.
 
 ----------------------------
 **Version number:**  2.1.6   <a href="https://community.adaptlearning.org/" target="_blank"><img src="https://github.com/adaptlearning/documentation/blob/master/04_wiki_assets/plug-ins/images/adapt-logo-mrgn-lft.jpg" alt="adapt learning logo" align="right"></a>
