@@ -66,10 +66,10 @@ define(function(require) {
 
     var contentObjects = [];
 
-    if(Adapt.course.get('_contents')._courseNavigation) {
-      contentObjects = Adapt.contentObjects.models;
-    } else {
+    if (!Adapt.course.get('_contents')._courseNavigation || !Adapt.course.get('_contents')._courseNavigation._isEnabled) {
       contentObjects.push(Adapt.contentObjects._byAdaptID[Adapt.location._currentId][0]);
+    } else {
+      contentObjects = Adapt.contentObjects.models;
     }
     var contentsList = [];
 
@@ -86,7 +86,10 @@ define(function(require) {
       } else {
         contents = pageComponents;
       }
-      contentsList.push({"contentObject": contentObjects[index], "contents": contents});
+      contentsList.push({
+        "contentObject": contentObjects[index],
+        "contents": contents
+      });
     });
 
     if (contentsList.length > 0) {

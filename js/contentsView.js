@@ -84,7 +84,6 @@ define(function(require) {
       $('.contents-page:eq(' + this.getAdaptCoById() + ')').addClass('active');
       $('.contents-page:eq(' + this.getAdaptCoById() + ')').find('.contents-page-entries').show();
       this.listenForCompletition();
-      console.log(Adapt.course.get('_contents')._courseNavigation._circleProgress._isEnabled);
       if (Adapt.course.get('_contents')._courseNavigation._circleProgress._isEnabled) {
         this.drawProgressCircle();
       }
@@ -177,9 +176,9 @@ define(function(require) {
       var viewportTop = $(window).scrollTop();
       var viewportBottom = viewportTop + $(window).height() - 250;
       _.findLastIndex(entriesModels, function(item, index) {
-        var $PlpItem = $('.contents-page:eq(' + context.getAdaptCoById() + ')').find('.page-level-progress-item-title').get(index);
+        var $PlpItem = $('.contents-page:eq(' + context.getAdaptCoById() + ')').find('.contents-item-title').get(index);
         if (context.isInViewport(item, viewportTop, viewportBottom)) {
-          $('.contents-page:eq(' + context.getAdaptCoById() + ')').find('.page-level-progress-item-title').removeClass('highlight');
+          $('.contents-page:eq(' + context.getAdaptCoById() + ')').find('.contents-item-title').removeClass('highlight');
           $($PlpItem).addClass('highlight');
           return item;
         }
