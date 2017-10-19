@@ -116,7 +116,7 @@
                           "default": "#FFF",
                           "title": "icon color",
                           "help": "this attribute can be overriden by a custom .hbs in the theme.",
-                          "inputType": "text"
+                          "inputType": "Text"
                         }
                       }
                     }
