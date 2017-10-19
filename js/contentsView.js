@@ -98,7 +98,9 @@ define(function(require) {
         });
         if (completion.nonAssessmentCompleted / completion.nonAssessmentTotal == 1) {
           var fill = $('.contents-page-title-progress:eq(' + index + ')').data('circle-progress').size / 2;
-          $('.contents-page-title-progress:eq(' + index + ')').circleProgress({"thickness": fill});
+          $('.contents-page-title-progress:eq(' + index + ')').circleProgress({
+            "thickness": fill
+          });
         }
       });
     },
@@ -133,23 +135,29 @@ define(function(require) {
 
     listenForCompletition: function() {
       var context = this;
+      var coNumber = context.getAdaptCoById();
       var contentsModel = this.model.pages[this.getAdaptCoById()].contents;
+      var circleProgress = Adapt.course.get('_contents')._courseNavigation._isEnabled && Adapt.course.get('_contents')._courseNavigation._circleProgress._isEnabled;
       contentsModel = this.filterComponents(contentsModel);
       _.each(contentsModel, function(item, index) {
-        var $PlpItem = $('.contents-page:eq(' + context.getAdaptCoById() + ')').find('.contents-progress-indicator').get(index);
+        var $PlpItem = $('.contents-page:eq(' + coNumber + ')').find('.contents-progress-indicator').get(index);
         item.on("change", function() {
           if (item.hasChanged("_isComplete")) {
             $($PlpItem).removeClass('contents-progress-indicator-incomplete').addClass('contents-progress-indicator-complete');
 
-            if (Adapt.course.get('_contents')._courseNavigation._circleProgress._isEnabled) {
-              var completion = completionCalculations.calculateCompletion(context.model.pages[context.getAdaptCoById()].contentObject);
-              $('.contents-page-title-progress:eq(' + context.getAdaptCoById() + ')').circleProgress('value', completion.nonAssessmentCompleted / completion.nonAssessmentTotal);
+            if (circleProgress) {
+              var completion = completionCalculations.calculateCompletion(context.model.pages[coNumber].contentObject);
+              $('.contents-page-title-progress:eq(' + coNumber + ')').circleProgress('value', completion.nonAssessmentCompleted / completion.nonAssessmentTotal);
             }
 
             if (context.checkPageComplete(contentsModel)) {
               Adapt.trigger('contents:pageComplete');
-              var fill = $('.contents-page-title-progress:eq(' + context.getAdaptCoById() + ')').data('circle-progress').size / 2;
-              $('.contents-page-title-progress:eq(' + context.getAdaptCoById() + ')').circleProgress({"thickness": fill});
+              if (circleProgress) {
+                var fill = $('.contents-page-title-progress:eq(' + coNumber + ')').data('circle-progress').size / 2;
+                $('.contents-page-title-progress:eq(' + coNumber + ')').circleProgress({
+                  "thickness": fill
+                });
+              }
             }
           }
         });
@@ -177,7 +185,7 @@ define(function(require) {
 
     updateCurrentLocation: _.throttle(function(context, entriesModels) {
       var viewportTop = $(window).scrollTop();
-      var viewportBottom = viewportTop + $(window).height() - 250;
+      var viewportBottom = viewportTop + $(window).height() - (Adapt.device.screenHeight / 3); // approximates what the learner is currently looking at
       _.findLastIndex(entriesModels, function(item, index) {
         var $PlpItem = $('.contents-page:eq(' + context.getAdaptCoById() + ')').find('.contents-item-title').get(index);
         if (context.isInViewport(item, viewportTop, viewportBottom)) {
