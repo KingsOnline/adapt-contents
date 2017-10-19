@@ -122,6 +122,7 @@ define(function(require) {
       var plpTemplate = Handlebars.templates.contents;
       var context = this;
       $('html').find('body').append(this.$el.html(plpTemplate({
+        'settings': Adapt.course.get('_contents'),
         'page': this.model.pages,
         '_globals': this.model._globals
       })));
@@ -132,10 +133,10 @@ define(function(require) {
       var contentsModel = this.model.pages[this.getAdaptCoById()].contents;
       contentsModel = this.filterComponents(contentsModel);
       _.each(contentsModel, function(item, index) {
-        var $PlpItem = $('.contents-page:eq(' + context.getAdaptCoById() + ')').find('.page-level-progress-indicator').get(index);
+        var $PlpItem = $('.contents-page:eq(' + context.getAdaptCoById() + ')').find('.contents-progress-indicator').get(index);
         item.on("change", function() {
           if (item.hasChanged("_isComplete")) {
-            $($PlpItem).removeClass('page-level-progress-indicator-incomplete').addClass('page-level-progress-indicator-complete');
+            $($PlpItem).removeClass('contents-progress-indicator-incomplete').addClass('contents-progress-indicator-complete');
 
             if (Adapt.course.get('_contents')._courseNavigation._circleProgress._isEnabled) {
               var completion = completionCalculations.calculateCompletion(context.model.pages[context.getAdaptCoById()].contentObject);
