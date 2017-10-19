@@ -16,22 +16,22 @@
                 <div class="contents-item-title drawer-item-open disabled clearfix">
                     <span class="aria-label prevent-default" tabindex="0" role="button">{{_globals._accessibility._ariaLabels.locked}}. {{title}} {{#if _isComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}</span>
                 {{/if}}
-                    <div class="page-level-progress-item-title-inner accessible-text-block h5">
+                    <div class="contents-item-title-inner accessible-text-block h5">
                     {{{title}}}
                     </div>
                     {{#if _isInteractionComplete}}
-                        <div class="page-level-progress-indicator page-level-progress-indicator-{{#if _isInteractionComplete}}complete{{else}}incomplete{{/if}}">
-                            <div class="page-level-progress-indicator-bar">
+                        <div class="contents-indicator contents-indicator-{{#if _isInteractionComplete}}complete{{else}}incomplete{{/if}}">
+                            <div class="contents-indicator-bar">
                             </div>
                         </div>
                     {{else}}
                         {{#if _isOptional}}
-                            <div class="page-level-progress-item-optional-text">
+                            <div class="contents-item-optional-text">
                             {{_globals._extensions._contents.optionalContent}}
                             </div>
                         {{else}}
-                            <div class="page-level-progress-indicator page-level-progress-indicator-{{#if _isInteractionComplete}}complete{{else}}incomplete{{/if}}">
-                                <div class="page-level-progress-indicator-bar">
+                            <div class="contents-indicator contents-indicator-{{#if _isInteractionComplete}}complete{{else}}incomplete{{/if}}">
+                                <div class="contents-indicator-bar">
                                 </div>
                             </div>
                         {{/if}}
@@ -52,23 +52,23 @@
                 <div class="contents-item-title drawer-item-open disabled clearfix">
                     <span class="aria-label prevent-default" tabindex="0" role="button">{{_globals._accessibility._ariaLabels.locked}}. {{title}} {{#if _isComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}</span>
                 {{/if}}
-                    <div class="page-level-progress-item-title-inner accessible-text-block h5">
+                    <div class="contents-item-title-inner accessible-text-block h5">
                     {{{title}}}
                     </div>
                     {{#equals _type 'component'}}
                     {{#if _isComplete}}
-                        <div class="page-level-progress-indicator page-level-progress-indicator-{{#if _isComplete}}complete{{else}}incomplete{{/if}}">
-                            <div class="page-level-progress-indicator-bar">
+                        <div class="contents-indicator contents-indicator-{{#if _isComplete}}complete{{else}}incomplete{{/if}}">
+                            <div class="contents-indicator-bar">
                             </div>
                         </div>
                     {{else}}
                         {{#if _isOptional}}
-                            <div class="page-level-progress-item-optional-text">
+                            <div class="contents-item-optional-text">
                             {{_globals._extensions._contents.optionalContent}}
                             </div>
                         {{else}}
-                            <div class="page-level-progress-indicator page-level-progress-indicator-{{#if _isComplete}}complete{{else}}incomplete{{/if}}">
-                                <div class="page-level-progress-indicator-bar">
+                            <div class="contents-indicator contents-indicator-{{#if _isComplete}}complete{{else}}incomplete{{/if}}">
+                                <div class="contents-indicator-bar">
                                 </div>
                             </div>
                         {{/if}}
