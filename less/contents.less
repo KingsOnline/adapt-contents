@@ -41,6 +41,8 @@ body.toc-hide {
 }
 
 .contents-page {
+  border: 3px solid @navigation-color;
+  border-width: 0 0 3px;
   .contents-page-entries {
     display: none;
   }
@@ -50,6 +52,19 @@ body.toc-hide {
       display: block;
     }
   }
+  .contents-page-title {
+    border: 1px solid @navigation-color;
+    width: 100%;
+    .contents-page-title-progress {
+      float: left;
+    }
+    .contents-page-title-inner {
+      width: 85%;
+      margin-left: 35px;
+      text-align: left;
+    }
+  }
+
 }
 
 .contents {
