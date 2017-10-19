@@ -96,6 +96,10 @@ define(function(require) {
         $('.contents-page-title-progress:eq(' + index + ')').circleProgress({
           value: completion.nonAssessmentCompleted / completion.nonAssessmentTotal
         });
+        if (completion.nonAssessmentCompleted / completion.nonAssessmentTotal == 1) {
+          var fill = $('.contents-page-title-progress:eq(' + index + ')').data('circle-progress').size / 2;
+          $('.contents-page-title-progress:eq(' + index + ')').circleProgress({"thickness": fill});
+        }
       });
     },
 
@@ -144,9 +148,8 @@ define(function(require) {
 
             if (context.checkPageComplete(contentsModel)) {
               Adapt.trigger('contents:pageComplete');
-                $('.contents-page-title-progress:eq(' + context.getAdaptCoById() + ')').circleProgress({
-                  thickness: 10
-                });
+              var fill = $('.contents-page-title-progress:eq(' + context.getAdaptCoById() + ')').data('circle-progress').size / 2;
+              $('.contents-page-title-progress:eq(' + context.getAdaptCoById() + ')').circleProgress({"thickness": fill});
             }
           }
         });
