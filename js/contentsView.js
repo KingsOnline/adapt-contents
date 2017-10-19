@@ -26,7 +26,7 @@ define(function(require) {
     },
 
     events: {
-      'click .page-level-progress-item button': 'moveToComponent',
+      'click .contents-item button': 'moveToComponent',
       'click .contents-page-title': 'accordionPressed'
     },
 
