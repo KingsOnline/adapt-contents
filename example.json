@@ -1,9 +1,17 @@
 // To go on a course
 
 "_contents": {
-  "_isEnabled": true,
-  "_showArticleTitles": false,
-  "_showPagePosition": false,
+    "_isEnabled": true,
+    "_showArticleTitles": false,
+    "_showPagePosition": true,
+    "_courseNavigation": {
+      "_isEnabled": true,
+      "_circleProgress": {
+        "_isEnabled": true,
+        "_color": "#FFF"
+      }
+    },
+    "_altText": "of components completed on this page."
 }
 
 // To go on a component
