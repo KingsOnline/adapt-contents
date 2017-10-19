@@ -99,81 +99,82 @@
                       "inputType": "Checkbox"
                     },
                     "_circleProgress": {
-                    "type": "object",
-                    "required": false,
-                    "legend": "Page completion progress",
-                    "properties": {
-                      "_isEnabled": {
-                        "type": "boolean",
-                        "required": false,
-                        "default": true,
-                        "title": "Uses a filling circle to show the progress of the page",
-                        "inputType": "Checkbox"
-                      },
-                      "_color": {
-                        "type": "string",
-                        "required": false,
-                        "default": "#FFF",
-                        "title": "icon color",
-                        "help": "this attribute can be overriden by a custom .hbs in the theme.",
-                        "inputType": "text"
+                      "type": "object",
+                      "required": false,
+                      "legend": "Page completion progress",
+                      "properties": {
+                        "_isEnabled": {
+                          "type": "boolean",
+                          "required": false,
+                          "default": true,
+                          "title": "Uses a filling circle to show the progress of the page",
+                          "inputType": "Checkbox"
+                        },
+                        "_color": {
+                          "type": "string",
+                          "required": false,
+                          "default": "#FFF",
+                          "title": "icon color",
+                          "help": "this attribute can be overriden by a custom .hbs in the theme.",
+                          "inputType": "text"
+                        }
                       }
                     }
                   }
                 }
               }
             }
-          },
-          "contentobject": {
-            "type": "object",
-            "properties": {
-              "_contents": {
-                "type": "object",
-                "required": false,
-                "legend": "Contents",
-                "properties": {
-                  "_isEnabled": {
-                    "type": "boolean",
-                    "required": true,
-                    "default": true,
-                    "title": "Is enabled",
-                    "inputType": {
-                      "type": "Boolean",
-                      "options": [true, false]
-                    },
-                    "validators": [],
-                    "help": "If set to 'true', a progress bar will be displayed"
-                  }
+          }
+        },
+        "contentobject": {
+          "type": "object",
+          "properties": {
+            "_contents": {
+              "type": "object",
+              "required": false,
+              "legend": "Contents",
+              "properties": {
+                "_isEnabled": {
+                  "type": "boolean",
+                  "required": true,
+                  "default": true,
+                  "title": "Is enabled",
+                  "inputType": {
+                    "type": "Boolean",
+                    "options": [true, false]
+                  },
+                  "validators": [],
+                  "help": "If set to 'true', a progress bar will be displayed"
                 }
               }
             }
-          },
-          "article": {
-            "type": "object"
-          },
-          "block": {
-            "type": "object"
-          },
-          "component": {
-            "type": "object",
-            "properties": {
-              "_contents": {
-                "type": "object",
-                "required": false,
-                "legend": "Contents",
-                "properties": {
-                  "_isEnabled": {
-                    "type": "boolean",
-                    "required": true,
-                    "default": true,
-                    "title": "Is enabled",
-                    "inputType": {
-                      "type": "Boolean",
-                      "options": [true, false]
-                    },
-                    "validators": [],
-                    "help": "If set to 'true', this component will be tracked by Contents"
-                  }
+          }
+        },
+        "article": {
+          "type": "object"
+        },
+        "block": {
+          "type": "object"
+        },
+        "component": {
+          "type": "object",
+          "properties": {
+            "_contents": {
+              "type": "object",
+              "required": false,
+              "legend": "Contents",
+              "properties": {
+                "_isEnabled": {
+                  "type": "boolean",
+                  "required": true,
+                  "default": true,
+                  "title": "Is enabled",
+                  "inputType": {
+                    "type": "Boolean",
+                    "options": [true, false]
+                  },
+                  "validators": [],
+                  "help": "If set to 'true', this component will be tracked by Contents"
                 }
               }
             }
@@ -182,3 +183,4 @@
       }
     }
   }
+}
