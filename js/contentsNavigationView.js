@@ -43,6 +43,7 @@ define(function(require) {
       event.preventDefault();
       if ($('body').hasClass('toc-hide')) {
         Adapt.trigger('contents:open');
+        Adapt.trigger('sideView:close');
       } else {
         Adapt.trigger('contents:close');
       }
