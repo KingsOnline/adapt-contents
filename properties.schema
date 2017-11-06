@@ -63,14 +63,10 @@
               "properties": {
                 "_isEnabled": {
                   "type": "boolean",
-                  "required": true,
+                  "required": false,
                   "default": true,
-                  "title": "Is enabled",
-                  "inputType": {
-                    "type": "Boolean",
-                    "options": [true, false]
-                  },
-                  "help": "If set to 'false', Contents will be disabled on all components, pages, and menus"
+                  "title": "Enable Contents",
+                  "inputType": "Checkbox"
                 },
                 "_showArticleTitles": {
                   "type": "boolean",
