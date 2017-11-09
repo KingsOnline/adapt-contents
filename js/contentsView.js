@@ -201,7 +201,7 @@ define(function(require) {
       if (entry._type == 'article') {
         $div = $('.' + entry._id);
       } else {
-        $div = $('.' + entry._id).find('.component-body');
+        $div = $('.' + entry._id).find('.component-inner');
       }
       var elementTop = $($div).offset().top;
       var elementBottom = elementTop + $($div).outerHeight();
