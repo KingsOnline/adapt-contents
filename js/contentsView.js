@@ -203,7 +203,6 @@ define(function(require) {
       } else {
         $div = $('.' + entry._id).find('.component-body');
       }
-      console.log($($div));
       var elementTop = $($div).offset().top;
       var elementBottom = elementTop + $($div).outerHeight();
       return elementBottom > viewportTop && elementTop < viewportBottom;
