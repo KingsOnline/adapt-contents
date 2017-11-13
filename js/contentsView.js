@@ -133,7 +133,7 @@ define(function(require) {
     populateContents: function() {
       var plpTemplate;
       if(Adapt.course.get('_contents')._courseNavigation._landingPage) {
-        plpTemplate = Handlebars.templates.contentslandingPage;
+        plpTemplate = Handlebars.templates.contentsLandingPage;
       } else {
         plpTemplate = Handlebars.templates.contents;
       }
