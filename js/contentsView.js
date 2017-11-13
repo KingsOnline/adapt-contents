@@ -232,7 +232,7 @@ define(function(require) {
     },
 
     openContents: function() {
-      $('body').removeClass('toc-hide');
+      $('body').removeClass('contents-hide');
       var overlayMode = this.overlayMode;
       $('#wrapper').on('click', function() {
         if (overlayMode) {
@@ -242,7 +242,7 @@ define(function(require) {
     },
 
     closeContents: function() {
-      $('body').addClass('toc-hide');
+      $('body').addClass('contents-hide');
       $('#wrapper').off('click');
     }
   });

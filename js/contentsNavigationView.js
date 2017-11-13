@@ -41,7 +41,7 @@ define(function(require) {
 
     onContentsClicked: function(event) {
       event.preventDefault();
-      if ($('body').hasClass('toc-hide')) {
+      if ($('body').hasClass('contents-hide')) {
         Adapt.trigger('contents:open');
         Adapt.trigger('sideView:close');
       } else {
