@@ -79,7 +79,8 @@
                   "type": "boolean",
                   "required": false,
                   "default": true,
-                  "title": "Highlight the Component/Article the learner is currently on",
+                  "title": "Show learners position",
+                  "help": "Highlights the current component the learner is currently on.",
                   "inputType": "Checkbox"
                 },
                 "_courseNavigation": {
@@ -91,7 +92,16 @@
                       "type": "boolean",
                       "required": false,
                       "default": true,
-                      "title": "Show every page in the contents list",
+                      "title": "Enable whole course navigation",
+                      "help": "shows every component in an accordion format",
+                      "inputType": "Checkbox"
+                    },
+                    "_landingPage": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": true,
+                      "title": "Use landing page",
+                      "help": "The first accordion tab will replaced with a button to the first page",
                       "inputType": "Checkbox"
                     },
                     "_circleProgress": {
@@ -111,7 +121,7 @@
                           "required": false,
                           "default": "#FFF",
                           "title": "icon color",
-                          "help": "this attribute can be overriden by a custom .hbs in the theme.",
+                          "help": "this attribute can be overriden by a custom .hbs in the theme",
                           "inputType": "Text"
                         }
                       }
