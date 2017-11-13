@@ -1,0 +1,105 @@
+<div class="contents-inner" role="region" aria-label="contents">
+  {{#each page}}
+    <div class='contents-page'>
+    {{#compare @index '==' 0}}
+    <button class='contents-landing-page-title'>
+      <div class='contents-landing-page-title-inner'>{{contentObject.attributes.title}}</div>
+    </button>
+    {{/compare}}
+    {{#compare @index '>=' '1'}}
+      {{#if ../settings._courseNavigation._isEnabled}}
+        <button class='contents-page-title'>
+      <div class='contents-page-title-progress' data-size='18' data-thickness='2' data-fill="{
+       &quot;color&quot;: &quot;{{../settings._courseNavigation._circleProgress._color}}&quot;}"/>
+      <div class='contents-page-title-inner'>{{contentObject.attributes.title}}</div>
+      <div class='contents-page-title-arrow'>
+        <div class='left-arrow' />
+        <div class='right-arrow' />
+      </div>
+    </button>
+        <div class='contents-page-entries'>
+      {{/if}}
+      {{#each contents}}
+        {{#with attributes}}
+          {{#if _isPartOfAssessment}}
+            <div role="listitem" class="contents-item drawer-item">
+              {{#if _isVisible}}
+                <button class="base contents-item-title clearfix" tabindex="0" role="button" data-page-level-progress-id="{{_id}}" aria-label="{{title}} {{#if _isInteractionComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}">
+                {{else}}
+                <div class="contents-item-title disabled clearfix">
+                    <span class="aria-label prevent-default" tabindex="0" role="button">{{_globals._accessibility._ariaLabels.locked}}. {{title}} {{#if _isComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}</span>
+                {{/if}}
+
+                    {{#if _isInteractionComplete}}
+                        <div class="contents-progress-indicator contents-progress-indicator-{{#if _isInteractionComplete}}complete{{else}}incomplete{{/if}}">
+                            <div class="contents-progress-indicator-bar">
+                            </div>
+                        </div>
+                    {{else}}
+                        {{#if _isOptional}}
+                            <div class="contents-item-optional-text">
+                            {{_globals._extensions._contents.optionalContent}}
+                            </div>
+                        {{else}}
+                            <div class="contents-progress-indicator contents-progress-indicator-{{#if _isInteractionComplete}}complete{{else}}incomplete{{/if}}">
+                                <div class="contents-progress-indicator-bar">
+                                </div>
+                            </div>
+                        {{/if}}
+                    {{/if}}
+                    <div class="contents-item-title-inner accessible-text-block h5">
+                    {{{title}}}
+                    </div>
+                {{#if _isVisible}}
+                </button>
+              {{else}}
+            </div>
+            {{/if}}
+            </div>
+          {{else}}
+            <div role="listitem" class="contents-item drawer-item">
+              {{#if _isVisible}}
+
+                <button class="base contents-item-title {{#equals _type 'article'}}contents-article-title {{/equals}}{{#equals _type 'component'}}contents-component-title {{/equals}}clearfix " tabindex="0" role="button" data-page-level-progress-id="{{_id}}"
+                  aria-label="{{title}} {{#if _isComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}">
+                {{else}}
+                <div class="contents-item-title disabled clearfix">
+                    <span class="aria-label prevent-default" tabindex="0" role="button">{{_globals._accessibility._ariaLabels.locked}}. {{title}} {{#if _isComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}</span>
+                {{/if}}
+                    {{#equals _type 'component'}}
+                    {{#if _isComplete}}
+                        <div class="contents-progress-indicator contents-progress-indicator-{{#if _isComplete}}complete{{else}}incomplete{{/if}}">
+                            <div class="contents-progress-indicator-bar">
+                            </div>
+                        </div>
+                    {{else}}
+                        {{#if _isOptional}}
+                            <div class="contents-item-optional-text">
+                            {{_globals._extensions._contents.optionalContent}}
+                            </div>
+                        {{else}}
+                            <div class="contents-progress-indicator contents-progress-indicator-{{#if _isComplete}}complete{{else}}incomplete{{/if}}">
+                                <div class="contents-progress-indicator-bar">
+                                </div>
+                            </div>
+                        {{/if}}
+                    {{/if}}
+                    {{/equals}}
+                    <div class="contents-item-title-inner accessible-text-block h5">
+                    {{{title}}}
+                    </div>
+                {{#if _isVisible}}
+                </button>
+              {{else}}
+            </div>
+            {{/if}}
+          </div>
+      {{/if}}
+    {{/with}}
+    {{/each}}
+{{/compare}}
+</div>
+</div>
+{{/each}}
+<div class="aria-label a11y-ignore-focus prevent-default" tabindex="0" aria-label="{{_globals._extensions._contents.pageLevelProgressEnd}}" />
+</div>

@@ -27,7 +27,14 @@ define(function(require) {
 
     events: {
       'click .contents-item button': 'moveToComponent',
+      'click .contents-landing-page-title': 'goToLandingPage',
       'click .contents-page-title': 'accordionPressed'
+    },
+
+    goToLandingPage: function(event) {
+      Adapt.navigateToElement(Adapt.contentObjects.models[0].get('_id'), {
+        duration: 400
+      });
     },
 
     accordionPressed: function(event) {
@@ -124,7 +131,12 @@ define(function(require) {
     },
 
     populateContents: function() {
-      var plpTemplate = Handlebars.templates.contents;
+      var plpTemplate;
+      if(Adapt.course.get('_contents')._courseNavigation._landingPage) {
+        plpTemplate = Handlebars.templates.contentslandingPage;
+      } else {
+        plpTemplate = Handlebars.templates.contents;
+      }
       var context = this;
       $('html').find('body').append(this.$el.html(plpTemplate({
         'settings': Adapt.course.get('_contents'),

@@ -6,6 +6,7 @@
     "_showPagePosition": true,
     "_courseNavigation": {
       "_isEnabled": true,
+      "_landingPage": true,
       "_circleProgress": {
         "_isEnabled": true,
         "_color": "#FFF"
