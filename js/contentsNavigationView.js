@@ -9,7 +9,7 @@ define(function(require) {
 
     tagName: 'button',
 
-    className: 'base contents-navigation',
+    className: 'base contents-navigation contents-navigation-icon icon icon-menu',
 
     initialize: function() {
       this.listenTo(Adapt, 'remove', this.remove);
