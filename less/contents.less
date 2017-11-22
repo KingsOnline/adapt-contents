@@ -1,6 +1,6 @@
 .contents {
   .transition-time(1s);
-  width: 230px;
+  width: 280px;
   height: calc(~'100% - 64px');
   top: (@navigation-padding * 2) + @icon-size;
   position: fixed;
@@ -12,7 +12,7 @@
 
 body.contents-hide {
   .contents {
-    margin-left: -230px;
+    margin-left: -280px;
     .transition-time(1s);
   }
 
@@ -23,8 +23,8 @@ body.contents-hide {
 }
 
 #wrapper {
-  width: calc(~'100% - 230px') !important;
-  margin-left: 230px !important;
+  width: calc(~'100% - 280px') !important;
+  margin-left: 280px !important;
 }
 @media all and (max-width:(1130px)) {
   #wrapper {
@@ -329,8 +329,17 @@ button.contents-navigation.base {
 }
 
 .trickle-button-inner {
-  left: 230px !important;
-  width: calc(~'100% - 230px') !important;
+  left: 280px !important;
+  width: calc(~'100% - 280px') !important;
+  .transition-time(1s);
+}
+
+.contents-hide {
+  .trickle-button-inner {
+    left: 0 !important;
+    width: 100% !important;
+    .transition-time(1s);
+  }
 }
 
 .transition-time(@time) {
