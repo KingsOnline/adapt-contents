@@ -28,13 +28,24 @@ define(function(require) {
     events: {
       'click .contents-item button': 'moveToComponent',
       'click .contents-landing-page-title': 'goToLandingPage',
-      'click .contents-page-title': 'accordionPressed'
+      'click .contents-page-title': 'pageTitlePressed'
     },
 
     goToLandingPage: function(event) {
       Adapt.navigateToElement(Adapt.contentObjects.models[0].get('_id'), {
         duration: 400
       });
+    },
+
+    pageTitlePressed: function(event) {
+      if(Adapt.course.get('_contents')._courseNavigation._allAccordions) {
+        this.accordionPressed(event);
+      } else {
+        Adapt.navigateToElement($(event.currentTarget)[0].dataset.pageId, {
+          duration: 400
+        });
+      }
+
     },
 
     accordionPressed: function(event) {
