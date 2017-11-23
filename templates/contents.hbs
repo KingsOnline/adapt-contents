@@ -2,15 +2,12 @@
   {{#each page}}
     <div class='contents-page'>
       {{#if ../settings._courseNavigation._isEnabled}}
-        <button class='contents-page-title'>
-      <div class='contents-page-title-progress' data-size='18' data-thickness='2' data-fill="{
-       &quot;color&quot;: &quot;{{../settings._courseNavigation._circleProgress._color}}&quot;}"/>
-      <div class='contents-page-title-inner'>{{contentObject.attributes.title}}</div>
-      <div class='contents-page-title-arrow'>
-        <div class='left-arrow' />
-        <div class='right-arrow' />
-      </div>
-    </button>
+        <button class='contents-page-title' data-page-id="{{contentObject.attributes._id}}">
+            <div class='contents-page-title-progress' data-size='18' data-thickness='2' data-fill="{
+          &quot;color&quot;: &quot;#fc5e72&quot;
+          }" />
+            <div class='contents-page-title-inner'>{{contentObject.attributes.title}}</div>
+          </button>
         <div class='contents-page-entries'>
       {{/if}}
       {{#each contents}}
@@ -18,15 +15,15 @@
           {{#if _isPartOfAssessment}}
             <div role="listitem" class="contents-item drawer-item">
               {{#if _isVisible}}
-                <button class="base contents-item-title clearfix" tabindex="0" role="button" data-page-level-progress-id="{{_id}}" aria-label="{{title}} {{#if _isInteractionComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}">
+                <button class="base contents-item-title clearfix drawer-item-open" tabindex="0" role="button" data-page-level-progress-id="{{_id}}" aria-label="{{title}} {{#if _isInteractionComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}">
                 {{else}}
-                <div class="contents-item-title disabled clearfix">
+                <div class="contents-item-title drawer-item-open disabled clearfix">
                     <span class="aria-label prevent-default" tabindex="0" role="button">{{_globals._accessibility._ariaLabels.locked}}. {{title}} {{#if _isComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}</span>
                 {{/if}}
 
                     {{#if _isInteractionComplete}}
                         <div class="contents-progress-indicator contents-progress-indicator-{{#if _isInteractionComplete}}complete{{else}}incomplete{{/if}}">
-                            <div class="contents-progress-indicator-bar">
+                            <div class="contents-indicator-bar">
                             </div>
                         </div>
                     {{else}}
@@ -36,7 +33,7 @@
                             </div>
                         {{else}}
                             <div class="contents-progress-indicator contents-progress-indicator-{{#if _isInteractionComplete}}complete{{else}}incomplete{{/if}}">
-                                <div class="contents-progress-indicator-bar">
+                                <div class="contents-indicator-bar">
                                 </div>
                             </div>
                         {{/if}}
@@ -53,18 +50,16 @@
           {{else}}
             <div role="listitem" class="contents-item drawer-item">
               {{#if _isVisible}}
-
-                <button class="base contents-item-title {{#equals _type 'article'}}contents-article-title {{/equals}}{{#equals _type 'component'}}contents-component-title {{/equals}}clearfix " tabindex="0" role="button" data-page-level-progress-id="{{_id}}"
+                <button class="base contents-item-title {{#equals _type 'article'}}contents-article-title {{/equals}}{{#equals _type 'component'}}contents-component-title {{/equals}}clearfix drawer-item-open" tabindex="0" role="button" data-page-level-progress-id="{{_id}}"
                   aria-label="{{title}} {{#if _isComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}">
                 {{else}}
-                <div class="contents-item-title disabled clearfix">
+                <div class="contents-item-title drawer-item-open disabled clearfix">
                     <span class="aria-label prevent-default" tabindex="0" role="button">{{_globals._accessibility._ariaLabels.locked}}. {{title}} {{#if _isComplete}}{{_globals._accessibility._ariaLabels.complete}}{{else}}{{_globals._accessibility._ariaLabels.incomplete}}{{/if}}</span>
                 {{/if}}
                     {{#equals _type 'component'}}
                     {{#if _isComplete}}
                         <div class="contents-progress-indicator contents-progress-indicator-{{#if _isComplete}}complete{{else}}incomplete{{/if}}">
-                            <div class="contents-progress-indicator-bar">
-                            </div>
+                          <div class="contents-indicator-bar"></div>
                         </div>
                     {{else}}
                         {{#if _isOptional}}
@@ -72,9 +67,8 @@
                             {{_globals._extensions._contents.optionalContent}}
                             </div>
                         {{else}}
-                            <div class="contents-progress-indicator contents-progress-indicator-{{#if _isComplete}}complete{{else}}incomplete{{/if}}">
-                                <div class="contents-progress-indicator-bar">
-                                </div>
+                              <div class="contents-progress-indicator contents-progress-indicator-{{#if _isComplete}}complete{{else}}incomplete{{/if}}">
+                              <div class="contents-indicator-bar"></div>
                             </div>
                         {{/if}}
                     {{/if}}
@@ -91,8 +85,11 @@
     {{/if}}
     {{/with}}
     {{/each}}
+    {{#if ../settings._courseNavigation._isEnabled}}
 </div>
+{{/if}}
 </div>
 {{/each}}
+
 <div class="aria-label a11y-ignore-focus prevent-default" tabindex="0" aria-label="{{_globals._extensions._contents.pageLevelProgressEnd}}" />
 </div>

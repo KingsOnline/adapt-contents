@@ -1,22 +1,18 @@
 <div class="contents-inner" role="region" aria-label="contents">
   {{#each page}}
-    <div class='contents-page'>
+    <div class='contents-page' data-page-id="{{contentObject.attributes._id}}">
     {{#compare @index '==' 0}}
     <button class='contents-landing-page-title'>
       <div class='contents-landing-page-title-inner'>{{contentObject.attributes.title}}</div>
     </button>
     {{/compare}}
     {{#compare @index '>=' '1'}}
-      {{#if ../settings._courseNavigation._isEnabled}}
-        <button class='contents-page-title'>
-      <div class='contents-page-title-progress' data-size='18' data-thickness='2' data-fill="{
-       &quot;color&quot;: &quot;{{../settings._courseNavigation._circleProgress._color}}&quot;}"/>
-      <div class='contents-page-title-inner'>{{contentObject.attributes.title}}</div>
-      <div class='contents-page-title-arrow'>
-        <div class='left-arrow' />
-        <div class='right-arrow' />
-      </div>
-    </button>
+    {{#if ../settings._courseNavigation._isEnabled}}
+      <button class='contents-page-title'>
+        <div class='contents-page-title-progress' data-size='18' data-thickness='2' data-fill="{
+         &quot;color&quot;: &quot;{{../settings._courseNavigation._circleProgress._color}}&quot;}"/>
+        <div class='contents-page-title-inner'>{{contentObject.attributes.title}}</div>
+      </button>
         <div class='contents-page-entries'>
       {{/if}}
       {{#each contents}}
