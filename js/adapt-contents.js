@@ -8,14 +8,10 @@ define(function(require) {
   var contentsNavigationView = require('extensions/adapt-contents/js/contentsNavigationView');
 
   function setupPageLevelProgress(pageModel, contentsList) {
-
-    console.log(contentsList);
-
     new contentsNavigationView({
       model: pageModel,
       collection: contentsList
     });
-
   }
 
   // This should add/update progress on menuView
