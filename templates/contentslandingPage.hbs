@@ -1,6 +1,6 @@
 <div class="contents-inner" role="region" aria-label="contents">
   {{#each page}}
-    <div class='contents-page' data-page-id="{{contentObject.attributes._id}}">
+    <div class='contents-page'>
     {{#compare @index '==' 0}}
     <button class='contents-landing-page-title'>
       <div class='contents-landing-page-title-inner'>{{contentObject.attributes.title}}</div>
@@ -8,7 +8,7 @@
     {{/compare}}
     {{#compare @index '>=' '1'}}
     {{#if ../settings._courseNavigation._isEnabled}}
-      <button class='contents-page-title'>
+      <button class='contents-page-title' data-page-id="{{contentObject.attributes._id}}">
         <div class='contents-page-title-progress' data-size='18' data-thickness='2' data-fill="{
          &quot;color&quot;: &quot;{{../settings._courseNavigation._circleProgress._color}}&quot;}"/>
         <div class='contents-page-title-inner'>{{contentObject.attributes.title}}</div>
