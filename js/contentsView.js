@@ -108,7 +108,18 @@ define(function(require) {
     },
 
     drawProgressCircle: function() {
-      var pages = this.model.pages;
+      var pages;
+      var landingPage = Adapt.course.get('_contents')._courseNavigation._landingPage;
+
+      if(landingPage) {
+        pages = this.model.pages.slice();
+        pages.splice(0,1);
+      } else {
+        pages = this.model.pages;
+      }
+
+      console.log(pages);
+
       _.each(pages, function(page, index) {
         var completion = completionCalculations.calculateCompletion(page.contentObject);
         $('.contents-page-title-progress:eq(' + index + ')').circleProgress({
@@ -157,27 +168,45 @@ define(function(require) {
     },
 
     listenForCompletition: function() {
+
       var context = this;
       var coNumber = context.getAdaptCoById();
-      var contentsModel = this.model.pages[this.getAdaptCoById()].contents;
+      var landingPage = Adapt.course.get('_contents')._courseNavigation._landingPage;
+      var circleNumber = coNumber;
+
+      if(landingPage) {
+        circleNumber--;
+        if(coNumber == 0) {
+          return;
+        }
+        pages = this.model.pages.slice();
+        pages.splice(0,1);
+      } else {
+        pages = this.model.pages;
+      }
+
+      var contentsModel = pages[circleNumber].contents;
       var circleProgress = Adapt.course.get('_contents')._courseNavigation._isEnabled && Adapt.course.get('_contents')._courseNavigation._circleProgress._isEnabled;
       contentsModel = this.filterComponents(contentsModel);
       _.each(contentsModel, function(item, index) {
-        var $PlpItem = $('.contents-page:eq(' + coNumber + ')').find('.contents-progress-indicator').get(index);
+        console.log($('.contents-item-title:eq(' + circleNumber + ')'));
+        var $PlpItem = $('.contents-item-title:eq(' + circleNumber + ')').find('.contents-progress-indicator').get(index);
         item.on("change", function() {
           if (item.hasChanged("_isComplete")) {
+            console.log('complete');
+            console.log($PlpItem);
             $($PlpItem).removeClass('contents-progress-indicator-incomplete').addClass('contents-progress-indicator-complete');
 
             if (circleProgress) {
-              var completion = completionCalculations.calculateCompletion(context.model.pages[coNumber].contentObject);
-              $('.contents-page-title-progress:eq(' + coNumber + ')').circleProgress('value', completion.nonAssessmentCompleted / completion.nonAssessmentTotal);
+              var completion = completionCalculations.calculateCompletion(pages[circleNumber].contentObject);
+              $('.contents-page-title-progress:eq(' + circleNumber + ')').circleProgress('value', completion.nonAssessmentCompleted / completion.nonAssessmentTotal);
             }
 
             if (context.checkPageComplete(contentsModel)) {
               Adapt.trigger('contents:pageComplete');
               if (circleProgress) {
-                var fill = $('.contents-page-title-progress:eq(' + coNumber + ')').data('circle-progress').size / 2;
-                $('.contents-page-title-progress:eq(' + coNumber + ')').circleProgress({
+                var fill = $('.contents-page-title-progress:eq(' + circleNumber + ')').data('circle-progress').size / 2;
+                $('.contents-page-title-progress:eq(' + circleNumber + ')').circleProgress({
                   "thickness": fill
                 });
               }
