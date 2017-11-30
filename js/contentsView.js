@@ -118,8 +118,6 @@ define(function(require) {
         pages = this.model.pages;
       }
 
-      console.log(pages);
-
       _.each(pages, function(page, index) {
         var completion = completionCalculations.calculateCompletion(page.contentObject);
         $('.contents-page-title-progress:eq(' + index + ')').circleProgress({
@@ -168,11 +166,11 @@ define(function(require) {
     },
 
     listenForCompletition: function() {
-
       var context = this;
       var coNumber = context.getAdaptCoById();
       var landingPage = Adapt.course.get('_contents')._courseNavigation._landingPage;
       var circleNumber = coNumber;
+      var pages;
 
       if(landingPage) {
         circleNumber--;
@@ -189,17 +187,13 @@ define(function(require) {
       var circleProgress = Adapt.course.get('_contents')._courseNavigation._isEnabled && Adapt.course.get('_contents')._courseNavigation._circleProgress._isEnabled;
       contentsModel = this.filterComponents(contentsModel);
       _.each(contentsModel, function(item, index) {
-        console.log($('.contents-item-title:eq(' + circleNumber + ')'));
-        var $PlpItem = $('.contents-item-title:eq(' + circleNumber + ')').find('.contents-progress-indicator').get(index);
+        var $PlpItem = $('.contents-page:eq(' + coNumber + ')').find('.contents-progress-indicator').get(index);
         item.on("change", function() {
           if (item.hasChanged("_isComplete")) {
-            console.log('complete');
-            console.log($PlpItem);
             $($PlpItem).removeClass('contents-progress-indicator-incomplete').addClass('contents-progress-indicator-complete');
-
             if (circleProgress) {
-              var completion = completionCalculations.calculateCompletion(pages[circleNumber].contentObject);
-              $('.contents-page-title-progress:eq(' + circleNumber + ')').circleProgress('value', completion.nonAssessmentCompleted / completion.nonAssessmentTotal);
+
+              $('.contents-page-title-progress:eq(' + circleNumber + ')').circleProgress('value', context.getPageProgress(pages[circleNumber].contentObject));
             }
 
             if (context.checkPageComplete(contentsModel)) {
@@ -214,6 +208,12 @@ define(function(require) {
           }
         });
       });
+    },
+
+    getPageProgress: function(page) {
+      var completion = completionCalculations.calculateCompletion(page);
+      console.log((completion.nonAssessmentCompleted + completion.assessmentCompleted) / (completion.nonAssessmentTotal + completion.assessmentTotal));
+      return (completion.nonAssessmentCompleted + completion.assessmentCompleted) / (completion.nonAssessmentTotal + completion.assessmentTotal);
     },
 
     checkPageComplete: function(entriesModels) {
