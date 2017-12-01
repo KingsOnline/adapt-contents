@@ -178,7 +178,8 @@ body.contents-hide {
   }
 
   .contents-item-title,
-  .contents-page-title {
+  .contents-page-title,
+  .contents-landing-page-title {
     padding: 10px 20px;
     width: 100%;
     .transition-background-color;
@@ -189,6 +190,7 @@ body.contents-hide {
   .contents-page-title-inner, .contents-landing-page-title-inner {
     width: 200px;
     margin-left: 48px;
+    line-height: 120%;
     text-align: left;
   }
 
@@ -205,7 +207,10 @@ body.contents-hide {
     width: 10px;
     height: 10px;
     border-radius: 100%;
-    margin: 6px 30px 6px 6px;
+    margin: 0 30px 6px 6px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .contents-page-title-progress {
