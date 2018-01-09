@@ -32,18 +32,14 @@ define(function(require) {
     },
 
     goToLandingPage: function(event) {
-      Adapt.navigateToElement(Adapt.contentObjects.models[0].get('_id'), {
-        duration: 400
-      });
+      Adapt.navigateToElement(Adapt.contentObjects.models[0].get('_id'), {duration: 400});
     },
 
     pageTitlePressed: function(event) {
-      if(Adapt.course.get('_contents')._courseNavigation._allAccordions) {
+      if (Adapt.course.get('_contents')._courseNavigation._allAccordions) {
         this.accordionPressed(event);
       } else {
-        Adapt.navigateToElement($(event.currentTarget)[0].dataset.pageId, {
-          duration: 400
-        });
+        Adapt.navigateToElement($(event.currentTarget)[0].dataset.pageId, {duration: 400});
       }
 
     },
@@ -86,9 +82,7 @@ define(function(require) {
         event.preventDefault();
       var currentComponentSelector = '.' + $(event.currentTarget).attr('data-page-level-progress-id');
       var $currentComponent = $(currentComponentSelector);
-      Adapt.navigateToElement(currentComponentSelector, {
-        duration: 400
-      });
+      Adapt.navigateToElement(currentComponentSelector, {duration: 400});
       if (this.overlayMode) {
         Adapt.trigger('contents:close');
       }
@@ -111,9 +105,9 @@ define(function(require) {
       var pages;
       var landingPage = Adapt.course.get('_contents')._courseNavigation._landingPage;
 
-      if(landingPage) {
+      if (landingPage) {
         pages = this.model.pages.slice();
-        pages.splice(0,1);
+        pages.splice(0, 1);
       } else {
         pages = this.model.pages;
       }
@@ -125,9 +119,7 @@ define(function(require) {
         });
         if (completion.nonAssessmentCompleted / completion.nonAssessmentTotal == 1) {
           var fill = $('.contents-page-title-progress:eq(' + index + ')').data('circle-progress').size / 2;
-          $('.contents-page-title-progress:eq(' + index + ')').circleProgress({
-            "thickness": fill
-          });
+          $('.contents-page-title-progress:eq(' + index + ')').circleProgress({"thickness": fill});
         }
       });
     },
@@ -135,7 +127,8 @@ define(function(require) {
     getEntriesModels: function(array, componentsOnly) {
       var entriesModels = [];
       _.each(array, function(item, index) {
-        if (componentsOnly && item.get('_type') == 'article') return;
+        if (componentsOnly && item.get('_type') == 'article')
+          return;
         entriesModels.push(item.attributes);
       });
       return entriesModels;
@@ -144,7 +137,8 @@ define(function(require) {
     filterComponents: function(array) {
       var entriesModels = [];
       _.each(array, function(item, index) {
-        if (item.attributes._type == 'article') return;
+        if (item.attributes._type == 'article')
+          return;
         entriesModels.push(item);
       });
       return entriesModels;
@@ -152,17 +146,13 @@ define(function(require) {
 
     populateContents: function() {
       var plpTemplate;
-      if(Adapt.course.get('_contents')._courseNavigation._landingPage) {
+      if (Adapt.course.get('_contents')._courseNavigation._landingPage) {
         plpTemplate = Handlebars.templates.contentsLandingPage;
       } else {
         plpTemplate = Handlebars.templates.contents;
       }
       var context = this;
-      $('html').find('body').append(this.$el.html(plpTemplate({
-        'settings': Adapt.course.get('_contents'),
-        'page': this.model.pages,
-        '_globals': this.model._globals
-      })));
+      $('html').find('body').append(this.$el.html(plpTemplate({'settings': Adapt.course.get('_contents'), 'page': this.model.pages, '_globals': this.model._globals})));
     },
 
     listenForCompletition: function() {
@@ -172,13 +162,13 @@ define(function(require) {
       var circleNumber = coNumber;
       var pages;
 
-      if(landingPage) {
+      if (landingPage) {
         circleNumber--;
-        if(coNumber == 0) {
+        if (coNumber == 0) {
           return;
         }
         pages = this.model.pages.slice();
-        pages.splice(0,1);
+        pages.splice(0, 1);
       } else {
         pages = this.model.pages;
       }
@@ -200,9 +190,7 @@ define(function(require) {
               Adapt.trigger('contents:pageComplete');
               if (circleProgress) {
                 var fill = $('.contents-page-title-progress:eq(' + circleNumber + ')').data('circle-progress').size / 2;
-                $('.contents-page-title-progress:eq(' + circleNumber + ')').circleProgress({
-                  "thickness": fill
-                });
+                $('.contents-page-title-progress:eq(' + circleNumber + ')').circleProgress({"thickness": fill});
               }
             }
           }
