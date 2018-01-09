@@ -32,14 +32,18 @@ define(function(require) {
     },
 
     goToLandingPage: function(event) {
-      Adapt.navigateToElement(Adapt.contentObjects.models[0].get('_id'), {duration: 400});
+      Adapt.navigateToElement(Adapt.contentObjects.models[0].get('_id'), {
+        duration: 400
+      });
     },
 
     pageTitlePressed: function(event) {
       if (Adapt.course.get('_contents')._courseNavigation._allAccordions) {
         this.accordionPressed(event);
       } else {
-        Adapt.navigateToElement($(event.currentTarget)[0].dataset.pageId, {duration: 400});
+        Adapt.navigateToElement($(event.currentTarget)[0].dataset.pageId, {
+          duration: 400
+        });
       }
 
     },
@@ -82,7 +86,9 @@ define(function(require) {
         event.preventDefault();
       var currentComponentSelector = '.' + $(event.currentTarget).attr('data-page-level-progress-id');
       var $currentComponent = $(currentComponentSelector);
-      Adapt.navigateToElement(currentComponentSelector, {duration: 400});
+      Adapt.navigateToElement(currentComponentSelector, {
+        duration: 400
+      });
       if (this.overlayMode) {
         Adapt.trigger('contents:close');
       }
@@ -119,7 +125,9 @@ define(function(require) {
         });
         if (completion.nonAssessmentCompleted / completion.nonAssessmentTotal == 1) {
           var fill = $('.contents-page-title-progress:eq(' + index + ')').data('circle-progress').size / 2;
-          $('.contents-page-title-progress:eq(' + index + ')').circleProgress({"thickness": fill});
+          $('.contents-page-title-progress:eq(' + index + ')').circleProgress({
+            "thickness": fill
+          });
         }
       });
     },
@@ -152,7 +160,11 @@ define(function(require) {
         plpTemplate = Handlebars.templates.contents;
       }
       var context = this;
-      $('html').find('body').append(this.$el.html(plpTemplate({'settings': Adapt.course.get('_contents'), 'page': this.model.pages, '_globals': this.model._globals})));
+      $('html').find('body').append(this.$el.html(plpTemplate({
+        'settings': Adapt.course.get('_contents'),
+        'page': this.model.pages,
+        '_globals': this.model._globals
+      })));
     },
 
     listenForCompletition: function() {
@@ -190,7 +202,9 @@ define(function(require) {
               Adapt.trigger('contents:pageComplete');
               if (circleProgress) {
                 var fill = $('.contents-page-title-progress:eq(' + circleNumber + ')').data('circle-progress').size / 2;
-                $('.contents-page-title-progress:eq(' + circleNumber + ')').circleProgress({"thickness": fill});
+                $('.contents-page-title-progress:eq(' + circleNumber + ')').circleProgress({
+                  "thickness": fill
+                });
               }
             }
           }
@@ -200,7 +214,6 @@ define(function(require) {
 
     getPageProgress: function(page) {
       var completion = completionCalculations.calculateCompletion(page);
-      console.log((completion.nonAssessmentCompleted + completion.assessmentCompleted) / (completion.nonAssessmentTotal + completion.assessmentTotal));
       return (completion.nonAssessmentCompleted + completion.assessmentCompleted) / (completion.nonAssessmentTotal + completion.assessmentTotal);
     },
 
@@ -218,14 +231,14 @@ define(function(require) {
     scrollHandler: function() {
       var context = this;
       var entriesModels = this.getEntriesModels(this.model.pages[this.getAdaptCoById()].contents, false);
-      $(window).on('scroll.contents', function() {
+      Adapt.contentsTimer = setInterval(function() {
         context.updateCurrentLocation(context, entriesModels);
-      });
+      }, 250);
     },
 
-    updateCurrentLocation: _.throttle(function(context, entriesModels) {
+    updateCurrentLocation: function(context, entriesModels) {
       var viewportTop = $(window).scrollTop();
-      var viewportBottom = viewportTop + $(window).height() - (Adapt.device.screenHeight / 3); // approximates what the learner is currently looking at
+      var viewportBottom = viewportTop + $(window).height() - (Adapt.device.screenHeight / 2); // approximates what the learner is currently looking at
       _.findLastIndex(entriesModels, function(item, index) {
         var $PlpItem = $('.contents-page:eq(' + context.getAdaptCoById() + ')').find('.contents-item-title').get(index);
         if (context.isInViewport(item, viewportTop, viewportBottom)) {
@@ -234,7 +247,7 @@ define(function(require) {
           return item;
         }
       });
-    }, 100),
+    },
 
     isInViewport: function(entry, viewportTop, viewportBottom) {
       var $div;
@@ -243,9 +256,10 @@ define(function(require) {
       } else {
         $div = $('.' + entry._id).find('.component-inner');
       }
+      var hidden = $($div).closest('.block-inner').css('visibility') === 'hidden';
       var elementTop = $($div).offset().top;
       var elementBottom = elementTop + $($div).outerHeight();
-      return elementBottom > viewportTop && elementTop < viewportBottom;
+      return (elementBottom > viewportTop && elementTop < viewportBottom) && !hidden;
     },
 
     stopScrollListener: function() {
@@ -276,7 +290,7 @@ define(function(require) {
   });
 
   Adapt.on('router:page router:menu', function() {
-    $(window).off('scroll.contents');
+    clearInterval(Adapt.contentsTimer);
   });
 
   return contentsView;
