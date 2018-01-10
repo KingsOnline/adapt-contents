@@ -38,7 +38,7 @@ define(function(require) {
     },
 
     pageTitlePressed: function(event) {
-      if(Adapt.course.get('_contents')._courseNavigation._allAccordions) {
+      if (Adapt.course.get('_contents')._courseNavigation._allAccordions) {
         this.accordionPressed(event);
       } else {
         Adapt.navigateToElement($(event.currentTarget)[0].dataset.pageId, {
@@ -111,9 +111,9 @@ define(function(require) {
       var pages;
       var landingPage = Adapt.course.get('_contents')._courseNavigation._landingPage;
 
-      if(landingPage) {
+      if (landingPage) {
         pages = this.model.pages.slice();
-        pages.splice(0,1);
+        pages.splice(0, 1);
       } else {
         pages = this.model.pages;
       }
@@ -135,7 +135,8 @@ define(function(require) {
     getEntriesModels: function(array, componentsOnly) {
       var entriesModels = [];
       _.each(array, function(item, index) {
-        if (componentsOnly && item.get('_type') == 'article') return;
+        if (componentsOnly && item.get('_type') == 'article')
+          return;
         entriesModels.push(item.attributes);
       });
       return entriesModels;
@@ -144,7 +145,8 @@ define(function(require) {
     filterComponents: function(array) {
       var entriesModels = [];
       _.each(array, function(item, index) {
-        if (item.attributes._type == 'article') return;
+        if (item.attributes._type == 'article')
+          return;
         entriesModels.push(item);
       });
       return entriesModels;
@@ -152,7 +154,7 @@ define(function(require) {
 
     populateContents: function() {
       var plpTemplate;
-      if(Adapt.course.get('_contents')._courseNavigation._landingPage) {
+      if (Adapt.course.get('_contents')._courseNavigation._landingPage) {
         plpTemplate = Handlebars.templates.contentsLandingPage;
       } else {
         plpTemplate = Handlebars.templates.contents;
@@ -172,13 +174,13 @@ define(function(require) {
       var circleNumber = coNumber;
       var pages;
 
-      if(landingPage) {
+      if (landingPage) {
         circleNumber--;
-        if(coNumber == 0) {
+        if (coNumber == 0) {
           return;
         }
         pages = this.model.pages.slice();
-        pages.splice(0,1);
+        pages.splice(0, 1);
       } else {
         pages = this.model.pages;
       }
@@ -212,7 +214,6 @@ define(function(require) {
 
     getPageProgress: function(page) {
       var completion = completionCalculations.calculateCompletion(page);
-      console.log((completion.nonAssessmentCompleted + completion.assessmentCompleted) / (completion.nonAssessmentTotal + completion.assessmentTotal));
       return (completion.nonAssessmentCompleted + completion.assessmentCompleted) / (completion.nonAssessmentTotal + completion.assessmentTotal);
     },
 
@@ -230,14 +231,14 @@ define(function(require) {
     scrollHandler: function() {
       var context = this;
       var entriesModels = this.getEntriesModels(this.model.pages[this.getAdaptCoById()].contents, false);
-      $(window).on('scroll.contents', function() {
+      Adapt.contentsTimer = setInterval(function() {
         context.updateCurrentLocation(context, entriesModels);
-      });
+      }, 250);
     },
 
-    updateCurrentLocation: _.throttle(function(context, entriesModels) {
+    updateCurrentLocation: function(context, entriesModels) {
       var viewportTop = $(window).scrollTop();
-      var viewportBottom = viewportTop + $(window).height() - (Adapt.device.screenHeight / 3); // approximates what the learner is currently looking at
+      var viewportBottom = viewportTop + $(window).height() - (Adapt.device.screenHeight / 2); // approximates what the learner is currently looking at
       _.findLastIndex(entriesModels, function(item, index) {
         var $PlpItem = $('.contents-page:eq(' + context.getAdaptCoById() + ')').find('.contents-item-title').get(index);
         if (context.isInViewport(item, viewportTop, viewportBottom)) {
@@ -246,7 +247,7 @@ define(function(require) {
           return item;
         }
       });
-    }, 100),
+    },
 
     isInViewport: function(entry, viewportTop, viewportBottom) {
       var $div;
@@ -255,9 +256,10 @@ define(function(require) {
       } else {
         $div = $('.' + entry._id).find('.component-inner');
       }
+      var hidden = $($div).closest('.block-inner').css('visibility') === 'hidden';
       var elementTop = $($div).offset().top;
       var elementBottom = elementTop + $($div).outerHeight();
-      return elementBottom > viewportTop && elementTop < viewportBottom;
+      return (elementBottom > viewportTop && elementTop < viewportBottom) && !hidden;
     },
 
     stopScrollListener: function() {
@@ -295,7 +297,7 @@ define(function(require) {
   });
 
   Adapt.on('router:page router:menu', function() {
-    $(window).off('scroll.contents');
+    clearInterval(Adapt.contentsTimer);
   });
 
   return contentsView;

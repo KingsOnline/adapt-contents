@@ -8,16 +8,14 @@ define(function(require) {
   var contentsNavigationView = require('extensions/adapt-contents/js/contentsNavigationView');
 
   function setupPageLevelProgress(pageModel, contentsList) {
-    new contentsNavigationView({
-      model: pageModel,
-      collection: contentsList
-    });
+    new contentsNavigationView({model: pageModel, collection: contentsList});
   }
 
   // This should add/update progress on menuView
   Adapt.on('menuView:postRender', function(view) {
 
-    if (view.model.get('_id') == Adapt.location._currentId) return;
+    if (view.model.get('_id') == Adapt.location._currentId)
+      return;
 
     // do not proceed until pageLevelProgress enabled on course.json
     if (!Adapt.course.get('_contents') || !Adapt.course.get('_contents')._isEnabled) {
@@ -28,7 +26,8 @@ define(function(require) {
     var viewType = view.model.get('_type');
 
     // Progress bar should not render for course viewType
-    if (viewType == 'course') return;
+    if (viewType == 'course')
+      return;
 
     if (pageLevelProgress && pageLevelProgress._isEnabled) {
       var completionObject = completionCalculations.calculateCompletion(view.model);
@@ -43,9 +42,7 @@ define(function(require) {
 
       view.model.set('completedChildrenAsPercentage', percentageComplete);
 
-      view.$el.find('.menu-item-inner').append(new PageLevelProgressMenuView({
-        model: view.model
-      }).$el);
+      view.$el.find('.menu-item-inner').append(new PageLevelProgressMenuView({model: view.model}).$el);
 
     }
 
@@ -59,7 +56,6 @@ define(function(require) {
       return;
     }
 
-
     var contentObjects = [];
 
     if (!Adapt.course.get('_contents')._courseNavigation || !Adapt.course.get('_contents')._courseNavigation._isEnabled) {
@@ -72,9 +68,7 @@ define(function(require) {
     _.each(contentObjects, function(item, index) {
       var contents;
       var pageModel = item;
-      var currentPageComponents = pageModel.findDescendants('components').where({
-        '_isAvailable': true
-      });
+      var currentPageComponents = pageModel.findDescendants('components').where({'_isAvailable': true});
       var availableComponents = completionCalculations.filterAvailableChildren(currentPageComponents);
       var pageComponents = completionCalculations.getPageLevelProgressEnabledModels(availableComponents);
       if (Adapt.course.get('_contents')._showArticleTitles) {
@@ -82,10 +76,7 @@ define(function(require) {
       } else {
         contents = pageComponents;
       }
-      contentsList.push({
-        "contentObject": contentObjects[index],
-        "contents": contents
-      });
+      contentsList.push({"contentObject": contentObjects[index], "contents": contents});
     });
 
     if (contentsList.length > 0) {

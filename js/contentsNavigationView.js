@@ -32,7 +32,9 @@ define(function(require) {
         pages: this.collection,
         _globals: Adapt.course.get('_globals')
       };
-      new contentsView({model: data});
+      new contentsView({
+        model: data
+      });
 
       var navTemplate = Handlebars.templates.contentsNavigation;
       $('.navigation-inner').append(this.$el.html(navTemplate(data)));

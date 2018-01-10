@@ -1,53 +1,50 @@
 define(function(require) {
 
-    var Adapt = require('coreJS/adapt');
-    var Backbone = require('backbone');
+  var Adapt = require('coreJS/adapt');
+  var Backbone = require('backbone');
 
-    var PageLevelProgressMenuView = Backbone.View.extend({
+  var PageLevelProgressMenuView = Backbone.View.extend({
 
-        className: 'page-level-progress-menu-item',
+    className: 'page-level-progress-menu-item',
 
-        initialize: function() {
-            this.listenTo(Adapt, 'remove', this.remove);
+    initialize: function() {
+      this.listenTo(Adapt, 'remove', this.remove);
 
-            this.ariaText = '';
-            if (Adapt.course.get('_globals')._extensions && Adapt.course.get('_globals')._extensions._contents && Adapt.course.get('_globals')._extensions._contents.pageLevelProgressMenuBar) {
-                this.ariaText = Adapt.course.get('_globals')._extensions._contents.pageLevelProgressMenuBar + ' ';
-            }
+      this.ariaText = '';
+      if (Adapt.course.get('_globals')._extensions && Adapt.course.get('_globals')._extensions._contents && Adapt.course.get('_globals')._extensions._contents.pageLevelProgressMenuBar) {
+        this.ariaText = Adapt.course.get('_globals')._extensions._contents.pageLevelProgressMenuBar + ' ';
+      }
 
-            this.render();
+      this.render();
 
-            _.defer(_.bind(function() {
-                this.updateProgressBar();
-            }, this));
-        },
+      _.defer(_.bind(function() {
+        this.updateProgressBar();
+      }, this));
+    },
 
-        render: function() {
+    render: function() {
 
-            var data = this.model.toJSON();
-            _.extend(data, {
-                _globals: Adapt.course.get('_globals')
-            });
-            var template = Handlebars.templates['pageLevelProgressMenu'];
+      var data = this.model.toJSON();
+      _.extend(data, {_globals: Adapt.course.get('_globals')});
+      var template = Handlebars.templates['pageLevelProgressMenu'];
 
-            this.$el.html(template(data));
-            return this;
-        },
+      this.$el.html(template(data));
+      return this;
+    },
 
-        updateProgressBar: function() {
-            if (this.model.get('completedChildrenAsPercentage')) {
-                var percentageOfCompleteComponents = this.model.get('completedChildrenAsPercentage');
-            } else {
-                var percentageOfCompleteComponents = 0;
-            }
+    updateProgressBar: function() {
+      if (this.model.get('completedChildrenAsPercentage')) {
+        var percentageOfCompleteComponents = this.model.get('completedChildrenAsPercentage');
+      } else {
+        var percentageOfCompleteComponents = 0;
+      }
 
-            // Add percentage of completed components as an aria label attribute
-            this.$('.page-level-progress-menu-item-indicator-bar .aria-label').html(this.ariaText + Math.floor(percentageOfCompleteComponents) + '%');
+      // Add percentage of completed components as an aria label attribute
+      this.$('.page-level-progress-menu-item-indicator-bar .aria-label').html(this.ariaText + Math.floor(percentageOfCompleteComponents) + '%');
 
-        },
+    }
+  });
 
-    });
-
-    return PageLevelProgressMenuView;
+  return PageLevelProgressMenuView;
 
 });
