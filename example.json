@@ -16,7 +16,7 @@
     "_altText": "of components completed on this page."
 }
 
-// To go on a component
+// To go on a component. Tip - if using the framework use a search and find to replace _pageLevelProgress with _contents
 "_contents": {
   "_isEnabled": true
 }
