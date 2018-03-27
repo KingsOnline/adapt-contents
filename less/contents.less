@@ -128,7 +128,6 @@ body.contents-hide {
   }
 
   .contents-item-title {
-    border-bottom: 1px solid @navigation-icon-color;
     background-color: @drawer-item-color;
     color: @drawer-item-text-color;
 
@@ -138,7 +137,7 @@ body.contents-hide {
     }
 
     &.highlight {
-      background-color: darken(@drawer-item-color, 10%);
+      background-color: darken(@drawer-item-color, 2%);
     }
 
     &.contents-article-title {
@@ -208,9 +207,7 @@ body.contents-hide {
     height: 10px;
     border-radius: 100%;
     margin: 0 30px 6px 6px;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    margin-top: 7px;
   }
 
   .contents-page-title-progress {
