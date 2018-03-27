@@ -80,7 +80,7 @@
                   "required": false,
                   "default": true,
                   "title": "Show learners position",
-                  "help": "Highlights the current component the learner is currently on.",
+                  "help": "Highlights the current component the learner is currently on",
                   "inputType": "Checkbox"
                 },
                 "_courseNavigation": {
@@ -92,8 +92,8 @@
                       "type": "boolean",
                       "required": false,
                       "default": true,
-                      "title": "Enable whole course navigation",
-                      "help": "shows every component in an accordion format",
+                      "title": "Enable course navigation",
+                      "help": "Shows every component in an accordion format",
                       "inputType": "Checkbox"
                     },
                     "_landingPage": {
@@ -102,6 +102,14 @@
                       "default": true,
                       "title": "Use landing page",
                       "help": "The first accordion tab will replaced with a button to the first page",
+                      "inputType": "Checkbox"
+                    },
+                    "_allAccordions": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Use component accordion",
+                      "help": "If true page titles expand and show the components on that page. Navigate to the components instead of the page",
                       "inputType": "Checkbox"
                     },
                     "_circleProgress": {
@@ -113,7 +121,8 @@
                           "type": "boolean",
                           "required": false,
                           "default": true,
-                          "title": "Uses a filling circle to show the progress of the page",
+                          "title": "Enable Circle progress",
+                          "help": "Circle that fills as components on the page are completed",
                           "inputType": "Checkbox"
                         },
                         "_color": {
@@ -121,7 +130,7 @@
                           "required": false,
                           "default": "#FFF",
                           "title": "icon color",
-                          "help": "this attribute can be overriden by a custom .hbs in the theme",
+                          "help": "this attribute can be overriden by a custom handlebars file in the theme",
                           "inputType": "Text"
                         }
                       }

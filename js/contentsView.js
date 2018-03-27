@@ -274,9 +274,14 @@ define(function(require) {
     },
 
     openContents: function() {
-      $('body').removeClass('contents-hide');
       var overlayMode = this.overlayMode;
-      $('#wrapper').on('click', function() {
+      $('body').removeClass('contents-hide');
+      if(overlayMode) {
+        console.log('shadow');
+        $('.contents').css("z-index", "501" ); // appears over shadow
+        $('#shadow').removeClass('display-none');
+      }
+      $('#shadow').on('click', function() {
         if (overlayMode) {
           Adapt.trigger('contents:close');
         }
@@ -285,7 +290,9 @@ define(function(require) {
 
     closeContents: function() {
       $('body').addClass('contents-hide');
-      $('#wrapper').off('click');
+      $('#shadow').addClass('display-none');
+      $('.contents').css("z-index", "unset" );
+      $('#shadow').off('click');
     }
   });
 
