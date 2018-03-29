@@ -1,6 +1,10 @@
 # adapt-contents  
 
-**adapt-contents** is an *extension* for the [Adapt framework](https://github.com/adaptlearning/adapt_framework). It shares similar functionality to the core-bundled [Page-level-progress extension](https://github.com/adaptlearning/adapt-contrib-pageLevelProgress). **Please note** these extensions should not be present in the same course.
+**adapt-contents** is an *extension* for the [Adapt framework](https://github.com/adaptlearning/adapt_framework). That enables both course and page navigation within an Adapt course. It shares similar functionality to the core-bundled [Page-level-progress extension](https://github.com/adaptlearning/adapt-contrib-pageLevelProgress).
+
+This video shows the features and functionality of the Contents extension:
+
+[![Youtube video](http://img.youtube.com/vi/5Vnqxwn3I9o/0.jpg)](http://www.youtube.com/watch?v=5Vnqxwn3I9o)  
 
 ## Motivation behind adapt-contents
 
