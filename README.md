@@ -10,8 +10,6 @@ This video shows the features and functionality of the Contents extension:
 
 Contents was created as our team wasn't happy with the functionality of the page-level-progress extension. We did some internal testing and many learners couldn't identify that the page-level-progress icon was clickable as it element that is not seen outside of Adapt. Additionally, we had some clients who were requesting that there was a clearer navigation of the page, so learners could understand how far through the whole course they were.
 
-We weren't happy with the drawer which holds the Page Level Progress. We didn't like that it obscures the page with a shadow and prevents any interaction whilst it's open. We wanted to improve on the navigation from Adapt as well as the navigation found in other e-Learning Authoring Tools that we had experimented with.
-
 ## Installation
 
 *   With the [Adapt CLI](https://github.com/adaptlearning/adapt-cli) installed, run the following from the command line:  
