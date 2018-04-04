@@ -1,12 +1,14 @@
 # adapt-contents  
 
-**adapt-contents** is an *extension* for the [Adapt framework](https://github.com/adaptlearning/adapt_framework). It shares similar functionality to the core-bundled [Page-level-progress extension](https://github.com/adaptlearning/adapt-contrib-pageLevelProgress). **Please note** these extensions should not be present in the same course.
+**adapt-contents** is an *extension* for the [Adapt framework](https://github.com/adaptlearning/adapt_framework). That enables both course and page navigation within an Adapt course. It shares similar functionality to the core-bundled [Page-level-progress extension](https://github.com/adaptlearning/adapt-contrib-pageLevelProgress).
+
+This video shows the features and functionality of the Contents extension:
+
+[![Youtube video](http://img.youtube.com/vi/5Vnqxwn3I9o/0.jpg)](http://www.youtube.com/watch?v=5Vnqxwn3I9o)  
 
 ## Motivation behind adapt-contents
 
 Contents was created as our team wasn't happy with the functionality of the page-level-progress extension. We did some internal testing and many learners couldn't identify that the page-level-progress icon was clickable as it element that is not seen outside of Adapt. Additionally, we had some clients who were requesting that there was a clearer navigation of the page, so learners could understand how far through the whole course they were.
-
-We weren't happy with the drawer which holds the Page Level Progress. We didn't like that it obscures the page with a shadow and prevents any interaction whilst it's open. We wanted to improve on the navigation from Adapt as well as the navigation found in other e-Learning Authoring Tools that we had experimented with.
 
 ## Installation
 

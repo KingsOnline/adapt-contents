@@ -1,8 +1,8 @@
 {
     "name": "adapt-contents",
     "repository": "git://github.com/kingsonline/adapt-contents",
+    "version": "2.8.0",
     "framework": ">=2.1.0",
-    "version": "2.7.1",
     "homepage": "https://github.com/kingsonline/adapt-contents",
     "issues": "https://github.com/kingsonline/adapt-contents/issues",
     "displayName": "Contents",
