@@ -22,17 +22,15 @@ body.contents-hide {
   }
 }
 
-#wrapper {
+.location-page #wrapper {
   width: calc(~'100% - 280px') !important;
   margin-left: 280px !important;
-}
-@media all and (max-width:(1130px)) {
-  #wrapper {
+  @media all and (max-width:(1130px)) {
     width: 100% !important;
     margin-left: 0 !important;
   }
 }
-// margin around outside when it's tight
+
 @media all and (max-width:(1130px)) and (min-width:(1023px)) {
   #wrapper {
     width: calc(~'100% - 280px') !important;
