@@ -291,7 +291,6 @@ define(function(require) {
     closeContents: function() {
       $('body').addClass('contents-hide');
       $('#shadow').addClass('display-none');
-      $('.contents').css("z-index", "unset" );
       $('#shadow').off('click');
     }
   });
