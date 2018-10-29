@@ -95,8 +95,8 @@ define(function(require) {
     },
 
     render: function() {
-      if (this.overlayMode) {
-        Adapt.trigger('contents:close');
+      if (!this.overlayMode) {
+        Adapt.trigger('contents:open');
       }
       this.populateContents();
       $('.contents-page:eq(' + this.getAdaptCoById() + ')').addClass('active');
@@ -275,9 +275,9 @@ define(function(require) {
 
     openContents: function() {
       var overlayMode = this.overlayMode;
-      $('body').removeClass('contents-hide');
+      console.log('open')
+      $('body').addClass('contents-show');
       if(overlayMode) {
-        console.log('shadow');
         $('.contents').css("z-index", "501" ); // appears over shadow
         $('#shadow').removeClass('display-none');
       }
@@ -289,7 +289,7 @@ define(function(require) {
     },
 
     closeContents: function() {
-      $('body').addClass('contents-hide');
+      $('body').removeClass('contents-show');
       $('#shadow').addClass('display-none');
       $('#shadow').off('click');
     }

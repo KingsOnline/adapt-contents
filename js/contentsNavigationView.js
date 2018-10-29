@@ -43,7 +43,7 @@ define(function(require) {
 
     onContentsClicked: function(event) {
       event.preventDefault();
-      if ($('body').hasClass('contents-hide')) {
+      if (!($('body').hasClass('contents-show'))) {
         Adapt.trigger('contents:open');
         Adapt.trigger('sideView:close');
       } else {

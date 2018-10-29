@@ -1,40 +1,37 @@
+body {
+  width: 100%;
+}
+
 .contents {
   .transition-time(1s);
   width: 280px;
+  margin-left: -280px;
   height: calc(~'100% - 64px');
   top: (@navigation-padding * 2) + @icon-size;
   position: fixed;
 }
 
 #wrapper {
-  .transition-time(1s);
+  margin: auto;
+  overflow-x: hidden;
+  padding-top: 0;
+  width: 100%;
+  margin-left: 0 !important;
+  .transition-time(1s) !important;
 }
 
-body.contents-hide {
+.location-page body.contents-show {
   .contents {
-    margin-left: -280px;
-    .transition-time(1s);
+    margin-left: 0;
   }
 
-  #wrapper {
-    width: 100% !important;
-    margin-left: 0 !important;
-  }
-}
-
-.location-page #wrapper {
-  width: calc(~'100% - 280px') !important;
-  margin-left: 280px !important;
-  @media all and (max-width:(1130px)) {
-    width: 100% !important;
-    margin-left: 0 !important;
-  }
-}
-
-@media all and (max-width:(1130px)) and (min-width:(1023px)) {
   #wrapper {
     width: calc(~'100% - 280px') !important;
     margin-left: 280px !important;
+    @media all and (max-width:(1130px)) {
+      width: 100% !important;
+      margin-left: 0 !important;
+    }
   }
 }
 
@@ -82,11 +79,6 @@ body.contents-hide {
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  transition: margin-left 1s, z-index 0s 0s;
-  -webkit-transition: margin-left 1s, z-index 0s 0s;
-  -moz-transition: margin-left 1s, z-index 0s 0s;
-  -ms-transition: margin-left 1s, z-index 0s 0s;
-  -o-transition: margin-left 1s, z-index 0s 0s;
 
   .drawer-toolbar {
     position: absolute;
@@ -182,8 +174,8 @@ body.contents-hide {
   }
 
   .contents-item-title,
-  .contents-page-title,
-  .contents-landing-page-title {
+  .contents-landing-page-title,
+  .contents-page-title {
     padding: 10px 20px;
     width: 100%;
     .transition-background-color;
@@ -191,7 +183,8 @@ body.contents-hide {
   }
 
   .contents-item-title-inner,
-  .contents-page-title-inner, .contents-landing-page-title-inner {
+  .contents-landing-page-title-inner,
+  .contents-page-title-inner {
     width: 200px;
     margin-left: 48px;
     line-height: 120%;
@@ -278,15 +271,15 @@ button.contents-navigation.base {
 }
 
 .trickle-button-inner {
-  left: 280px !important;
-  width: calc(~'100% - 280px') !important;
+  left: 0 !important;
+  width: 100% !important;
   .transition-time(1s);
 }
 
-.contents-hide {
+.contents-show {
   .trickle-button-inner {
-    left: 0 !important;
-    width: 100% !important;
+    left: 280px !important;
+    width: calc(~'100% - 280px') !important;
     .transition-time(1s);
   }
 }
