@@ -97,7 +97,7 @@ define([
     function getPageLevelProgressEnabledModels(models) {
         return _.filter(models, function(model) {
             if (model.get('_contents')) {
-                return model.get('_contents')._isEnabled;
+                return (model.get('_contents')._isEnabled && (model.get('title') != 'Component title'));
             }
         });
     }

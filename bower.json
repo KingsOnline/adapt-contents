@@ -1,13 +1,13 @@
 {
     "name": "adapt-contents",
     "repository": "git://github.com/kingsonline/adapt-contents",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "framework": ">=2.1.0",
     "homepage": "https://github.com/kingsonline/adapt-contents",
     "issues": "https://github.com/kingsonline/adapt-contents/issues",
     "displayName": "Contents",
     "extension": "contents",
-    "description": "An extension to show a user's progress through a page",
+    "description": "An navigation extension showing the learner their progress through a course",
     "main": "/js/adapt-contents.js",
     "keywords": [
         "adapt-plugin",
