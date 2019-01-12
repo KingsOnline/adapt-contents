@@ -226,7 +226,7 @@ define(function(require) {
               Adapt.trigger('contents:pageComplete');
               setTimeout(function(){
                 context.checkButtonLock();
-              }, 1000);
+              }, 400);
             }
           }
         });
