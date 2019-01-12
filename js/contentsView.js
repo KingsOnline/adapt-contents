@@ -19,6 +19,9 @@ define(function(require) {
         this.listenTo(Adapt, 'router:location', this.stopScrollListener);
       }
       this.listenTo(Adapt, 'menuView:ready', this.offScrolllistener);
+      setTimeout(function(){
+        $( "#wrapper" ).addClass('contents-animation');
+      }, 2000);
     },
 
     checkOverlayMode: function() {

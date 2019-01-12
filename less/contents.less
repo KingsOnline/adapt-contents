@@ -17,7 +17,10 @@ body {
   padding-top: 0;
   width: 100%;
   margin-left: 0 !important;
-  .transition-time(1s) !important;
+  .transition-time(0s) !important;
+  &.contents-animation {
+      .transition-time(1s) !important;
+  }
 }
 
 .location-page body.contents-show {
