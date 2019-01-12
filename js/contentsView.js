@@ -41,6 +41,7 @@ define(function(require) {
     },
 
     pageTitlePressed: function(event) {
+      if(Adapt.findById($(event.currentTarget)[0].dataset.pageId).get('_isLocked')) return;
       if (Adapt.course.get('_contents')._courseNavigation._allAccordions) {
         this.accordionPressed(event);
       } else {
@@ -108,6 +109,19 @@ define(function(require) {
       if (Adapt.course.get('_contents')._courseNavigation._circleProgress._isEnabled) {
         this.drawProgressCircle();
       }
+      this.checkButtonLock();
+    },
+
+    checkButtonLock: function() {
+      _.each($('.contents-page-title'),function(button){
+        var pageId = $(button).attr('data-page-id');
+        if(Adapt.findById(pageId).get('_isLocked')) {
+          $(button).addClass('disabled');
+        } else {
+            $(button).removeAttr("disabled");
+        }
+
+      })
     },
 
     drawProgressCircle: function() {
@@ -213,6 +227,7 @@ define(function(require) {
           }
         });
       });
+      this.checkButtonLock();
     },
 
     getPageProgress: function(page) {
