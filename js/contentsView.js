@@ -115,7 +115,6 @@ define(function(require) {
     checkButtonLock: function() {
       _.each($('.contents-page-title'),function(button) {
         var pageId = $(button).attr('data-page-id');
-        console.log(Adapt.findById(pageId).get('_isLocked'))
         if(Adapt.findById(pageId).get('_isLocked')) {
           $(button).addClass('disabled');
         } else {
@@ -241,7 +240,6 @@ define(function(require) {
     checkPageComplete: function(entriesModels) {
       var returnValue = true;
       _.each(entriesModels, function(item, index) {
-        console.log(item);
         if (!item.get('_isComplete') || !item.get('_contents')._isEnabled) {
           returnValue = false;
           return;
@@ -297,7 +295,6 @@ define(function(require) {
 
     openContents: function() {
       var overlayMode = this.overlayMode;
-      console.log('open')
       $('body').addClass('contents-show');
       if(overlayMode) {
         $('.contents').css("z-index", "501" ); // appears over shadow
