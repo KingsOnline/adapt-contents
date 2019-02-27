@@ -1,4 +1,7 @@
-<div class="page-level-progress-navigation-completion">
-    <div class="page-level-progress-navigation-bar"></div>
+<div class="contents-navigation-bar {{#if showLabel}}showPercentage{{/if}}">
+  <div class="contents-progress-navigation-completion">
+      <div class="contents-progress-navigation-bar"></div>
+  </div>
+  {{#if showLabel}}<div class="contents-progress-navigation-prompt"><span class="contents-progress-navigation-prompt-percent"/>%</div>{{/if}}
+  <span class="tooltip">{{_globals._accessibility._ariaLabels.progress}}</span>
 </div>
-<span class="tooltip">{{_globals._accessibility._ariaLabels.progress}}</span>

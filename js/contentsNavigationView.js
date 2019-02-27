@@ -21,6 +21,8 @@ define(function(require) {
         this.ariaText = Adapt.course.get('_globals')._extensions._contents.pageLevelProgressIndicatorBar + ' ';
       }
       this.render();
+      if(!Adapt.course.get('_contents')._progressBar._isEnabled) return;
+      this.updateProgressBar();
     },
 
     events: {
@@ -40,14 +42,10 @@ define(function(require) {
       if(Adapt.course.get('_contents')._progressBar._isEnabled) {
         navTemplate = Handlebars.templates.contentsProgressBarNavigation;
         this.listenTo(Adapt, 'contents:componentComplete', this.updateProgressBar);
-        this.updateProgressBar();
-        className = " contents-navigation-bar";
       } else {
         navTemplate = Handlebars.templates.contentsNavigation;
-        console.log($('.contents-navigation'));
-        className = " icon icon-menu";
       }
-      $('.navigation-inner').append(this.$el.html(navTemplate(data)));
+      $('.navigation-inner').append(this.$el.html(navTemplate({showLabel: Adapt.course.get('_contents')._progressBar._showPercentage})));
       $('.contents-navigation').addClass(className);
       return this;
     },
@@ -63,13 +61,15 @@ define(function(require) {
       var complete = calculations.nonAssessmentCompleted + calculations.assessmentCompleted;
       var total = calculations.nonAssessmentTotal + calculations.assessmentTotal;
       var percentageComplete = complete / total * 100;
-      this.$('.page-level-progress-navigation-bar').css('width', percentageComplete + '%');
+      console.log(percentageComplete)
+      this.$('.contents-progress-navigation-bar').css('width', percentageComplete + '%');
 
       // Add percentage of completed components as an aria label attribute
       this.$el.attr('aria-label', this.ariaText +  percentageComplete + '%');
 
       // Set percentage of completed components to model attribute to update progress on MenuView
       this.model.set('completedChildrenAsPercentage', percentageComplete);
+      $('.contents-progress-navigation-prompt-percent').text(percentageComplete);
     },
 
     onContentsClicked: function(event) {

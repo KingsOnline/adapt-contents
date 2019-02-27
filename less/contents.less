@@ -268,16 +268,22 @@ button.contents-navigation.base {
     }
     display:inline-block;
     .no-touch &:hover {
-        .page-level-progress-navigation-completion {
+        .contents-progress-navigation-completion {
             border-color: darken(@background-color, 15%);
         }
-        .page-level-progress-navigation-bar {
+        .contents-progress-navigation-bar {
             background-color: darken(@primary-color, 10%);
         }
     }
+    &.showPercentage {
+      .contents-progress-navigation-completion {
+        margin-right: 18px;
+        float: left;
+      }
+    }
 }
 
-.page-level-progress-navigation-completion {
+.contents-progress-navigation-completion {
     width: 100px;
     height: 8px;
     overflow: hidden;
@@ -290,11 +296,18 @@ button.contents-navigation.base {
     }
 }
 
-.page-level-progress-navigation-bar {
+.contents-progress-navigation-bar {
     height: 100%;
     position: absolute;
     bottom: 0;
     background-color: @primary-color;
+}
+
+.contents-progress-navigation-prompt {
+  float: right;
+  line-height: 0;
+  margin-top: 8px;
+  font-size: 16px;
 }
 
 .menu {

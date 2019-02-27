@@ -13,7 +13,8 @@
         "_color": "#FFF"
       },
       "_progressBar": {
-        "_isEnabled": false
+        "_isEnabled": false,
+        "_showPercentage": false
       }
     },
     "_altText": "of components completed on this page."

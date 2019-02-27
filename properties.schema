@@ -136,6 +136,29 @@
                       }
                     }
                   }
+                },
+                "_progressBar": {
+                  "type": "object",
+                  "required": false,
+                  "legend": "Replaces the hamburger icon in navigation bar with a PLP bar",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Enable progress bar",
+                      "help": "",
+                      "inputType": "Checkbox"
+                    },
+                    "_showPercentage": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "show percentage",
+                      "help": "A percentage of current completion appears next to bar",
+                      "inputType": "Checkbox"
+                    }
+                  }
                 }
               }
             }
