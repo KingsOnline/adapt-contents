@@ -18,10 +18,15 @@ define(function(require) {
         this.listenTo(Adapt, 'pageView:ready', this.scrollHandler);
         this.listenTo(Adapt, 'router:location', this.stopScrollListener);
       }
+      this.listenTo(Adapt, 'pageView:ready', this.resize);
       this.listenTo(Adapt, 'menuView:ready', this.offScrolllistener);
       setTimeout(function(){
         $( "#wrapper" ).addClass('contents-animation');
       }, 2000);
+    },
+
+    resize: function() {
+      Adapt.trigger('device:resize');
     },
 
     checkOverlayMode: function() {
@@ -209,6 +214,7 @@ define(function(require) {
         var $PlpItem = $('.contents-page:eq(' + coNumber + ')').find('.contents-progress-indicator').get(index);
         item.on("change", function() {
           if (item.hasChanged("_isComplete")) {
+            Adapt.trigger('contents:componentComplete');
             $($PlpItem).removeClass('contents-progress-indicator-incomplete').addClass('contents-progress-indicator-complete');
             if (circleProgress) {
 
@@ -294,14 +300,13 @@ define(function(require) {
     },
 
     openContents: function() {
-      var overlayMode = this.overlayMode;
       $('body').addClass('contents-show');
-      if(overlayMode) {
+      if(this.overlayMode) {
         $('.contents').css("z-index", "501" ); // appears over shadow
         $('#shadow').removeClass('display-none');
       }
       $('#shadow').on('click', function() {
-        if (overlayMode) {
+        if (this.overlayMode) {
           Adapt.trigger('contents:close');
         }
       });

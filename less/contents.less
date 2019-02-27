@@ -244,10 +244,10 @@ body {
     .contents-indicator-bar {
       width: 100%;
       height: 10px;
-      background-color: @foreground-color-inverted;
+      background-color: @primary-color;
 
       .no-touch &:hover {
-        background-color: @foreground-color-inverted;
+        background-color: @primary-color;
       }
     }
   }
@@ -258,6 +258,59 @@ button.contents-navigation.base {
   display: inline-block;
   height: (@navigation-padding * 2) + @icon-size;
   border-radius: 0;
+}
+
+.contents-navigation-bar {
+    padding:(@navigation-padding+6px);
+    @media all and (max-width:(@device-width-medium - 1px)) {
+        padding:(@navigation-padding-mobile+6px);
+    }
+    float:right;
+    .dir-rtl & {
+        float:left;
+    }
+    display:inline-block;
+    .no-touch &:hover {
+        .contents-progress-navigation-completion {
+            border-color: darken(@background-color, 15%);
+        }
+        .contents-progress-navigation-bar {
+            background-color: darken(@primary-color, 10%);
+        }
+    }
+    &.showPercentage {
+      .contents-progress-navigation-completion {
+        margin-right: 18px;
+        float: left;
+      }
+    }
+}
+
+.contents-progress-navigation-completion {
+    width: 100px;
+    height: 8px;
+    overflow: hidden;
+    border: 2px solid @background-color;
+    position: relative;
+    border-radius: 5px;
+
+    @media all and (max-width:(@device-width-small - 1px)) {
+        width: 50px;
+    }
+}
+
+.contents-progress-navigation-bar {
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    background-color: @primary-color;
+}
+
+.contents-progress-navigation-prompt {
+  float: right;
+  line-height: 0;
+  margin-top: 8px;
+  font-size: 16px;
 }
 
 .menu {
