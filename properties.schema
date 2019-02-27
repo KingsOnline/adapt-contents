@@ -140,7 +140,8 @@
                 "_progressBar": {
                   "type": "object",
                   "required": false,
-                  "legend": "Replaces the hamburger icon in navigation bar with a PLP bar",
+                  "legend": "Progress bar",
+                  "help": "Replaces the hamburger icon in navigation bar with a PLP bar",
                   "properties": {
                     "_isEnabled": {
                       "type": "boolean",
