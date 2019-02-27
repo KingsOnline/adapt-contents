@@ -38,7 +38,6 @@ define(function(require) {
         model: data
       });
       var navTemplate;
-      var className;
       if(Adapt.course.get('_contents')._progressBar._isEnabled) {
         navTemplate = Handlebars.templates.contentsProgressBarNavigation;
         this.listenTo(Adapt, 'contents:componentComplete', this.updateProgressBar);
@@ -46,7 +45,6 @@ define(function(require) {
         navTemplate = Handlebars.templates.contentsNavigation;
       }
       $('.navigation-inner').append(this.$el.html(navTemplate({showLabel: Adapt.course.get('_contents')._progressBar._showPercentage})));
-      $('.contents-navigation').addClass(className);
       return this;
     },
 

@@ -160,6 +160,22 @@
                       "inputType": "Checkbox"
                     }
                   }
+                },
+                "_menuNavigationView": {
+                  "type": "object",
+                  "required": false,
+                  "legend": "Menu progress bar",
+                  "help": "Shows PLP bar on menu. Tracks completed pages",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Enable menu progress bar",
+                      "help": "Works with show percentage",
+                      "inputType": "Checkbox"
+                    }
+                  }
                 }
               }
             }

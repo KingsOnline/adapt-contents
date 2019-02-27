@@ -15,6 +15,9 @@
       "_progressBar": {
         "_isEnabled": false,
         "_showPercentage": false
+      },
+      "_menuNavigationView": {
+        "_isEnabled": true
       }
     },
     "_altText": "of components completed on this page."

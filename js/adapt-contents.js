@@ -6,9 +6,13 @@ define(function(require) {
 
   var PageLevelProgressMenuView = require('extensions/adapt-contents/js/PageLevelProgressMenuView');
   var contentsNavigationView = require('extensions/adapt-contents/js/contentsNavigationView');
+  var contentsMenuNavigationView = require('extensions/adapt-contents/js/contentsMenuNavigationView');
 
-  function setupPageLevelProgress(pageModel, contentsList) {
-    new contentsNavigationView({model: pageModel, collection: contentsList});
+  function setupContents(pageModel, contentsList) {
+    new contentsNavigationView({
+      model: pageModel,
+      collection: contentsList
+    });
   }
 
   // This should add/update progress on menuView
@@ -42,16 +46,25 @@ define(function(require) {
 
       view.model.set('completedChildrenAsPercentage', percentageComplete);
 
-      view.$el.find('.menu-item-inner').append(new PageLevelProgressMenuView({model: view.model}).$el);
+      view.$el.find('.menu-item-inner').append(new PageLevelProgressMenuView({
+        model: view.model
+      }).$el);
 
     }
 
   });
 
   // This should add/update progress on page navigation bar
+
+  Adapt.on('router:menu', function() {
+    if (!Adapt.course.get('_contents') || !Adapt.course.get('_contents')._isEnabled || !Adapt.course.get('_contents')._menuNavigationView._isEnabled) {
+      return;
+    }
+    new contentsMenuNavigationView();
+  });
+
   Adapt.on('router:page', function() {
 
-    // do not proceed until pageLevelProgress enabled on course.json
     if (!Adapt.course.get('_contents') || !Adapt.course.get('_contents')._isEnabled) {
       return;
     }
@@ -68,7 +81,9 @@ define(function(require) {
     _.each(contentObjects, function(item, index) {
       var contents;
       var pageModel = item;
-      var currentPageComponents = pageModel.findDescendants('components').where({'_isAvailable': true});
+      var currentPageComponents = pageModel.findDescendants('components').where({
+        '_isAvailable': true
+      });
       var availableComponents = completionCalculations.filterAvailableChildren(currentPageComponents);
       var pageComponents = completionCalculations.getPageLevelProgressEnabledModels(availableComponents);
       if (Adapt.course.get('_contents')._showArticleTitles) {
@@ -76,11 +91,14 @@ define(function(require) {
       } else {
         contents = pageComponents;
       }
-      contentsList.push({"contentObject": contentObjects[index], "contents": contents});
+      contentsList.push({
+        "contentObject": contentObjects[index],
+        "contents": contents
+      });
     });
 
     if (contentsList.length > 0) {
-      setupPageLevelProgress(Adapt.contentObjects._byAdaptID[Adapt.location._currentId][0], contentsList);
+      setupContents(Adapt.contentObjects._byAdaptID[Adapt.location._currentId][0], contentsList);
     }
 
   });
