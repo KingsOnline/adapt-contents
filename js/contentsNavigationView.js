@@ -9,7 +9,7 @@ define(function(require) {
 
     tagName: 'button',
 
-    className: 'base contents-navigation contents-navigation-icon icon icon-menu',
+    className: 'base contents-navigation contents-navigation-icon',
 
     initialize: function() {
       this.listenTo(Adapt, 'remove', this.remove);
@@ -35,10 +35,37 @@ define(function(require) {
       new contentsView({
         model: data
       });
-
-      var navTemplate = Handlebars.templates.contentsNavigation;
+      var navTemplate;
+      if(Adapt.course.get('_contents')._progressBar._isEnabled) {
+        navTemplate = Handlebars.templates.contentsProgressBarNavigation;
+        this.listenTo(Adapt, 'contents:componentComplete', this.updateProgressBar);
+        this.updateProgressBar();
+      } else {
+        this.className += " icon icon-menu";
+        navTemplate = Handlebars.templates.contentsNavigation;
+      }
       $('.navigation-inner').append(this.$el.html(navTemplate(data)));
       return this;
+    },
+
+    updateProgressBar: function() {
+      var currentPageComponents = _.filter(this.model.findDescendantModels('components'), function(comp) {
+          return comp.get('_isAvailable') === true;
+      });
+      var availableChildren = completionCalculations.filterAvailableChildren(currentPageComponents);
+      var enabledProgressComponents = completionCalculations.getPageLevelProgressEnabledModels(availableChildren);
+      var currentPageModel = Adapt.findById(Adapt.location._currentId);
+      var calculations = completionCalculations.calculateCompletion(currentPageModel);
+      var complete = calculations.nonAssessmentCompleted + calculations.assessmentCompleted;
+      var total = calculations.nonAssessmentTotal + calculations.assessmentTotal;
+      var percentageComplete = complete / total * 100;
+      this.$('.page-level-progress-navigation-bar').css('width', percentageComplete + '%');
+
+      // Add percentage of completed components as an aria label attribute
+      this.$el.attr('aria-label', this.ariaText +  percentageComplete + '%');
+
+      // Set percentage of completed components to model attribute to update progress on MenuView
+      this.model.set('completedChildrenAsPercentage', percentageComplete);
     },
 
     onContentsClicked: function(event) {

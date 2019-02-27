@@ -50,8 +50,13 @@ body {
   }
 
   .contents-page-title {
-    background-color: lighten(@drawer-color, 10%);
+    background-color: lighten(@drawer-color, 15%);
+    color: @drawer-icon-color;
     position: relative;
+    .no-touch &:hover {
+      background-color: lighten(@drawer-color, 10%);
+      color: @drawer-icon-color;
+    }
   }
 }
 
@@ -119,8 +124,12 @@ body {
 
     .contents-item-title {
       color: @drawer-icon-color;
-      background-color: transparent;
+      background-color: @drawer-color;
       position: relative;
+      .no-touch &:hover {
+        color: @drawer-icon-color;
+        background-color: darken(@drawer-color, 5%);
+      }
     }
   }
 
@@ -232,10 +241,10 @@ body {
     .contents-indicator-bar {
       width: 100%;
       height: 10px;
-      background-color: @foreground-color-inverted;
+      background-color: @primary-color;
 
       .no-touch &:hover {
-        background-color: @foreground-color-inverted;
+        background-color: @primary-color;
       }
     }
   }

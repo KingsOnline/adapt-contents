@@ -11,6 +11,9 @@
       "_circleProgress": {
         "_isEnabled": true,
         "_color": "#FFF"
+      },
+      "_progressBar": {
+        "_isEnabled": false
       }
     },
     "_altText": "of components completed on this page."
