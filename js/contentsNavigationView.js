@@ -36,15 +36,19 @@ define(function(require) {
         model: data
       });
       var navTemplate;
+      var className;
       if(Adapt.course.get('_contents')._progressBar._isEnabled) {
         navTemplate = Handlebars.templates.contentsProgressBarNavigation;
         this.listenTo(Adapt, 'contents:componentComplete', this.updateProgressBar);
         this.updateProgressBar();
+        className = " contents-navigation-bar";
       } else {
-        this.className += " icon icon-menu";
         navTemplate = Handlebars.templates.contentsNavigation;
+        console.log($('.contents-navigation'));
+        className = " icon icon-menu";
       }
       $('.navigation-inner').append(this.$el.html(navTemplate(data)));
+      $('.contents-navigation').addClass(className);
       return this;
     },
 
