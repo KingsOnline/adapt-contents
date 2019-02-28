@@ -68,6 +68,13 @@
                   "title": "Enable Contents",
                   "inputType": "Checkbox"
                 },
+                "_startOpen": {
+                  "type": "boolean",
+                  "required": false,
+                  "default": true,
+                  "title": "On desktop, when a page loads show Contents",
+                  "inputType": "Checkbox"
+                },
                 "_showArticleTitles": {
                   "type": "boolean",
                   "required": false,
