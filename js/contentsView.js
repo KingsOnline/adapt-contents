@@ -104,7 +104,7 @@ define(function(require) {
     },
 
     render: function() {
-      if (!this.overlayMode && Adapt.course.get('_contents').startOpen) {
+      if (!this.overlayMode && Adapt.course.get('_contents')._startOpen) {
         Adapt.trigger('contents:open');
       }
       this.populateContents();

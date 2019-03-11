@@ -21,7 +21,7 @@ define(function(require) {
         this.ariaText = Adapt.course.get('_globals')._extensions._contents.pageLevelProgressIndicatorBar + ' ';
       }
       this.render();
-      if(!Adapt.course.get('_contents')._progressBar._isEnabled) return;
+      if(!Adapt.course.get('_contents')._progressBar || !Adapt.course.get('_contents')._progressBar._isEnabled) return;
       this.updateProgressBar();
     },
 
