@@ -186,7 +186,7 @@ define(function(require) {
         plpTemplate = Handlebars.templates.contents;
       }
       var context = this;
-      $('html').find('body').append(this.$el.html(plpTemplate({
+      $('html').find('#wrapper').parent().append(this.$el.html(plpTemplate({
         'settings': Adapt.course.get('_contents'),
         'page': this.model.pages,
         '_globals': this.model._globals
