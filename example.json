@@ -1,27 +1,31 @@
 // To go on a course
 
 "_contents": {
+  "_isEnabled": true,
+  "_startOpen": true,
+  "_showArticleTitles": false,
+  "_showPagePosition": true,
+  "_courseNavigation": {
     "_isEnabled": true,
-    "_startOpen": true,
-    "_showArticleTitles": false,
-    "_showPagePosition": true,
-    "_courseNavigation": {
+    "_landingPage": true,
+    "_allAccordions": false,
+    "_circleProgress": {
       "_isEnabled": true,
-      "_landingPage": true,
-      "_allAccordions": false,
-      "_circleProgress": {
-        "_isEnabled": true,
-        "_color": "#FFF"
-      },
-      "_progressBar": {
-        "_isEnabled": false,
-        "_showPercentage": false
-      },
-      "_menuNavigationView": {
-        "_isEnabled": true
-      }
+      "_color": "#FFF"
     },
-    "_altText": "of components completed on this page."
+    "_scrollContentsHeight": {
+      "_isEnabled": true,
+      "_offset": 0
+    }
+  },
+  "_progressBar": {
+    "_isEnabled": false,
+    "_showPercentage": false
+  },
+  "_menuNavigationView": {
+    "_isEnabled": true
+  },
+  "_altText": "of components completed on this page."
 }
 
 // To go on a component. Tip - if using the framework use a search and find to replace _pageLevelProgress with _contents

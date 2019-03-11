@@ -108,8 +108,12 @@ define(function(require) {
         Adapt.trigger('contents:open');
       }
       this.populateContents();
-      $('.contents-page:eq(' + this.getAdaptCoById() + ')').addClass('active');
-      $('.contents-page:eq(' + this.getAdaptCoById() + ')').find('.contents-page-entries').show();
+      var $currentPage = $('.contents-page:eq(' + this.getAdaptCoById() + ')');
+      $($currentPage).addClass('active');
+      $($currentPage).find('.contents-page-entries').show();
+      if(Adapt.course.get('_contents')._courseNavigation._scrollContentsHeight._isEnabled) {
+        $('.contents').scrollTo($currentPage.position().top + Adapt.course.get('_contents')._courseNavigation._scrollContentsHeight._offset);
+      }
       this.listenForCompletition();
       if (Adapt.course.get('_contents')._courseNavigation._circleProgress._isEnabled) {
         this.drawProgressCircle();
